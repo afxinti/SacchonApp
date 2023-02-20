@@ -20,6 +20,9 @@ public class ConsultationDto {
     private int dosage;
     private String notes;
 
+    private String doctorName;
+
+
 
     public ConsultationDto(Consultation consultation){
         if (consultation!= null){
@@ -28,6 +31,7 @@ public class ConsultationDto {
             nameOfMedication = consultation.getNameOfMedication();
             dosage = consultation.getDosage();
             notes = consultation.getNotes();
+            doctorName = consultation.getDoctorName();
         }
     }
     public Consultation asConsultation(){

@@ -29,10 +29,12 @@ public class Consultation {
     @Column(name = "Notes")
     private String notes;
 
+
     @Column(name = "Doctor")
     private String doctorName;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "patient_id", referencedColumnName = "id")
     private Patient patient;
 
 
