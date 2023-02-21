@@ -73,25 +73,25 @@ public class MediDataVaultController {
 
     @GetMapping("/patient")
     public List<PatientDto> readPatient(){
-        return patientServices.readPatient();
+        return mediDataVaultServices.readPatient();
     }
     @PostMapping("/patient")
     public PatientDto createPatient(@RequestBody PatientDto patientDto){
         log.info("The patient was created");
-        return patientServices.createPatient(patientDto);
+        return mediDataVaultServices.createPatient(patientDto);
     }
     @GetMapping("/patient/{id}")
     public PatientDto readPatientDto(@PathVariable(name = "id") int id) throws PatientException {
         log.info("Request a patient/endpoint");
-        return patientServices.readPatient(id);
+        return mediDataVaultServices.readPatient(id);
     }
     @PutMapping("/patient/{id}")
     public boolean updatePatientDto(@RequestBody PatientDto patientDto,@PathVariable(name ="id") int id){
-        return patientServices.updatePatient(patientDto,id);
+        return mediDataVaultServices.updatePatient(patientDto,id);
     }
     @DeleteMapping("/patient/{id}")
     public boolean deletePatientDto(@PathVariable(name="id")int id){
-        return patientServices.deletePatient(id);
+        return mediDataVaultServices.deletePatient(id);
     }
 }
 

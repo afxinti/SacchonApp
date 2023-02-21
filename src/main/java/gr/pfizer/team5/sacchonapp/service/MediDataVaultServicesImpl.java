@@ -24,6 +24,8 @@ public class MediDataVaultServicesImpl implements MediDataVaultServices{
     private final BGLRepository BGLRepository;
     private final DCIRepository DCIRepository;
 
+    private final PatientRepository patientRepository;
+
     @Override
     public BGL_Dto createBGL(BGL_Dto bgl_dto) {
         BloodGlucoseLevel bloodGlucoseLevel = bgl_dto.asBGL();
@@ -109,7 +111,11 @@ public class MediDataVaultServicesImpl implements MediDataVaultServices{
             DCIRepository.save(dbDCI);
             action = true;
         } catch (RecordNotFoundException e) {
-    private final PatientRepository patientRepository;
+            action = false;
+        }
+        return action;
+    }
+
 
 
     @Override
