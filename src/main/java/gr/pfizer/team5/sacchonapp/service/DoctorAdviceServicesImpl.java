@@ -1,9 +1,15 @@
 package gr.pfizer.team5.sacchonapp.service;
 
+import gr.pfizer.team5.sacchonapp.dto.ChiefDoctorDto;
 import gr.pfizer.team5.sacchonapp.dto.ConsultationDto;
+import gr.pfizer.team5.sacchonapp.dto.DoctorDto;
 import gr.pfizer.team5.sacchonapp.exception.RecordNotFoundException;
+import gr.pfizer.team5.sacchonapp.model.ChiefDoctor;
 import gr.pfizer.team5.sacchonapp.model.Consultation;
+import gr.pfizer.team5.sacchonapp.model.Doctor;
+import gr.pfizer.team5.sacchonapp.repository.ChiefDoctorRepository;
 import gr.pfizer.team5.sacchonapp.repository.ConsultationRepository;
+import gr.pfizer.team5.sacchonapp.repository.DoctorRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -76,10 +82,127 @@ public class DoctorAdviceServicesImpl implements DoctorAdviceServices{
 
 
 
-
-
     @Override
     public String ping() {
         return "hello Sacchon Doctor";
+    }
+
+
+    private final DoctorRepository docRepository;
+
+    @Override
+    public DoctorDto createDoctor(DoctorDto doctorDto) {
+        //validation
+        Doctor doctor = doctorDto.asDoctor();
+        return new DoctorDto(docRepository.save(doctor));
+    }
+
+    @Override
+    public List<DoctorDto> readDoctor() {
+        return docRepository
+                .findAll()
+                .stream()
+                .map(DoctorDto::new)
+                .collect(Collectors.toList());
+    }
+
+        public DoctorDto readDoctor(int id) throws RecordNotFoundException {
+            return new DoctorDto( readDoctorDb(id));
+        }
+
+        private Doctor readDoctorDb(int id) throws RecordNotFoundException {
+            Optional<Doctor> doctorOptional = docRepository.findById(id);
+            if (doctorOptional.isPresent())
+                return doctorOptional.get();
+            throw new RecordNotFoundException("Doctor not found id= " + id);
+        }
+
+    @Override
+    public boolean updateDoctor(DoctorDto doctor, int id) {
+        boolean action;
+        try {
+            Doctor dbDoctor = readDoctorDb(id);
+            dbDoctor.setFirstName(doctor.getFirstName());
+            dbDoctor.setLastName(doctor.getLastName());
+            dbDoctor.setEmail(doctor.getEmail());
+            dbDoctor.setPassword(doctor.getPassword());
+            docRepository.save(dbDoctor);
+            action = true;
+        } catch (RecordNotFoundException e) {
+            action = false;
+        }
+        return action;
+    }
+
+    @Override
+    public boolean deleteDoctor(int id) {
+        boolean action;
+        try {
+            Doctor doctorDb = readDoctorDb(id);
+            docRepository.delete(doctorDb);
+            action = true;
+        } catch (RecordNotFoundException e) {
+            action = false;
+        }
+        return action;
+    }
+
+    private final ChiefDoctorRepository chiefDocRepository;
+
+    @Override
+    public ChiefDoctorDto createChiefDoctor(ChiefDoctorDto chiefDoctorDto) {
+        //validation
+        ChiefDoctor doctor = chiefDoctorDto.asChiefDoctor();
+        return new ChiefDoctorDto(chiefDocRepository.save(doctor));
+    }
+
+    @Override
+    public List<ChiefDoctorDto> readChiefDoctor() {
+        return chiefDocRepository
+                .findAll()
+                .stream()
+                .map(ChiefDoctorDto::new)
+                .collect(Collectors.toList());
+    }
+
+    public ChiefDoctorDto readChiefDoctor(int id) throws RecordNotFoundException {
+        return new ChiefDoctorDto( readChiefDoctorDb(id));
+    }
+
+    private ChiefDoctor readChiefDoctorDb(int id) throws RecordNotFoundException {
+        Optional<ChiefDoctor> chiefdoctorOptional = chiefDocRepository.findById(id);
+        if (chiefdoctorOptional.isPresent())
+            return chiefdoctorOptional.get();
+        throw new RecordNotFoundException("Chief Doctor not found id= " + id);
+    }
+
+    @Override
+    public boolean updateChiefDoctor(ChiefDoctorDto chiefdoctor, int id) {
+        boolean action;
+        try {
+            ChiefDoctor dbChiefDoctor = readChiefDoctorDb(id);
+            dbChiefDoctor.setFirstName(chiefdoctor.getFirstName());
+            dbChiefDoctor.setLastName(chiefdoctor.getLastName());
+            dbChiefDoctor.setEmail(chiefdoctor.getEmail());
+            dbChiefDoctor.setPassword(chiefdoctor.getPassword());
+            chiefDocRepository.save(dbChiefDoctor);
+            action = true;
+        } catch (RecordNotFoundException e) {
+            action = false;
+        }
+        return action;
+    }
+
+    @Override
+    public boolean deleteChiefDoctor(int id) {
+        boolean action;
+        try {
+            ChiefDoctor chiefdoctorDb = readChiefDoctorDb(id);
+            chiefDocRepository.delete(chiefdoctorDb);
+            action = true;
+        } catch (RecordNotFoundException e) {
+            action = false;
+        }
+        return action;
     }
 }
