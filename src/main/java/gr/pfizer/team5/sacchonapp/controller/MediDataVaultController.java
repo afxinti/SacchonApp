@@ -16,7 +16,7 @@ public class MediDataVaultController {
 
     private MediDataVaultServices mediDataVaultServices ;
 
-    //BGL controller merthods
+    //BGL controller methods
 
 
     @GetMapping("/bgl")
@@ -29,12 +29,12 @@ public class MediDataVaultController {
         return mediDataVaultServices.readBGL(id);
     }
 
-    @PostMapping("/BGL")
+    @PostMapping("/bgl")
     public  BGL_Dto createBGLDto(@RequestBody BGL_Dto BGLDto){
         return mediDataVaultServices.createBGL(BGLDto);
     }
 
-    @PutMapping("/BGL/{id}")
+    @PutMapping("/bgl/{id}")
     public boolean updateBGLDto(@RequestBody BGL_Dto BGLDto,
                                          @PathVariable(name="id") int id)
     {
@@ -44,23 +44,23 @@ public class MediDataVaultController {
 
     //DCI controller methods
 
-    @GetMapping("/DCI")
+    @GetMapping("/dci")
     public List<DCI_Dto> getDCIDto(){
         return mediDataVaultServices.readDCI();
     }
 
-    @GetMapping("/DCI/{id}")
+    @GetMapping("/dci/{id}")
     public DCI_Dto getDCIDto(@PathVariable(name="id") int id) throws RecordNotFoundException {
         return mediDataVaultServices.readDCI(id);
     }
 
-    @PostMapping("/DCI")
+    @PostMapping("/dci")
     public  DCI_Dto createDCIDto(@RequestBody DCI_Dto DCIDto){
         //log.info("The end point product has been used");
         return mediDataVaultServices.createDCI(DCIDto);
     }
 
-    @PutMapping("/DCI/{id}")
+    @PutMapping("/dci/{id}")
     public boolean updateDCIDto(@RequestBody DCI_Dto DCIDto,
                                 @PathVariable(name="id") int id)
     {
