@@ -30,8 +30,8 @@ public class Consultation {
     private String notes;
 
 
-    @Column(name = "Doctor")
-    private String doctorName;
+    @Column(name = "Doctor_id")
+    private int doctor_id;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "patient_id", referencedColumnName = "id")

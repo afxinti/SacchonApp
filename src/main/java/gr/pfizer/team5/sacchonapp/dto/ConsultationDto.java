@@ -1,6 +1,8 @@
 package gr.pfizer.team5.sacchonapp.dto;
 
 import gr.pfizer.team5.sacchonapp.model.Consultation;
+import gr.pfizer.team5.sacchonapp.model.Patient;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -11,17 +13,15 @@ import java.time.LocalDate;
 @Getter
 @NoArgsConstructor
 public class ConsultationDto {
-
-
     private int id;
-
     private LocalDate date;
     private String nameOfMedication;
     private int dosage;
     private String notes;
 
-    private String doctorName;
+    private int doctor_id;
 
+    private Patient patient;
 
 
     public ConsultationDto(Consultation consultation){
