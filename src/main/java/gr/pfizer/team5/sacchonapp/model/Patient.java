@@ -18,7 +18,10 @@ public class Patient {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private String fullName;
+    private String username;
+    private String password;
+    private String firstName;
+    private String lastName;
     private int amkaCode;
     private LocalDate dateOfBirth;
     private boolean hasRecordings;
