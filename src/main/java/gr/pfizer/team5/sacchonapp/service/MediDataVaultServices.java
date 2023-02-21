@@ -4,13 +4,12 @@ import gr.pfizer.team5.sacchonapp.dto.BGL_Dto;
 import gr.pfizer.team5.sacchonapp.dto.DCI_Dto;
 import gr.pfizer.team5.sacchonapp.exception.RecordNotFoundException;
 import gr.pfizer.team5.sacchonapp.dto.PatientDto;
-import gr.pfizer.team5.sacchonapp.exception.PatientException;
 
 import java.util.List;
 
 public interface MediDataVaultServices {
     PatientDto createPatient(PatientDto patient);
-    PatientDto readPatient(int id) throws PatientException;
+    PatientDto readPatient(int id) throws RecordNotFoundException;
     List<PatientDto> readPatient();
     boolean updatePatient(PatientDto patient,int id);
     boolean deletePatient(int id);

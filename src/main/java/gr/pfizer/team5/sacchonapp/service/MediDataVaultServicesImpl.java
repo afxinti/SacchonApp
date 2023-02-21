@@ -8,7 +8,6 @@ import gr.pfizer.team5.sacchonapp.exception.RecordNotFoundException;
 import gr.pfizer.team5.sacchonapp.model.BloodGlucoseLevel;
 import gr.pfizer.team5.sacchonapp.model.DailyCarbonatesIntake;
 import gr.pfizer.team5.sacchonapp.dto.PatientDto;
-import gr.pfizer.team5.sacchonapp.exception.PatientException;
 import gr.pfizer.team5.sacchonapp.model.Patient;
 import gr.pfizer.team5.sacchonapp.repository.PatientRepository;
 import lombok.AllArgsConstructor;
@@ -136,14 +135,14 @@ public class MediDataVaultServicesImpl implements MediDataVaultServices{
     }
 
     @Override
-    public PatientDto readPatient(int id) throws PatientException {
+    public PatientDto readPatient(int id) throws RecordNotFoundException {
         return new PatientDto(readPatientData(id));
     }
-    private Patient readPatientData(int id) throws PatientException {
+    private Patient readPatientData(int id) throws RecordNotFoundException {
         Optional<Patient> patientOptional = patientRepository.findById(id);
         if (patientOptional.isPresent())
             return patientOptional.get();
-        throw new PatientException("Patient: "+ id+ "not found");
+        throw new RecordNotFoundException("Patient: "+ id+ "not found");
     }
     @Override
     public boolean updatePatient(PatientDto patient, int id) {
@@ -158,7 +157,7 @@ public class MediDataVaultServicesImpl implements MediDataVaultServices{
             patient.setDateOfBirth(patient.getDateOfBirth());
             patientRepository.save(patientDb);
             action = true;
-        } catch (PatientException e){
+        } catch (RecordNotFoundException e){
             action = false;
         }
         return action;
@@ -171,7 +170,7 @@ public class MediDataVaultServicesImpl implements MediDataVaultServices{
             Patient patientDb = readPatientData(id);
             patientRepository.delete(patientDb);
             action = true;
-        }catch(PatientException e){
+        }catch(RecordNotFoundException e){
             action = false;
         }
         return action;

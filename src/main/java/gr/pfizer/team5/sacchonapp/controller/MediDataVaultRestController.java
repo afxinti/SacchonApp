@@ -4,7 +4,6 @@ import gr.pfizer.team5.sacchonapp.dto.BGL_Dto;
 import gr.pfizer.team5.sacchonapp.dto.DCI_Dto;
 import gr.pfizer.team5.sacchonapp.exception.RecordNotFoundException;
 import gr.pfizer.team5.sacchonapp.dto.PatientDto;
-import gr.pfizer.team5.sacchonapp.exception.PatientException;
 import gr.pfizer.team5.sacchonapp.service.MediDataVaultServices;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -14,7 +13,7 @@ import java.util.List;
 @RestController
 @AllArgsConstructor
 @Slf4j
-public class MediDataVaultController {
+public class MediDataVaultRestController {
 
     private MediDataVaultServices mediDataVaultServices ;
 
@@ -81,7 +80,7 @@ public class MediDataVaultController {
         return mediDataVaultServices.createPatient(patientDto);
     }
     @GetMapping("/patient/{id}")
-    public PatientDto readPatientDto(@PathVariable(name = "id") int id) throws PatientException {
+    public PatientDto readPatientDto(@PathVariable(name = "id") int id) throws RecordNotFoundException {
         log.info("Request a patient/endpoint");
         return mediDataVaultServices.readPatient(id);
     }

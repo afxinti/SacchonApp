@@ -1,6 +1,7 @@
 package gr.pfizer.team5.sacchonapp.controller;
 
 import gr.pfizer.team5.sacchonapp.dto.ConsultationDto;
+import gr.pfizer.team5.sacchonapp.exception.RecordNotFoundException;
 import gr.pfizer.team5.sacchonapp.service.DoctorAdviceServices;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -36,7 +37,7 @@ public class DoctorAdviceRestController {
     }
 
     @GetMapping("/Consultation/{id}")
-    public ConsultationDto getConsultationDto(@PathVariable(name="id") int id) throws MyException {
+    public ConsultationDto getConsultationDto(@PathVariable(name="id") int id) throws RecordNotFoundException {
         //log.info("The end point ConsultationDto has been used");
         return doctorAdviceServices.readConsultation(id);
     }
