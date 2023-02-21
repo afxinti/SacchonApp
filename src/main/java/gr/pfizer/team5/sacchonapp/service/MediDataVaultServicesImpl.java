@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+
 @Service
 @AllArgsConstructor
 public class MediDataVaultServicesImpl implements MediDataVaultServices{
@@ -21,20 +23,16 @@ public class MediDataVaultServicesImpl implements MediDataVaultServices{
         Patient patient = patientDto.asPatient();
         return new PatientDto(patientRepository.save(patient));
     }
+
     @Override
     public List<PatientDto> readPatient() {
-        return null;
-    }
 
-//    @Override
-//    public List<PatientDto> readPatient() {
-//
-//        return patientRepository
-//                .findAll()
-//                .stream()
-//                .map(PatientDto::new)
-//                .collect(Collectors.toList());
-//    }
+        return patientRepository
+                .findAll()
+                .stream()
+                .map(PatientDto::new)
+                .collect(Collectors.toList());
+    }
 
     @Override
     public PatientDto readPatient(int id) throws PatientException {
