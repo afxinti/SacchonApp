@@ -5,7 +5,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
 import java.time.LocalDate;
 
 @Getter
@@ -27,13 +26,10 @@ public class Consultation {
     private int dosage;
     @Column(name = "Notes")
     private String notes;
-
-    @Column(name = "Doctor")
-    private String doctorName;
-
+    @Column(name = "Doctor_id")
+    private int doctor_id;
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "patient_id", referencedColumnName = "id")
     private Patient patient;
-
 
 }
