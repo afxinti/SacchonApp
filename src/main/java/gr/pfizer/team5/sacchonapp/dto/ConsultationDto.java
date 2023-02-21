@@ -24,24 +24,29 @@ public class ConsultationDto {
     private Patient patient;
 
 
-    public ConsultationDto(Consultation consultation){
-        if (consultation!= null){
+    public ConsultationDto(Consultation consultation) {
+        if (consultation != null) {
             id = consultation.getId();
             date = consultation.getDate();
             nameOfMedication = consultation.getNameOfMedication();
             dosage = consultation.getDosage();
             notes = consultation.getNotes();
-            doctorName = consultation.getDoctorName();
+            doctor_id = consultation.getDoctor_id();
+            patient = consultation.getPatient();
         }
     }
-    public Consultation asConsultation(){
+
+    public Consultation asConsultation() {
         Consultation consultation = new Consultation();
         consultation.setId(id);
         consultation.setDate(date);
         consultation.setNameOfMedication(nameOfMedication);
         consultation.setDosage(dosage);
         consultation.setNotes(notes);
+        consultation.setDoctor_id(doctor_id);
+        consultation.setPatient(patient);
 
         return consultation;
     }
+}
 
