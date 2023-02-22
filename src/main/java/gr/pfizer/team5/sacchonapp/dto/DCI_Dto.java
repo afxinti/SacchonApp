@@ -16,7 +16,6 @@ public class DCI_Dto {
     private LocalDate date;
     private LocalTime time;
     private Double measurement;
-
     private int patientId;
 
     public DCI_Dto(DailyCarbonatesIntake dailyCarbonatesIntake) {
