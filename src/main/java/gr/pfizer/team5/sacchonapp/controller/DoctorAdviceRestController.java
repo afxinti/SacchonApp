@@ -90,8 +90,9 @@ public class DoctorAdviceRestController {
         return doctorAdviceServices.getDCIRecordsOfPatient(id);
     }
 
-
-
-
+    @GetMapping("/doctor/{id}/patientsnoconsultationlastmonth")
+    public  List<PatientDto> getPatientsWithNoConsultationInTheLastMonth(@PathVariable(name = "id") int id)  {
+        return doctorAdviceServices.getPatientsWithNoConsultationInTheLastMonth(id);
+    }
 
 }
