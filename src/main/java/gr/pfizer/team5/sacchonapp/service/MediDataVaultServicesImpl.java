@@ -13,6 +13,7 @@ import gr.pfizer.team5.sacchonapp.repository.PatientRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -24,6 +25,8 @@ public class MediDataVaultServicesImpl implements MediDataVaultServices{
     private final DCIRepository DCIRepository;
 
     private final PatientRepository patientRepository;
+
+    //------------------------------------------------------start of BGL and DCI methods -------------------------------------------------//
 
     @Override
     public BGL_Dto createBGL(BGL_Dto bgl_dto) {
@@ -118,8 +121,42 @@ public class MediDataVaultServicesImpl implements MediDataVaultServices{
         }
         return action;
     }
+    @Override
+    public List<DCI_Dto> getDCIBetweenDates(LocalDate startDate, LocalDate endDate) {
+        List<DailyCarbonatesIntake> dciList = DCIRepository.findBetweenDatesDCI(startDate, endDate);
+        return dciList.stream().map(DCI_Dto::new).collect(Collectors.toList());
+    }
+    public Double getAverageDCIBetweenDates(LocalDate startDate, LocalDate endDate) {
+        List<DailyCarbonatesIntake> dciList = DCIRepository.findBetweenDatesDCI(startDate, endDate);
+        if (dciList == null || dciList.isEmpty()) {
+            return null;
+        }
+        Double sum = 0.0;
+        for (DailyCarbonatesIntake dci : dciList) {
+            sum += dci.getMeasurement();
+        }
+        return sum / dciList.size();
+    }
 
+    @Override
+    public List<BGL_Dto> getBGLBetweenDates(LocalDate startDate, LocalDate endDate) {
+        List<BloodGlucoseLevel> bglList = BGLRepository.findBetweenDatesBGL(startDate, endDate);
+        return bglList.stream().map(BGL_Dto::new).collect(Collectors.toList());
+    }
+    @Override
+    public Double getAverageBGLBetweenDates(LocalDate startDate, LocalDate endDate) {
+        List<BloodGlucoseLevel> bglList = BGLRepository.findBetweenDatesBGL(startDate, endDate);
+        if (bglList == null || bglList.isEmpty()) {
+            return null;
+        }
+        Double sum = 0.0;
+        for (BloodGlucoseLevel bgl : bglList) {
+            sum += bgl.getMeasurement();
+        }
+        return sum / bglList.size();
+    }
 
+//------------------------------------------------------end of BGL and DCI methods -------------------------------------------------//
 
     @Override
     public PatientDto createPatient(PatientDto patientDto) {

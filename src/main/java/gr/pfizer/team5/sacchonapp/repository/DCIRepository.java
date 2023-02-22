@@ -1,10 +1,20 @@
 package gr.pfizer.team5.sacchonapp.repository;
 
+import gr.pfizer.team5.sacchonapp.model.BloodGlucoseLevel;
 import gr.pfizer.team5.sacchonapp.model.DailyCarbonatesIntake;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+
+import java.time.LocalDate;
+import java.util.List;
 
 @Repository
 public interface DCIRepository extends JpaRepository<DailyCarbonatesIntake,Integer> {
+    @Query("SELECT d FROM DailyCarbonatesIntake d WHERE d.date BETWEEN :startDate AND :endDate")
+    List<DailyCarbonatesIntake> findBetweenDatesDCI(@Param("startDate") LocalDate startDate, @Param("endDate") LocalDate endDate);
+
+
 }
 

@@ -4,11 +4,15 @@ import gr.pfizer.team5.sacchonapp.dto.BGL_Dto;
 import gr.pfizer.team5.sacchonapp.dto.DCI_Dto;
 import gr.pfizer.team5.sacchonapp.exception.RecordNotFoundException;
 import gr.pfizer.team5.sacchonapp.dto.PatientDto;
+import gr.pfizer.team5.sacchonapp.model.DailyCarbonatesIntake;
 import gr.pfizer.team5.sacchonapp.service.MediDataVaultServices;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
+
+import java.time.LocalDate;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @AllArgsConstructor
@@ -17,8 +21,8 @@ public class MediDataVaultRestController {
 
     private MediDataVaultServices mediDataVaultServices ;
 
-    //BGL controller methods
 
+    //------------------------------------------------start of DCI BGL methods------------------------------------------//
 
     @GetMapping("/bgl")
     public List<BGL_Dto> getBGLDto(){
@@ -43,7 +47,6 @@ public class MediDataVaultRestController {
         return mediDataVaultServices.updateBGL(BGLDto, id);
     }
 
-    //DCI controller methods
 
     @GetMapping("/dci")
     public List<DCI_Dto> getDCIDto(){
@@ -68,7 +71,23 @@ public class MediDataVaultRestController {
 
         return mediDataVaultServices.updateDCI(DCIDto, id);
     }
-
+    @GetMapping("/dci/between-dates")
+    public List<DCI_Dto> getDCIBetweenDates(@RequestParam("startDate") LocalDate startDate, @RequestParam("endDate") LocalDate endDate) {
+    return mediDataVaultServices.getDCIBetweenDates(startDate,endDate);
+    }
+    @GetMapping("/bgl/between-dates")
+    public List<BGL_Dto> getBGLBetweenDates(@RequestParam("startDate") LocalDate startDate, @RequestParam("endDate") LocalDate endDate) {
+        return mediDataVaultServices.getBGLBetweenDates(startDate,endDate);
+    }
+    @GetMapping("/dci/avg/between-dates")
+    public Double getAverageDCIBetweenDates(@RequestParam("startDate") LocalDate startDate, @RequestParam("endDate") LocalDate endDate) {
+        return mediDataVaultServices.getAverageDCIBetweenDates(startDate,endDate);
+    }
+    @GetMapping("/bgl/avg/between-dates")
+    public Double getAverageBGLBetweenDates(@RequestParam("startDate") LocalDate startDate, @RequestParam("endDate") LocalDate endDate) {
+        return mediDataVaultServices.getAverageBGLBetweenDates(startDate,endDate);
+    }
+    //------------------------------------------------end of DCI BGL methods------------------------------------------//
 
     @GetMapping("/patient")
     public List<PatientDto> readPatient(){

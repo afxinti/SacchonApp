@@ -5,9 +5,11 @@ import gr.pfizer.team5.sacchonapp.dto.DCI_Dto;
 import gr.pfizer.team5.sacchonapp.exception.RecordNotFoundException;
 import gr.pfizer.team5.sacchonapp.dto.PatientDto;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public interface MediDataVaultServices {
+
     PatientDto createPatient(PatientDto patient);
     PatientDto readPatient(int id) throws RecordNotFoundException;
     List<PatientDto> readPatient();
@@ -22,4 +24,10 @@ public interface MediDataVaultServices {
     List<DCI_Dto> readDCI();
     DCI_Dto readDCI(int id) throws RecordNotFoundException;
     boolean updateDCI(DCI_Dto dci_dto, int id);
+    List<DCI_Dto> getDCIBetweenDates(LocalDate startDate, LocalDate endDate);
+    List<BGL_Dto> getBGLBetweenDates(LocalDate startDate, LocalDate endDate);
+    Double getAverageDCIBetweenDates(LocalDate startDate, LocalDate endDate);
+    Double getAverageBGLBetweenDates(LocalDate startDate, LocalDate endDate);
+
+
 }
