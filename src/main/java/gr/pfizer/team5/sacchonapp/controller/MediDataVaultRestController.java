@@ -76,8 +76,12 @@ public class MediDataVaultRestController {
     }
     @PostMapping("/patient")
     public PatientDto createPatient(@RequestBody PatientDto patientDto){
-        log.info("The patient was created");
-        return mediDataVaultServices.createPatient(patientDto);
+        log.info("The createPatient endpoint is used");
+        try {
+            return mediDataVaultServices.createPatient(patientDto);
+        } catch (RecordNotFoundException e) {
+            throw new RuntimeException(e);
+        }
     }
     @GetMapping("/patient/{id}")
     public PatientDto readPatientDto(@PathVariable(name = "id") int id) throws RecordNotFoundException {

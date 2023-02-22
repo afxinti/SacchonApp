@@ -8,7 +8,7 @@ import gr.pfizer.team5.sacchonapp.dto.PatientDto;
 import java.util.List;
 
 public interface MediDataVaultServices {
-    PatientDto createPatient(PatientDto patient);
+    PatientDto createPatient(PatientDto patient) throws RecordNotFoundException;
     PatientDto readPatient(int id) throws RecordNotFoundException;
     List<PatientDto> readPatient();
     boolean updatePatient(PatientDto patient,int id);
