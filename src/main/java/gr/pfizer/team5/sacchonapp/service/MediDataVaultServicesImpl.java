@@ -119,13 +119,21 @@ public class MediDataVaultServicesImpl implements MediDataVaultServices{
         return action;
     }
 
-
+    @Override
+    public boolean loginPatient(PatientDto patientDto) {
+           return  patientRepository.existsExactlyOnePatient(patientDto.getUsername(), patientDto.getPassword());
+    }
 
     @Override
-    public PatientDto createPatient(PatientDto patientDto) {
-        //check id-->username-->unique?
-        Patient patient = patientDto.asPatient();
-        return new PatientDto(patientRepository.save(patient));
+    public PatientDto createPatient(PatientDto patientDto) throws RecordNotFoundException {
+            Patient patient = patientDto.asPatient();
+            if(!usernameNotAvailable(patient))
+                return new PatientDto(patientRepository.save(patient));
+            throw new RecordNotFoundException("Username already exists");
+    }
+      private boolean usernameNotAvailable(Patient patient) throws RecordNotFoundException {
+        Optional<Patient> patientOptional = patientRepository.findByUsername(patient.getUsername());
+        return patientOptional.isPresent();
     }
 
     @Override

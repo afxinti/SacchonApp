@@ -14,24 +14,25 @@ import java.util.List;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
+@Table(name = "Patient")
 public class Patient {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @Column(name="username",unique = true)
+    @Column(name="Username",unique = true)
     private String username;
-    @Column(name = "password")
+    @Column(name = "Password")
     private String password;
 
-    @Column(name = "first_name")
+    @Column(name = "First_name")
     private String firstName;
-    @Column(name = "last_name")
+    @Column(name = "Last_name")
     private String lastName;
-    @Column (name ="amka_code")
+    @Column (name ="Amka_code")
     private int amkaCode;
-    @Column(name="date_of_birth")
+    @Column(name="Date_of_birth")
     private LocalDate dateOfBirth;
-    @Column(name = "has_recordings")
+    @Column(name = "Has_recordings")
     private boolean hasRecordings;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name ="doctor_id",referencedColumnName="id")

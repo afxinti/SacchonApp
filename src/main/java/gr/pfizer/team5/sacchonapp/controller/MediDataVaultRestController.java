@@ -68,20 +68,19 @@ public class MediDataVaultRestController {
 
         return mediDataVaultServices.updateDCI(DCIDto, id);
     }
-
-
+    //json: post only username/password
+    @PostMapping("/login/patient")
+    public boolean loginPatient(@RequestBody PatientDto patientDto){
+        return mediDataVaultServices.loginPatient(patientDto);
+    }
     @GetMapping("/patient")
     public List<PatientDto> readPatient(){
         return mediDataVaultServices.readPatient();
     }
     @PostMapping("/patient")
-    public PatientDto createPatient(@RequestBody PatientDto patientDto){
+    public PatientDto createPatient(@RequestBody PatientDto patientDto) throws RecordNotFoundException {
         log.info("The createPatient endpoint is used");
-        try {
-            return mediDataVaultServices.createPatient(patientDto);
-        } catch (RecordNotFoundException e) {
-            throw new RuntimeException(e);
-        }
+        return mediDataVaultServices.createPatient(patientDto);
     }
     @GetMapping("/patient/{id}")
     public PatientDto readPatientDto(@PathVariable(name = "id") int id) throws RecordNotFoundException {
