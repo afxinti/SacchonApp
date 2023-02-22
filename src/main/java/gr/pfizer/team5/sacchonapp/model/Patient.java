@@ -25,6 +25,7 @@ public class Patient {
     private int amkaCode;
     private LocalDate dateOfBirth;
     private boolean hasRecordings;
+    private boolean warning_modifiedconsultation;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name ="doctor_id",referencedColumnName="id")
     private Doctor currentDoctor;

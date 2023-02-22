@@ -183,4 +183,26 @@ public class MediDataVaultServicesImpl implements MediDataVaultServices{
         }
         return action;
     }
+
+    public void updateWarning(int id) {
+        try {
+            Patient p = readPatientData(id);
+            p.setWarning_modifiedconsultation(true);
+            patientRepository.save(p);
+        }catch(RecordNotFoundException e){
+        }
+    }
+
+    @Override
+    public String warnPatientAboutModifiedConsultation(int id) {
+        String warning = "No Warnings";
+        try {
+            Patient p = readPatientData(id);
+            if (p.isWarning_modifiedconsultation())
+                warning = "Warning: Your Doctor modified a consultation. Important information must be reviewed";
+        }catch(RecordNotFoundException e){
+        }
+        return warning;
+    }
+
 }

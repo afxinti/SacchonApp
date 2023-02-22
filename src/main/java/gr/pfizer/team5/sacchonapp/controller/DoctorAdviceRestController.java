@@ -6,6 +6,7 @@ import gr.pfizer.team5.sacchonapp.dto.DCI_Dto;
 import gr.pfizer.team5.sacchonapp.dto.PatientDto;
 import gr.pfizer.team5.sacchonapp.exception.RecordNotFoundException;
 import gr.pfizer.team5.sacchonapp.service.DoctorAdviceServices;
+import gr.pfizer.team5.sacchonapp.service.MediDataVaultServices;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
@@ -17,6 +18,8 @@ import java.util.List;
 @Slf4j
 public class DoctorAdviceRestController {
     private DoctorAdviceServices doctorAdviceServices ;
+    private MediDataVaultServices mediDataVaultServices ;
+
 
     @GetMapping("/ping")
     public String ping(){
@@ -52,7 +55,7 @@ public class DoctorAdviceRestController {
     {
         if (doctorAdviceServices.updateConsultation(consultationDto, id))
         {
-            //call service from medidatavaultServices to warn patient that a change in [id] consultation has occured
+            mediDataVaultServices.updateWarning(consultationDto.getPatientId());
         }
         return doctorAdviceServices.updateConsultation(consultationDto, id);
     }

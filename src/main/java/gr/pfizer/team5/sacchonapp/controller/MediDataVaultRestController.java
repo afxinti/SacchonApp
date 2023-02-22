@@ -95,5 +95,11 @@ public class MediDataVaultRestController {
     public boolean deletePatientDto(@PathVariable(name="id")int id){
         return mediDataVaultServices.deletePatient(id);
     }
+
+
+    @GetMapping("/patient/{id}/warning")
+    public String warnPatientAboutModifiedConsultation(@PathVariable(name = "id") int id){
+        return mediDataVaultServices.warnPatientAboutModifiedConsultation(id);
+    }
 }
 

@@ -16,6 +16,9 @@ public interface MediDataVaultServices {
     List<PatientDto> readPatient();
     boolean updatePatient(PatientDto patient,int id);
     boolean deletePatient(int id);
+    void updateWarning(int id);
+    String warnPatientAboutModifiedConsultation(int id);
+
 
 
     //BGL CRU
