@@ -19,7 +19,8 @@ public class BGL_Dto {
     private LocalDate date;
     private LocalTime time;
     private Double measurement;
-    private Patient patient;
+    private int patientId;
+
 
 
     public BGL_Dto(BloodGlucoseLevel bloodGlucoseLevel) {
@@ -28,7 +29,8 @@ public class BGL_Dto {
             date = bloodGlucoseLevel.getDate();
             time = bloodGlucoseLevel.getTime();
             measurement = bloodGlucoseLevel.getMeasurement();
-            patient = bloodGlucoseLevel.getPatient();
+            patientId = bloodGlucoseLevel.getPatient().getId();
+
         }
     }
 
@@ -38,6 +40,9 @@ public class BGL_Dto {
         bloodGlucoseLevel.setDate(date);
         bloodGlucoseLevel.setTime(time);
         bloodGlucoseLevel.setMeasurement(measurement);
+
+        Patient patient = new Patient();
+        patient.setId(patientId);
         bloodGlucoseLevel.setPatient(patient);
 
         return bloodGlucoseLevel;
