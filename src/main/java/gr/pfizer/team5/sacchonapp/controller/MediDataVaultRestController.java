@@ -4,7 +4,6 @@ import gr.pfizer.team5.sacchonapp.dto.BGL_Dto;
 import gr.pfizer.team5.sacchonapp.dto.DCI_Dto;
 import gr.pfizer.team5.sacchonapp.exception.RecordNotFoundException;
 import gr.pfizer.team5.sacchonapp.dto.PatientDto;
-import gr.pfizer.team5.sacchonapp.model.DailyCarbonatesIntake;
 import gr.pfizer.team5.sacchonapp.service.MediDataVaultServices;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -12,7 +11,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @AllArgsConstructor
