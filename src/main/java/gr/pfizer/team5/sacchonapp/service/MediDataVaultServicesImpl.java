@@ -22,9 +22,10 @@ import java.util.stream.Collectors;
 public class MediDataVaultServicesImpl implements MediDataVaultServices{
     private final BGLRepository BGLRepository;
     private final DCIRepository DCIRepository;
-
     private final PatientRepository patientRepository;
 
+
+    //BGL CRU Services
     @Override
     public BGL_Dto createBGL(BGL_Dto bgl_dto) {
         BloodGlucoseLevel bloodGlucoseLevel = bgl_dto.asBGL();
@@ -71,6 +72,8 @@ public class MediDataVaultServicesImpl implements MediDataVaultServices{
         return action;
 
     }
+
+    //DCI CRU Services
     @Override
 
     public DCI_Dto createDCI(DCI_Dto dci_dto) {
@@ -99,8 +102,8 @@ public class MediDataVaultServicesImpl implements MediDataVaultServices{
             return dciOptional.get();
         throw new RecordNotFoundException("Record not found");
     }
-    @Override
 
+    @Override
     public boolean updateDCI(DCI_Dto dci_dto, int id) {
         boolean action;
         try {
@@ -120,7 +123,7 @@ public class MediDataVaultServicesImpl implements MediDataVaultServices{
     }
 
 
-
+    //Patient CRUD Services
     @Override
     public PatientDto createPatient(PatientDto patientDto) {
         //check id-->username-->unique?
@@ -148,6 +151,7 @@ public class MediDataVaultServicesImpl implements MediDataVaultServices{
             return patientOptional.get();
         throw new RecordNotFoundException("Patient: "+ id+ "not found");
     }
+
     @Override
     public boolean updatePatient(PatientDto patient, int id) {
         boolean action;

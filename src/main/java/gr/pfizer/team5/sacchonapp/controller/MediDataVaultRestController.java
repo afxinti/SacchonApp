@@ -1,9 +1,11 @@
 package gr.pfizer.team5.sacchonapp.controller;
 
 import gr.pfizer.team5.sacchonapp.dto.BGL_Dto;
+import gr.pfizer.team5.sacchonapp.dto.ConsultationDto;
 import gr.pfizer.team5.sacchonapp.dto.DCI_Dto;
 import gr.pfizer.team5.sacchonapp.exception.RecordNotFoundException;
 import gr.pfizer.team5.sacchonapp.dto.PatientDto;
+import gr.pfizer.team5.sacchonapp.model.Consultation;
 import gr.pfizer.team5.sacchonapp.service.MediDataVaultServices;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -18,8 +20,6 @@ public class MediDataVaultRestController {
     private MediDataVaultServices mediDataVaultServices ;
 
     //BGL controller methods
-
-
     @GetMapping("/bgl")
     public List<BGL_Dto> getBGLDto(){
         return mediDataVaultServices.readBGL();
@@ -42,6 +42,7 @@ public class MediDataVaultRestController {
 
         return mediDataVaultServices.updateBGL(BGLDto, id);
     }
+
 
     //DCI controller methods
 
@@ -70,6 +71,7 @@ public class MediDataVaultRestController {
     }
 
 
+    //Patient CRUD Controllers
     @GetMapping("/patient")
     public List<PatientDto> readPatient(){
         return mediDataVaultServices.readPatient();
@@ -84,6 +86,7 @@ public class MediDataVaultRestController {
         log.info("Request a patient/endpoint");
         return mediDataVaultServices.readPatient(id);
     }
+
     @PutMapping("/patient/{id}")
     public boolean updatePatientDto(@RequestBody PatientDto patientDto,@PathVariable(name ="id") int id){
         return mediDataVaultServices.updatePatient(patientDto,id);
