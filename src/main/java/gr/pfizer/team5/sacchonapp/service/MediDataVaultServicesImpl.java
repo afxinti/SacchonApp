@@ -63,9 +63,9 @@ public class MediDataVaultServicesImpl implements MediDataVaultServices{
             dbBGL.setDate(bgl_dto.getDate());
             dbBGL.setTime(bgl_dto.getTime());
             dbBGL.setMeasurement(bgl_dto.getMeasurement());
-            Patient patient = patientRepository.findById(bgl_dto.getPatientId())
-                    .orElseThrow(() -> new RecordNotFoundException("Patient not found"));
-            dbBGL.setPatient(patient);
+//            Patient patient = patientRepository.findById(bgl_dto.getPatientId())
+//                    .orElseThrow(() -> new RecordNotFoundException("Patient not found"));
+//            dbBGL.setPatient(patient);
             BGLRepository.save(dbBGL);
             action = true;
         } catch (RecordNotFoundException e) {
@@ -111,9 +111,9 @@ public class MediDataVaultServicesImpl implements MediDataVaultServices{
             dbDCI.setDate(dci_dto.getDate());
             dbDCI.setTime(dci_dto.getTime());
             dbDCI.setMeasurement(dci_dto.getMeasurement());
-            Patient patient = patientRepository.findById(dci_dto.getPatientId())
-                    .orElseThrow(() -> new RecordNotFoundException("Patient not found"));
-            dbDCI.setPatient(patient);
+//            Patient patient = patientRepository.findById(dci_dto.getPatientId())
+//                    .orElseThrow(() -> new RecordNotFoundException("Patient not found"));
+//            dbDCI.setPatient(patient);
             DCIRepository.save(dbDCI);
             action = true;
         } catch (RecordNotFoundException e) {
