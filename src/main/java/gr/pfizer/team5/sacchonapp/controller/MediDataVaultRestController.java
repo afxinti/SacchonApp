@@ -21,7 +21,6 @@ public class MediDataVaultRestController {
 
     private MediDataVaultServices mediDataVaultServices ;
 
-
     //------------------------------------------------start of DCI BGL methods------------------------------------------//
 
     @GetMapping("/bgl")
@@ -91,13 +90,18 @@ public class MediDataVaultRestController {
     //------------------------------------------------end of DCI BGL methods------------------------------------------//
 
     //Patient CRUD Controllers
+    //json: post only username/password
+    @PostMapping("/login/patient")
+    public boolean loginPatient(@RequestBody PatientDto patientDto){
+        return mediDataVaultServices.loginPatient(patientDto);
+    }
     @GetMapping("/patient")
     public List<PatientDto> readPatient(){
         return mediDataVaultServices.readPatient();
     }
     @PostMapping("/patient")
-    public PatientDto createPatient(@RequestBody PatientDto patientDto){
-        log.info("The patient was created");
+    public PatientDto createPatient(@RequestBody PatientDto patientDto) throws RecordNotFoundException {
+        log.info("The createPatient endpoint is used");
         return mediDataVaultServices.createPatient(patientDto);
     }
     @GetMapping("/patient/{id}")

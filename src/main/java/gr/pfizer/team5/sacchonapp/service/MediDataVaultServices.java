@@ -11,6 +11,8 @@ public interface MediDataVaultServices {
     // Patient CRUD
 
     PatientDto createPatient(PatientDto patient);
+    boolean loginPatient(PatientDto patientDto);
+    PatientDto createPatient(PatientDto patient) throws RecordNotFoundException;
     PatientDto readPatient(int id) throws RecordNotFoundException;
     List<PatientDto> readPatient();
     boolean updatePatient(PatientDto patient,int id);
