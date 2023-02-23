@@ -23,7 +23,6 @@ import java.util.stream.Collectors;
 public class MediDataVaultServicesImpl implements MediDataVaultServices{
     private final BGLRepository BGLRepository;
     private final DCIRepository DCIRepository;
-
     private final PatientRepository patientRepository;
 
     //------------------------------------------------------start of BGL and DCI methods -------------------------------------------------//
@@ -74,6 +73,8 @@ public class MediDataVaultServicesImpl implements MediDataVaultServices{
         return action;
 
     }
+
+    //DCI CRU Services
     @Override
 
     public DCI_Dto createDCI(DCI_Dto dci_dto) {
@@ -102,8 +103,8 @@ public class MediDataVaultServicesImpl implements MediDataVaultServices{
             return dciOptional.get();
         throw new RecordNotFoundException("Record not found");
     }
-    @Override
 
+    @Override
     public boolean updateDCI(DCI_Dto dci_dto, int id) {
         boolean action;
         try {
@@ -155,8 +156,9 @@ public class MediDataVaultServicesImpl implements MediDataVaultServices{
         }
         return sum / bglList.size();
     }
-
 //------------------------------------------------------end of BGL and DCI methods -------------------------------------------------//
+
+
 
     @Override
     public PatientDto createPatient(PatientDto patientDto) {
@@ -185,6 +187,7 @@ public class MediDataVaultServicesImpl implements MediDataVaultServices{
             return patientOptional.get();
         throw new RecordNotFoundException("Patient: "+ id+ "not found");
     }
+
     @Override
     public boolean updatePatient(PatientDto patient, int id) {
         boolean action;
@@ -216,4 +219,26 @@ public class MediDataVaultServicesImpl implements MediDataVaultServices{
         }
         return action;
     }
+
+    public void updateWarning(int id) {
+        try {
+            Patient p = readPatientData(id);
+            p.setWarning_modifiedconsultation(true);
+            patientRepository.save(p);
+        }catch(RecordNotFoundException e){
+        }
+    }
+
+    @Override
+    public String warnPatientAboutModifiedConsultation(int id) {
+        String warning = "No Warnings";
+        try {
+            Patient p = readPatientData(id);
+            if (p.isWarning_modifiedconsultation())
+                warning = "Warning: Your Doctor modified a consultation. Important information must be reviewed";
+        }catch(RecordNotFoundException e){
+        }
+        return warning;
+    }
+
 }

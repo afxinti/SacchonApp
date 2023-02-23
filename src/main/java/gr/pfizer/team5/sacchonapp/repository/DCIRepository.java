@@ -9,11 +9,14 @@ import org.springframework.stereotype.Repository;
 import java.time.LocalDate;
 import java.util.List;
 
+
 @Repository
 public interface DCIRepository extends JpaRepository<DailyCarbonatesIntake,Integer> {
     @Query("SELECT d FROM DailyCarbonatesIntake d WHERE d.date BETWEEN :startDate AND :endDate")
     List<DailyCarbonatesIntake> findBetweenDatesDCI(@Param("startDate") LocalDate startDate, @Param("endDate") LocalDate endDate);
 
+    @Query(value = "Select d from DailyCarbonatesIntake d where d.patient.id = :id")
+    List<DailyCarbonatesIntake> getDCIRecordsOfPatient(@Param("id") int id);
 
 }
 
