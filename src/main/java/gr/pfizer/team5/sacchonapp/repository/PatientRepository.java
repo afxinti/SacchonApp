@@ -17,10 +17,10 @@ import java.util.Optional;
 public interface PatientRepository extends JpaRepository<Patient, Integer> {
     @Query("select (count(p) =1) from Patient p where p.username = ?1 and p.password = ?2")
     boolean existsExactlyOnePatient(String username, String password);
+    @Query("select p from Patient p where p.username = ?1")
     Optional<Patient> findByUsername(String username);
 
     @Query(value = "Select p from Patient p where p.currentDoctor.id = :id")
     List<Patient> getPatientsOfDoctor(@Param("id") int id);
-
 }
 
