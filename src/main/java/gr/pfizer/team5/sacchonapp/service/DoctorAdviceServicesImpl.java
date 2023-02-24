@@ -3,6 +3,7 @@ package gr.pfizer.team5.sacchonapp.service;
 import gr.pfizer.team5.sacchonapp.dto.ChiefDoctorDto;
 import gr.pfizer.team5.sacchonapp.dto.ConsultationDto;
 import gr.pfizer.team5.sacchonapp.dto.DoctorDto;
+import gr.pfizer.team5.sacchonapp.dto.PatientDto;
 import gr.pfizer.team5.sacchonapp.exception.RecordNotFoundException;
 import gr.pfizer.team5.sacchonapp.model.ChiefDoctor;
 import gr.pfizer.team5.sacchonapp.model.Consultation;
@@ -10,12 +11,16 @@ import gr.pfizer.team5.sacchonapp.model.Doctor;
 import gr.pfizer.team5.sacchonapp.repository.ChiefDoctorRepository;
 import gr.pfizer.team5.sacchonapp.repository.ConsultationRepository;
 import gr.pfizer.team5.sacchonapp.repository.DoctorRepository;
+import gr.pfizer.team5.sacchonapp.repository.PatientRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.time.LocalDate;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+
 
 @Service
 @AllArgsConstructor
@@ -205,4 +210,25 @@ public class DoctorAdviceServicesImpl implements DoctorAdviceServices{
         }
         return action;
     }
+
+    public List<DoctorDto> findByNameLikeService(String match){
+        return docRepository
+                .findByNameLike(match)
+                .stream()
+                .map(DoctorDto::new)
+                .collect(Collectors.toList());
+    }
+
+    private final PatientRepository patientRepository;
+
+
+    public List<PatientDto> patientsWithNoActivityService(LocalDate startDate, LocalDate endDate){
+        return patientRepository
+                .patientsWithNoActivity(startDate, endDate)
+                .stream()
+                .map(PatientDto::new)
+                .collect(Collectors.toList());
+
+    }
+
 }

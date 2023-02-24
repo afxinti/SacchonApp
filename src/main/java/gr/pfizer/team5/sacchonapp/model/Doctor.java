@@ -5,8 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import java.util.List;
 
-import java.util.Set;
 
 @Setter
 @Getter
@@ -24,6 +24,6 @@ public class Doctor {
     private String lastName;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "currentDoctor")
-    private Set<Patient> managedPatients;
+    private List<Patient> managedPatients;
 }
 

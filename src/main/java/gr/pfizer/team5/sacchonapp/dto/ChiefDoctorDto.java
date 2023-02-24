@@ -26,7 +26,7 @@ public class ChiefDoctorDto {
     }
     public ChiefDoctor asChiefDoctor(){
         ChiefDoctor chiefdoctor = new ChiefDoctor();
-        chiefdoctor.setId(0);
+        chiefdoctor.setId(id);
         chiefdoctor.setFirstName(firstName);
         chiefdoctor.setLastName(lastName);
         chiefdoctor.setEmail(email);
