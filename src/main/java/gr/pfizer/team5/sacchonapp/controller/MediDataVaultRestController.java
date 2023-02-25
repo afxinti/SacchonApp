@@ -1,11 +1,9 @@
 package gr.pfizer.team5.sacchonapp.controller;
 
 import gr.pfizer.team5.sacchonapp.dto.BGL_Dto;
-import gr.pfizer.team5.sacchonapp.dto.ConsultationDto;
 import gr.pfizer.team5.sacchonapp.dto.DCI_Dto;
 import gr.pfizer.team5.sacchonapp.exception.RecordNotFoundException;
 import gr.pfizer.team5.sacchonapp.dto.PatientDto;
-import gr.pfizer.team5.sacchonapp.model.Consultation;
 import gr.pfizer.team5.sacchonapp.service.MediDataVaultServices;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -71,21 +69,21 @@ public class MediDataVaultRestController {
 
         return mediDataVaultServices.updateDCI(DCIDto, id);
     }
-    @GetMapping("/dci/between-dates")
-    public List<DCI_Dto> getDCIBetweenDates(@RequestParam("startDate") LocalDate startDate, @RequestParam("endDate") LocalDate endDate) {
-    return mediDataVaultServices.getDCIBetweenDates(startDate,endDate);
+    @GetMapping("/dci/{id}/between-dates")
+    public List<DCI_Dto> getDCIBetweenDates(@PathVariable(name="id") int id,@RequestParam("startDate") LocalDate startDate, @RequestParam("endDate") LocalDate endDate) {
+    return mediDataVaultServices.getDCIBetweenDates(id,startDate,endDate);
     }
-    @GetMapping("/bgl/between-dates")
-    public List<BGL_Dto> getBGLBetweenDates(@RequestParam("startDate") LocalDate startDate, @RequestParam("endDate") LocalDate endDate) {
-        return mediDataVaultServices.getBGLBetweenDates(startDate,endDate);
+    @GetMapping("/bgl/{id}/between-dates")
+    public List<BGL_Dto> getBGLBetweenDates(@PathVariable(name="id") int id,@RequestParam("startDate") LocalDate startDate, @RequestParam("endDate") LocalDate endDate) {
+        return mediDataVaultServices.getBGLBetweenDates(id,startDate,endDate);
     }
-    @GetMapping("/dci/avg/between-dates")
-    public Double getAverageDCIBetweenDates(@RequestParam("startDate") LocalDate startDate, @RequestParam("endDate") LocalDate endDate) {
-        return mediDataVaultServices.getAverageDCIBetweenDates(startDate,endDate);
+    @GetMapping("/dci/{id}/avg/between-dates")
+    public Double getAverageDCIBetweenDates(@PathVariable(name="id") int id,@RequestParam("startDate") LocalDate startDate, @RequestParam("endDate") LocalDate endDate) {
+        return mediDataVaultServices.getAverageDCIBetweenDates(id,startDate,endDate);
     }
-    @GetMapping("/bgl/avg/between-dates")
-    public Double getAverageBGLBetweenDates(@RequestParam("startDate") LocalDate startDate, @RequestParam("endDate") LocalDate endDate) {
-        return mediDataVaultServices.getAverageBGLBetweenDates(startDate,endDate);
+    @GetMapping("/bgl/{id}/avg/between-dates")
+    public Double getAverageBGLBetweenDates(@PathVariable(name="id") int id,@RequestParam("startDate") LocalDate startDate, @RequestParam("endDate") LocalDate endDate) {
+        return mediDataVaultServices.getAverageBGLBetweenDates(id,startDate,endDate);
     }
     //------------------------------------------------end of DCI BGL methods------------------------------------------//
 

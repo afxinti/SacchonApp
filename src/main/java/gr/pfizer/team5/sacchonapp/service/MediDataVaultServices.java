@@ -34,9 +34,9 @@ public interface MediDataVaultServices {
     List<DCI_Dto> readDCI();
     DCI_Dto readDCI(int id) throws RecordNotFoundException;
     boolean updateDCI(DCI_Dto dci_dto, int id);
-    List<DCI_Dto> getDCIBetweenDates(LocalDate startDate, LocalDate endDate);
-    List<BGL_Dto> getBGLBetweenDates(LocalDate startDate, LocalDate endDate);
-    Double getAverageDCIBetweenDates(LocalDate startDate, LocalDate endDate);
-    Double getAverageBGLBetweenDates(LocalDate startDate, LocalDate endDate);
+    List<DCI_Dto> getDCIBetweenDates(int id,LocalDate startDate, LocalDate endDate);
+    List<BGL_Dto> getBGLBetweenDates(int id,LocalDate startDate, LocalDate endDate);
+    Double getAverageDCIBetweenDates(int id,LocalDate startDate, LocalDate endDate);
+    Double getAverageBGLBetweenDates(int id,LocalDate startDate, LocalDate endDate);
 
 }

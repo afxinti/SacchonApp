@@ -123,12 +123,12 @@ public class MediDataVaultServicesImpl implements MediDataVaultServices{
         return action;
     }
     @Override
-    public List<DCI_Dto> getDCIBetweenDates(LocalDate startDate, LocalDate endDate) {
-        List<DailyCarbonatesIntake> dciList = DCIRepository.findBetweenDatesDCI(startDate, endDate);
+    public List<DCI_Dto> getDCIBetweenDates(int id, LocalDate startDate, LocalDate endDate) {
+        List<DailyCarbonatesIntake> dciList = DCIRepository.findBetweenDatesDCI(id,startDate, endDate);
         return dciList.stream().map(DCI_Dto::new).collect(Collectors.toList());
     }
-    public Double getAverageDCIBetweenDates(LocalDate startDate, LocalDate endDate) {
-        List<DailyCarbonatesIntake> dciList = DCIRepository.findBetweenDatesDCI(startDate, endDate);
+    public Double getAverageDCIBetweenDates(int id,LocalDate startDate, LocalDate endDate) {
+        List<DailyCarbonatesIntake> dciList = DCIRepository.findBetweenDatesDCI(id,startDate, endDate);
         if (dciList == null || dciList.isEmpty()) {
             return null;
         }
@@ -140,13 +140,13 @@ public class MediDataVaultServicesImpl implements MediDataVaultServices{
     }
 
     @Override
-    public List<BGL_Dto> getBGLBetweenDates(LocalDate startDate, LocalDate endDate) {
-        List<BloodGlucoseLevel> bglList = BGLRepository.findBetweenDatesBGL(startDate, endDate);
+    public List<BGL_Dto> getBGLBetweenDates(int id,LocalDate startDate, LocalDate endDate) {
+        List<BloodGlucoseLevel> bglList = BGLRepository.findBetweenDatesBGL(id,startDate, endDate);
         return bglList.stream().map(BGL_Dto::new).collect(Collectors.toList());
     }
     @Override
-    public Double getAverageBGLBetweenDates(LocalDate startDate, LocalDate endDate) {
-        List<BloodGlucoseLevel> bglList = BGLRepository.findBetweenDatesBGL(startDate, endDate);
+    public Double getAverageBGLBetweenDates(int id,LocalDate startDate, LocalDate endDate) {
+        List<BloodGlucoseLevel> bglList = BGLRepository.findBetweenDatesBGL(id,startDate, endDate);
         if (bglList == null || bglList.isEmpty()) {
             return null;
         }

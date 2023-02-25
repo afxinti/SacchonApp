@@ -10,7 +10,7 @@ public interface ReporterServices {
 
     //crud
 
-    //query select * from records where patientId = x && date between inputOfReporter
+    //query select * from records where patientId = x && date between inputOfReporter(have to move from MediDataVault Services)
     // query select * from consultations where doctorId =x && date between inputOfReporter
     //query select * from patients where localdate.now- consultation.date >30
     //query select * consultations where patientId =x && date between inputOfReporter
