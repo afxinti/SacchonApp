@@ -10,7 +10,9 @@ import gr.pfizer.team5.sacchonapp.model.DailyCarbonatesIntake;
 import gr.pfizer.team5.sacchonapp.dto.PatientDto;
 import gr.pfizer.team5.sacchonapp.model.Patient;
 import gr.pfizer.team5.sacchonapp.repository.PatientRepository;
+import gr.pfizer.team5.sacchonapp.repository.UsersRepository;
 import lombok.AllArgsConstructor;
+import org.apache.catalina.User;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -24,6 +26,7 @@ public class MediDataVaultServicesImpl implements MediDataVaultServices{
     private final BGLRepository BGLRepository;
     private final DCIRepository DCIRepository;
     private final PatientRepository patientRepository;
+    private final UsersRepository usersRepository;
 
     //------------------------------------------------------start of BGL and DCI methods -------------------------------------------------//
 
@@ -160,17 +163,17 @@ public class MediDataVaultServicesImpl implements MediDataVaultServices{
 
     @Override
     public boolean loginPatient(PatientDto patientDto) {
-           return  patientRepository.existsExactlyOnePatient(patientDto.getUsername(), patientDto.getPassword());
+           return  usersRepository.existsExactlyOnePatient(patientDto.getUsername(), patientDto.getPassword());
     }
 
     @Override
     public PatientDto createPatient(PatientDto patientDto) throws RecordNotFoundException {
             Patient patient = patientDto.asPatient();
-            if(!usernameNotAvailable(patient))
+            if(!usernameAvailable(patient))
                 return new PatientDto(patientRepository.save(patient));
             throw new RecordNotFoundException("Username already exists");
     }
-      private boolean usernameNotAvailable(Patient patient) throws RecordNotFoundException {
+      private boolean usernameAvailable(Patient patient) throws RecordNotFoundException {
         Optional<Patient> patientOptional = patientRepository.findByUsername(patient.getUsername());
         return patientOptional.isPresent();
     }
@@ -206,7 +209,8 @@ public class MediDataVaultServicesImpl implements MediDataVaultServices{
             patientDb.setFirstName(patient.getFirstName());
             patientDb.setLastName(patient.getLastName());
             patientDb.setAmkaCode(patient.getAmkaCode());
-            patient.setDateOfBirth(patient.getDateOfBirth());
+            patientDb.setDateOfBirth(patient.getDateOfBirth());
+            patient.setDoctorId(patient.getDoctorId());
             patientRepository.save(patientDb);
             action = true;
         } catch (RecordNotFoundException e){

@@ -15,11 +15,11 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "Patient")
-public class Patient {
+public class Patient{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @Column(name="Username",unique = true)
+    @Column(name="Username")
     private String username;
     @Column(name = "Password")
     private String password;
@@ -45,4 +45,7 @@ public class Patient {
     @OneToMany(mappedBy="patient")
     private List<DailyCarbonatesIntake> bloodGlucoseLevel;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_id")
+    private Users user;
 }

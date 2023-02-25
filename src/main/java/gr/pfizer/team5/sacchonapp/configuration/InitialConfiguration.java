@@ -17,8 +17,8 @@ public class InitialConfiguration {
     CommandLineRunner commandLineRunner(
             PatientRepository patientRepository, DoctorRepository doctorRepository, BGLRepository BGLRepository, DCIRepository DCIRepository,ConsultationRepository consultationRepository, ChiefDoctorRepository chiefDoctorRepository){
         return args -> {
-            Patient pat1 = new Patient(0,"Giannis22","drop12","Giannis","Kourtis",1704930012,LocalDate.of(1993,4,17),false,null,null,null,null);
-            Patient pat2 = new Patient(0,"Georgia172","koks14","Georgia","Panagi",1012890077,LocalDate.of(1997,5,4),false,null,null,null,null);
+            Patient pat1 = new Patient(0,"Giannis22","drop12","Giannis","Kourtis",1704930012,LocalDate.of(1993,4,17),false,false,null,null,null,null,null);
+            Patient pat2 = new Patient(0,"Georgia172","koks14","Georgia","Panagi",1012890077,LocalDate.of(1997,5,4),false,false,null,null,null,null,null);
             patientRepository.saveAll(List.of(pat1,pat2));
             BloodGlucoseLevel bgl1 = new BloodGlucoseLevel(0, LocalDate.of(2023,1,10), LocalTime.of(12,16),12.0,pat1);
             BloodGlucoseLevel bgl2 = new BloodGlucoseLevel(0, LocalDate.of(2022,5,13), LocalTime.of(13,20),10.0,pat2);
