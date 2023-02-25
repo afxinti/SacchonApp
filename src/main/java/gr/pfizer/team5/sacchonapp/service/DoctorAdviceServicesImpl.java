@@ -1,5 +1,6 @@
 package gr.pfizer.team5.sacchonapp.service;
 
+import gr.pfizer.team5.sacchonapp.dto.*;
 import gr.pfizer.team5.sacchonapp.dto.ChiefDoctorDto;
 import gr.pfizer.team5.sacchonapp.dto.ConsultationDto;
 import gr.pfizer.team5.sacchonapp.dto.DoctorDto;
@@ -8,34 +9,43 @@ import gr.pfizer.team5.sacchonapp.exception.RecordNotFoundException;
 import gr.pfizer.team5.sacchonapp.model.ChiefDoctor;
 import gr.pfizer.team5.sacchonapp.model.Consultation;
 import gr.pfizer.team5.sacchonapp.model.Doctor;
+import gr.pfizer.team5.sacchonapp.repository.*;
 import gr.pfizer.team5.sacchonapp.repository.ChiefDoctorRepository;
 import gr.pfizer.team5.sacchonapp.repository.ConsultationRepository;
 import gr.pfizer.team5.sacchonapp.repository.DoctorRepository;
 import gr.pfizer.team5.sacchonapp.repository.PatientRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
-
 import java.time.LocalDate;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+
+import static java.time.temporal.ChronoUnit.DAYS;
 
 @Service
 @AllArgsConstructor
 public class DoctorAdviceServicesImpl implements DoctorAdviceServices{
 
     private final ConsultationRepository consultationRepository;
+    private final DoctorRepository docRepository;
+    private final ChiefDoctorRepository chiefDocRepository;
+    private final PatientRepository patientRepository;
+    private final BGLRepository BGLRepository;
+    private final DCIRepository DCIRepository;
+
+    @Override
+    public String ping() {
+        return "hello Sacchon Doctor";
+    }
 
 
 
-
-
-
-
-
-    //------------------------------------SERVICES FOR CONSULTATION-------------------------------------------
+    // Consultation CRU Services
     @Override
     public ConsultationDto createConsultation(ConsultationDto consultationDto) {
         //validation
@@ -65,7 +75,6 @@ public class DoctorAdviceServicesImpl implements DoctorAdviceServices{
         throw new RecordNotFoundException("Consultation not found id= " + id);
     }
 
-
     @Override
     public boolean updateConsultation(ConsultationDto consultation, int id) {
 
@@ -87,14 +96,7 @@ public class DoctorAdviceServicesImpl implements DoctorAdviceServices{
 
 
 
-    @Override
-    public String ping() {
-        return "hello Sacchon Doctor";
-    }
-
-
-    private final DoctorRepository docRepository;
-
+    //Doctor CRUD Services
     @Override
     public DoctorDto createDoctor(DoctorDto doctorDto) {
         //validation
@@ -152,8 +154,9 @@ public class DoctorAdviceServicesImpl implements DoctorAdviceServices{
         return action;
     }
 
-    private final ChiefDoctorRepository chiefDocRepository;
 
+
+    //Chief Doctor CRUD Services
     @Override
     public ChiefDoctorDto createChiefDoctor(ChiefDoctorDto chiefDoctorDto) {
         //validation
@@ -209,6 +212,54 @@ public class DoctorAdviceServicesImpl implements DoctorAdviceServices{
             action = false;
         }
         return action;
+    }
+
+
+
+    //Other Services
+
+    //view patient record
+    public List<PatientDto> getPatientsOfDoctor(int id){
+        return patientRepository.getPatientsOfDoctor(id)
+                .stream()
+                .map(PatientDto::new)
+                .collect(Collectors.toList());
+    }
+
+
+    //browse the data of a single patient(Consultations)
+    public List<ConsultationDto> getConsultationsOfPatient(int id) {
+        return consultationRepository.getConsultationsOfPatient(id)
+                .stream()
+                .map(ConsultationDto::new)
+                .collect(Collectors.toList());
+    }
+
+    //browse the data of a single patient(BGL)
+    public List<BGL_Dto> getBGLRecordsOfPatient(int id) {
+        return BGLRepository.getBGLRecordsOfPatient(id)
+                .stream()
+                .map(BGL_Dto::new)
+                .collect(Collectors.toList());
+    }
+
+    //browse the data of a single patient(DCI)
+    public List<DCI_Dto> getDCIRecordsOfPatient(int id) {
+        return DCIRepository.getDCIRecordsOfPatient(id)
+                .stream()
+                .map(DCI_Dto::new)
+                .collect(Collectors.toList());
+    }
+
+
+    public List<PatientDto> getPatientsWithNoConsultationInTheLastMonth(int id){
+        List<PatientDto> PatientsWithNoConsultationInTheLastMonth = new ArrayList<>();
+        for(PatientDto p : getPatientsOfDoctor(id)) {
+            Consultation c = consultationRepository.getPatientsLastConsultation(p.getId());
+            if (DAYS.between(c.getDate(), LocalDate.now())>30)
+                PatientsWithNoConsultationInTheLastMonth.add(p);
+        }
+        return PatientsWithNoConsultationInTheLastMonth;
     }
 
     public List<DoctorDto> findByNameLikeService(String match){

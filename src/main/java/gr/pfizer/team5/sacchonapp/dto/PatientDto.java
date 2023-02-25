@@ -8,6 +8,7 @@ import lombok.ToString;
 
 import java.time.LocalDate;
 
+
 @NoArgsConstructor
 @Setter
 @Getter
@@ -20,6 +21,8 @@ public class PatientDto {
     private String lastName;
     private int amkaCode;
     private LocalDate dateOfBirth;
+    private int doctorId;
+    //private List<Consultation> consultations;
     public PatientDto(Patient patient){
         if (patient!=null){
             id = patient.getId();
@@ -29,6 +32,12 @@ public class PatientDto {
             firstName = patient.getFirstName();
             lastName = patient.getLastName();
             dateOfBirth = patient.getDateOfBirth();
+            if(patient.getCurrentDoctor()!=null){
+                doctorId = patient.getCurrentDoctor().getId();
+            }else {
+                doctorId = 0;
+            }
+            //consultations = patient.readConsultationsbyPatientId().stream().add().List();
         }
     }
 
@@ -41,7 +50,6 @@ public class PatientDto {
         patient.setFirstName(firstName);
         patient.setLastName(lastName);
         patient.setDateOfBirth(dateOfBirth);
-        //patient.setDateOfBirth(LocalDate.parse(dateOfBirth));
         return patient;
     }
 

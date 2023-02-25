@@ -4,13 +4,14 @@ package gr.pfizer.team5.sacchonapp.service;
 import gr.pfizer.team5.sacchonapp.dto.ChiefDoctorDto;
 import gr.pfizer.team5.sacchonapp.dto.ConsultationDto;
 import gr.pfizer.team5.sacchonapp.dto.DoctorDto;
-import gr.pfizer.team5.sacchonapp.dto.PatientDto;
 import gr.pfizer.team5.sacchonapp.exception.RecordNotFoundException;
+import gr.pfizer.team5.sacchonapp.model.Doctor;
 
 import java.time.LocalDate;
 import java.util.List;
 
 public interface DoctorAdviceServices {
+    String ping();
 
     // Consultation  CRU
 
@@ -18,7 +19,7 @@ public interface DoctorAdviceServices {
     List<ConsultationDto> readConsultation();
     ConsultationDto readConsultation(int id) throws RecordNotFoundException;
     boolean updateConsultation(ConsultationDto consultation, int id);
-    String ping();
+
 
     // Doctor CRUD
 
@@ -35,6 +36,21 @@ public interface DoctorAdviceServices {
     ChiefDoctorDto readChiefDoctor(int id) throws RecordNotFoundException;
     boolean updateChiefDoctor(ChiefDoctorDto chiefdoctor, int id);
     boolean deleteChiefDoctor(int id) ;
+
+
+
+
+    //Other Services
+
+    List<ConsultationDto> getConsultationsOfPatient(int id);
+
+    List<BGL_Dto> getBGLRecordsOfPatient(int id);
+
+    List<DCI_Dto> getDCIRecordsOfPatient(int id);
+
+    List<PatientDto> getPatientsOfDoctor(int id);
+
+    List<PatientDto> getPatientsWithNoConsultationInTheLastMonth(int id);
 
     List<DoctorDto> findByNameLikeService(String match);
 

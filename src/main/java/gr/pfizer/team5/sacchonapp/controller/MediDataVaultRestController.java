@@ -1,13 +1,17 @@
 package gr.pfizer.team5.sacchonapp.controller;
 
 import gr.pfizer.team5.sacchonapp.dto.BGL_Dto;
+import gr.pfizer.team5.sacchonapp.dto.ConsultationDto;
 import gr.pfizer.team5.sacchonapp.dto.DCI_Dto;
 import gr.pfizer.team5.sacchonapp.exception.RecordNotFoundException;
 import gr.pfizer.team5.sacchonapp.dto.PatientDto;
+import gr.pfizer.team5.sacchonapp.model.Consultation;
 import gr.pfizer.team5.sacchonapp.service.MediDataVaultServices;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
+
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -17,8 +21,7 @@ public class MediDataVaultRestController {
 
     private MediDataVaultServices mediDataVaultServices ;
 
-    //BGL controller methods
-
+    //------------------------------------------------start of DCI BGL methods------------------------------------------//
 
     @GetMapping("/bgl")
     public List<BGL_Dto> getBGLDto(){
@@ -68,15 +71,37 @@ public class MediDataVaultRestController {
 
         return mediDataVaultServices.updateDCI(DCIDto, id);
     }
+    @GetMapping("/dci/between-dates")
+    public List<DCI_Dto> getDCIBetweenDates(@RequestParam("startDate") LocalDate startDate, @RequestParam("endDate") LocalDate endDate) {
+    return mediDataVaultServices.getDCIBetweenDates(startDate,endDate);
+    }
+    @GetMapping("/bgl/between-dates")
+    public List<BGL_Dto> getBGLBetweenDates(@RequestParam("startDate") LocalDate startDate, @RequestParam("endDate") LocalDate endDate) {
+        return mediDataVaultServices.getBGLBetweenDates(startDate,endDate);
+    }
+    @GetMapping("/dci/avg/between-dates")
+    public Double getAverageDCIBetweenDates(@RequestParam("startDate") LocalDate startDate, @RequestParam("endDate") LocalDate endDate) {
+        return mediDataVaultServices.getAverageDCIBetweenDates(startDate,endDate);
+    }
+    @GetMapping("/bgl/avg/between-dates")
+    public Double getAverageBGLBetweenDates(@RequestParam("startDate") LocalDate startDate, @RequestParam("endDate") LocalDate endDate) {
+        return mediDataVaultServices.getAverageBGLBetweenDates(startDate,endDate);
+    }
+    //------------------------------------------------end of DCI BGL methods------------------------------------------//
 
-
+    //Patient CRUD Controllers
+    //json: post only username/password
+    @PostMapping("/login/patient")
+    public boolean loginPatient(@RequestBody PatientDto patientDto){
+        return mediDataVaultServices.loginPatient(patientDto);
+    }
     @GetMapping("/patient")
     public List<PatientDto> readPatient(){
         return mediDataVaultServices.readPatient();
     }
     @PostMapping("/patient")
-    public PatientDto createPatient(@RequestBody PatientDto patientDto){
-        log.info("The patient was created");
+    public PatientDto createPatient(@RequestBody PatientDto patientDto) throws RecordNotFoundException {
+        log.info("The createPatient endpoint is used");
         return mediDataVaultServices.createPatient(patientDto);
     }
     @GetMapping("/patient/{id}")
@@ -84,6 +109,7 @@ public class MediDataVaultRestController {
         log.info("Request a patient/endpoint");
         return mediDataVaultServices.readPatient(id);
     }
+
     @PutMapping("/patient/{id}")
     public boolean updatePatientDto(@RequestBody PatientDto patientDto,@PathVariable(name ="id") int id){
         return mediDataVaultServices.updatePatient(patientDto,id);
@@ -91,6 +117,12 @@ public class MediDataVaultRestController {
     @DeleteMapping("/patient/{id}")
     public boolean deletePatientDto(@PathVariable(name="id")int id){
         return mediDataVaultServices.deletePatient(id);
+    }
+
+
+    @GetMapping("/patient/{id}/warning")
+    public String warnPatientAboutModifiedConsultation(@PathVariable(name = "id") int id){
+        return mediDataVaultServices.warnPatientAboutModifiedConsultation(id);
     }
 }
 

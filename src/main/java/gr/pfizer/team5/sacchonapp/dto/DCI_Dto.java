@@ -16,8 +16,7 @@ public class DCI_Dto {
     private LocalDate date;
     private LocalTime time;
     private Double measurement;
-    private Patient patient;
-
+    private int patientId;
 
     public DCI_Dto(DailyCarbonatesIntake dailyCarbonatesIntake) {
         if (dailyCarbonatesIntake != null) {
@@ -25,7 +24,7 @@ public class DCI_Dto {
             date = dailyCarbonatesIntake.getDate();
             time = dailyCarbonatesIntake.getTime();
             measurement = dailyCarbonatesIntake.getMeasurement();
-            patient = dailyCarbonatesIntake.getPatient();
+            patientId = dailyCarbonatesIntake.getPatient().getId();
         }
     }
 
@@ -35,6 +34,9 @@ public class DCI_Dto {
         dailyCarbonatesIntake.setDate(date);
         dailyCarbonatesIntake.setTime(time);
         dailyCarbonatesIntake.setMeasurement(measurement);
+
+        Patient patient = new Patient();
+        patient.setId(patientId);
         dailyCarbonatesIntake.setPatient(patient);
 
         return dailyCarbonatesIntake;

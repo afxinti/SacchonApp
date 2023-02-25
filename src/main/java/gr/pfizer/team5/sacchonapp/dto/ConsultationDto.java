@@ -21,7 +21,7 @@ public class ConsultationDto {
 
     private int doctor_id;
 
-    private Patient patient;
+    private int patientId;
 
 
     public ConsultationDto(Consultation consultation) {
@@ -32,7 +32,7 @@ public class ConsultationDto {
             dosage = consultation.getDosage();
             notes = consultation.getNotes();
             doctor_id = consultation.getDoctor_id();
-            patient = consultation.getPatient();
+            patientId = consultation.getPatient().getId();
         }
     }
 
@@ -44,6 +44,10 @@ public class ConsultationDto {
         consultation.setDosage(dosage);
         consultation.setNotes(notes);
         consultation.setDoctor_id(doctor_id);
+
+
+        Patient patient = new Patient();
+        patient.setId(patientId);
         consultation.setPatient(patient);
 
         return consultation;
