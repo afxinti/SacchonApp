@@ -1,6 +1,5 @@
 package gr.pfizer.team5.sacchonapp.service;
 
-import gr.pfizer.team5.sacchonapp.model.Doctor;
 import gr.pfizer.team5.sacchonapp.repository.BGLRepository;
 import gr.pfizer.team5.sacchonapp.repository.DCIRepository;
 import gr.pfizer.team5.sacchonapp.dto.BGL_Dto;

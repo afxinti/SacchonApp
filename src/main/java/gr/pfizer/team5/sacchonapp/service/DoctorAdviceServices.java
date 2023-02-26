@@ -3,7 +3,6 @@ package gr.pfizer.team5.sacchonapp.service;
 
 import gr.pfizer.team5.sacchonapp.dto.*;
 import gr.pfizer.team5.sacchonapp.exception.RecordNotFoundException;
-import gr.pfizer.team5.sacchonapp.model.Doctor;
 
 import java.util.List;
 
