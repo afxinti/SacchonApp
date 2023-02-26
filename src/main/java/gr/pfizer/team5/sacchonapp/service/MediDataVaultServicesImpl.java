@@ -239,7 +239,7 @@ public class MediDataVaultServicesImpl implements MediDataVaultServices{
 
     @Override
     public String warnPatientAboutModifiedConsultation(int id) {
-        String warning = "No Warnings";
+        String warning = null;
         try {
             Patient p = readPatientData(id);
             if (p.isWarning_modifiedconsultation())
