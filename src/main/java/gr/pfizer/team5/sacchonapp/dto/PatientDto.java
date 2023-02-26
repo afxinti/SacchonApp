@@ -1,10 +1,8 @@
 package gr.pfizer.team5.sacchonapp.dto;
 
 import gr.pfizer.team5.sacchonapp.model.Patient;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import gr.pfizer.team5.sacchonapp.model.Users;
+import lombok.*;
 
 import java.time.LocalDate;
 
@@ -13,7 +11,7 @@ import java.time.LocalDate;
 @Setter
 @Getter
 @ToString
-public class PatientDto {
+public class PatientDto{
     private int id;
     private String username;
     private String password;
@@ -22,6 +20,8 @@ public class PatientDto {
     private int amkaCode;
     private LocalDate dateOfBirth;
     private int doctorId;
+
+    //private int userId;
     //private List<Consultation> consultations;
     public PatientDto(Patient patient){
         if (patient!=null){
@@ -37,19 +37,21 @@ public class PatientDto {
             }else {
                 doctorId = 0;
             }
-            //consultations = patient.readConsultationsbyPatientId().stream().add().List();
         }
     }
 
     public Patient asPatient(){
         Patient patient = new Patient();
         patient.setId(0);
-        patient.setUsername(username); //need to check for unique userName;
+        patient.setUsername(username);
         patient.setPassword(password);
         patient.setAmkaCode(amkaCode);
         patient.setFirstName(firstName);
         patient.setLastName(lastName);
         patient.setDateOfBirth(dateOfBirth);
+//        Users user = new Users(); //connect user+patient
+//        user.setId(userId);
+//        patient.setUser(user);
         return patient;
     }
 

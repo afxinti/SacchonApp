@@ -19,11 +19,15 @@ public class Doctor {
     private int id;
 
     private String email;
+    private String username;
     private String password;
     private String firstName;
     private String lastName;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "currentDoctor")
     private Set<Patient> managedPatients;
+    @OneToOne()//cascade??
+    @JoinColumn(name = "user_id")
+    private Users user;
 }
 
