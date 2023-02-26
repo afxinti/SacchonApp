@@ -50,4 +50,5 @@ public interface DoctorAdviceServices {
 
     List<PatientDto> getPatientsWithNoConsultationInTheLastMonth(int id);
 
+    PatientDto choosePatient(int doctorId, int patientId) throws RecordNotFoundException;
 }

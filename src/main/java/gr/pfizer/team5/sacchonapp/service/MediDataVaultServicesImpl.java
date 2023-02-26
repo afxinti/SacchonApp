@@ -1,5 +1,6 @@
 package gr.pfizer.team5.sacchonapp.service;
 
+import gr.pfizer.team5.sacchonapp.model.Doctor;
 import gr.pfizer.team5.sacchonapp.repository.BGLRepository;
 import gr.pfizer.team5.sacchonapp.repository.DCIRepository;
 import gr.pfizer.team5.sacchonapp.dto.BGL_Dto;
@@ -10,6 +11,7 @@ import gr.pfizer.team5.sacchonapp.model.DailyCarbonatesIntake;
 import gr.pfizer.team5.sacchonapp.dto.PatientDto;
 import gr.pfizer.team5.sacchonapp.model.Patient;
 import gr.pfizer.team5.sacchonapp.repository.PatientRepository;
+
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -24,6 +26,7 @@ public class MediDataVaultServicesImpl implements MediDataVaultServices{
     private final BGLRepository BGLRepository;
     private final DCIRepository DCIRepository;
     private final PatientRepository patientRepository;
+
 
     //------------------------------------------------------start of BGL and DCI methods -------------------------------------------------//
 
@@ -266,5 +269,7 @@ public class MediDataVaultServicesImpl implements MediDataVaultServices{
         }
         return warning;
     }
+
+
 
 }
