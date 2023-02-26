@@ -1,7 +1,6 @@
 package gr.pfizer.team5.sacchonapp.dto;
 
 import gr.pfizer.team5.sacchonapp.model.Patient;
-import gr.pfizer.team5.sacchonapp.model.Users;
 import lombok.*;
 
 import java.time.LocalDate;
@@ -22,7 +21,6 @@ public class PatientDto{
     private int doctorId;
 
     //private int userId;
-    //private List<Consultation> consultations;
     public PatientDto(Patient patient){
         if (patient!=null){
             id = patient.getId();

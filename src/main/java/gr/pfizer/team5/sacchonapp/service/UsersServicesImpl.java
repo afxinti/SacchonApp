@@ -9,7 +9,6 @@ import gr.pfizer.team5.sacchonapp.repository.PatientRepository;
 import gr.pfizer.team5.sacchonapp.repository.UsersRepository;
 import lombok.AllArgsConstructor;
 
-import java.util.Optional;
 @AllArgsConstructor
 public class UsersServicesImpl implements UsersServices{
     private final PatientRepository patientRepository;
