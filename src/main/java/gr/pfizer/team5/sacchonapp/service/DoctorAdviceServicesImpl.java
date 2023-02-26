@@ -17,8 +17,6 @@ import gr.pfizer.team5.sacchonapp.repository.PatientRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import java.time.LocalDate;
-
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -29,7 +27,7 @@ import static java.time.temporal.ChronoUnit.DAYS;
 
 @Service
 @AllArgsConstructor
-public class DoctorAdviceServicesImpl implements DoctorAdviceServices{
+public class DoctorAdviceServicesImpl implements DoctorAdviceServices {
 
     private final ConsultationRepository consultationRepository;
     private final DoctorRepository docRepository;
@@ -44,13 +42,12 @@ public class DoctorAdviceServicesImpl implements DoctorAdviceServices{
     }
 
 
-
     // Consultation CRU Services
     @Override
     public ConsultationDto createConsultation(ConsultationDto consultationDto) {
         //validation
         Consultation consultation = consultationDto.asConsultation();
-        return new ConsultationDto(consultationRepository.save(consultation)) ;
+        return new ConsultationDto(consultationRepository.save(consultation));
 
     }
 
@@ -65,13 +62,13 @@ public class DoctorAdviceServicesImpl implements DoctorAdviceServices{
 
     @Override
     public ConsultationDto readConsultation(int id) throws RecordNotFoundException {
-        return new ConsultationDto( readConsultationDb(id));
+        return new ConsultationDto(readConsultationDb(id));
     }
 
     private Consultation readConsultationDb(int id) throws RecordNotFoundException {
         Optional<Consultation> consultationOptional = consultationRepository.findById(id);
         if (consultationOptional.isPresent())
-            return consultationOptional.get() ;
+            return consultationOptional.get();
         throw new RecordNotFoundException("Consultation not found id= " + id);
     }
 
@@ -95,7 +92,6 @@ public class DoctorAdviceServicesImpl implements DoctorAdviceServices{
     }
 
 
-
     //Doctor CRUD Services
     @Override
     public DoctorDto createDoctor(DoctorDto doctorDto) {
@@ -113,16 +109,16 @@ public class DoctorAdviceServicesImpl implements DoctorAdviceServices{
                 .collect(Collectors.toList());
     }
 
-        public DoctorDto readDoctor(int id) throws RecordNotFoundException {
-            return new DoctorDto( readDoctorDb(id));
-        }
+    public DoctorDto readDoctor(int id) throws RecordNotFoundException {
+        return new DoctorDto(readDoctorDb(id));
+    }
 
-        private Doctor readDoctorDb(int id) throws RecordNotFoundException {
-            Optional<Doctor> doctorOptional = docRepository.findById(id);
-            if (doctorOptional.isPresent())
-                return doctorOptional.get();
-            throw new RecordNotFoundException("Doctor not found id= " + id);
-        }
+    private Doctor readDoctorDb(int id) throws RecordNotFoundException {
+        Optional<Doctor> doctorOptional = docRepository.findById(id);
+        if (doctorOptional.isPresent())
+            return doctorOptional.get();
+        throw new RecordNotFoundException("Doctor not found id= " + id);
+    }
 
     @Override
     public boolean updateDoctor(DoctorDto doctor, int id) {
@@ -155,7 +151,6 @@ public class DoctorAdviceServicesImpl implements DoctorAdviceServices{
     }
 
 
-
     //Chief Doctor CRUD Services
     @Override
     public ChiefDoctorDto createChiefDoctor(ChiefDoctorDto chiefDoctorDto) {
@@ -174,7 +169,7 @@ public class DoctorAdviceServicesImpl implements DoctorAdviceServices{
     }
 
     public ChiefDoctorDto readChiefDoctor(int id) throws RecordNotFoundException {
-        return new ChiefDoctorDto( readChiefDoctorDb(id));
+        return new ChiefDoctorDto(readChiefDoctorDb(id));
     }
 
     private ChiefDoctor readChiefDoctorDb(int id) throws RecordNotFoundException {
@@ -215,11 +210,10 @@ public class DoctorAdviceServicesImpl implements DoctorAdviceServices{
     }
 
 
-
     //Other Services
 
     //view patient record
-    public List<PatientDto> getPatientsOfDoctor(int id){
+    public List<PatientDto> getPatientsOfDoctor(int id) {
         return patientRepository.getPatientsOfDoctor(id)
                 .stream()
                 .map(PatientDto::new)
@@ -252,17 +246,17 @@ public class DoctorAdviceServicesImpl implements DoctorAdviceServices{
     }
 
 
-    public List<PatientDto> getPatientsWithNoConsultationInTheLastMonth(int id){
+    public List<PatientDto> getPatientsWithNoConsultationInTheLastMonth(int id) {
         List<PatientDto> PatientsWithNoConsultationInTheLastMonth = new ArrayList<>();
-        for(PatientDto p : getPatientsOfDoctor(id)) {
+        for (PatientDto p : getPatientsOfDoctor(id)) {
             Consultation c = consultationRepository.getPatientsLastConsultation(p.getId());
-            if (DAYS.between(c.getDate(), LocalDate.now())>30)
+            if (DAYS.between(c.getDate(), LocalDate.now()) > 30)
                 PatientsWithNoConsultationInTheLastMonth.add(p);
         }
         return PatientsWithNoConsultationInTheLastMonth;
     }
 
-    public List<DoctorDto> findByNameLikeService(String match){
+    public List<DoctorDto> findByNameLikeService(String match) {
         return docRepository
                 .findByNameLike(match)
                 .stream()
@@ -270,16 +264,21 @@ public class DoctorAdviceServicesImpl implements DoctorAdviceServices{
                 .collect(Collectors.toList());
     }
 
-    private final PatientRepository patientRepository;
-
-
-    public List<PatientDto> patientsWithNoActivityService(LocalDate startDate, LocalDate endDate){
+    public List<PatientDto> patientsWithNoActivityBglService(LocalDate startDate, LocalDate endDate) {
         return patientRepository
-                .patientsWithNoActivity(startDate, endDate)
+                .patientsWithNoActivityBgl(startDate, endDate)
+                .stream()
+                .map(PatientDto::new)
+                .collect(Collectors.toList());
+    }
+
+    public List<PatientDto> patientsWithNoActivityDciService(LocalDate startDate, LocalDate endDate) {
+        return patientRepository
+                .patientsWithNoActivityDci(startDate, endDate)
                 .stream()
                 .map(PatientDto::new)
                 .collect(Collectors.toList());
 
     }
-
 }
+

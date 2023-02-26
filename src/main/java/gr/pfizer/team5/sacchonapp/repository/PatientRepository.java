@@ -5,15 +5,9 @@ import gr.pfizer.team5.sacchonapp.model.Patient;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import java.time.LocalDate;
 import java.util.List;
-
-import java.util.List;
-
-
 import java.util.Optional;
 
 @Repository
@@ -26,8 +20,11 @@ public interface PatientRepository extends JpaRepository<Patient, Integer> {
     List<Patient> getPatientsOfDoctor(@Param("id") int id);
 
 
-    @Query(value = "SELECT b.patient, d.patient from BloodGlucoseLevel b, DailyCarbonatesIntake d where " +
-            "(b.date not BETWEEN :startDate and :endDate) or (d.date not BETWEEN :startDate and :endDate)")
+    @Query(value = "SELECT b.patient from BloodGlucoseLevel b where b.date not BETWEEN :startDate and :endDate")
+    List<Patient> patientsWithNoActivityBgl(@Param("startDate") LocalDate startDate, @Param("endDate") LocalDate endDate);
 
-    List<Patient> patientsWithNoActivity(@Param("startDate") LocalDate startDate, @Param("endDate") LocalDate endDate);
+    @Query(value = "SELECT d.patient from DailyCarbonatesIntake d where d.date not BETWEEN :startDate and :endDate")
+    List<Patient> patientsWithNoActivityDci(@Param("startDate") LocalDate startDate, @Param("endDate") LocalDate endDate);
+
+
 }

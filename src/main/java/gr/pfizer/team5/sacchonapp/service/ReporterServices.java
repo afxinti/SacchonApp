@@ -1,7 +1,9 @@
 package gr.pfizer.team5.sacchonapp.service;
 
+import gr.pfizer.team5.sacchonapp.dto.DoctorDto;
 import gr.pfizer.team5.sacchonapp.dto.PatientDto;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public interface ReporterServices {
@@ -16,4 +18,6 @@ public interface ReporterServices {
     //query select * consultations where patientId =x && date between inputOfReporter
     //query setOfPatients- Set(select patientId from records where date between inputOfReporter)
     //query setOfDoctors- Set(select doctorId from consultations where date between inputOfReporter)
+
+    List<Integer> doctorsWithNoActivityService(LocalDate startDate, LocalDate endDate);
 }

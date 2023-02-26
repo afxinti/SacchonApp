@@ -1,12 +1,8 @@
 package gr.pfizer.team5.sacchonapp.service;
 
 
-import gr.pfizer.team5.sacchonapp.dto.ChiefDoctorDto;
-import gr.pfizer.team5.sacchonapp.dto.ConsultationDto;
-import gr.pfizer.team5.sacchonapp.dto.DoctorDto;
+import gr.pfizer.team5.sacchonapp.dto.*;
 import gr.pfizer.team5.sacchonapp.exception.RecordNotFoundException;
-import gr.pfizer.team5.sacchonapp.model.Doctor;
-
 import java.time.LocalDate;
 import java.util.List;
 
@@ -54,7 +50,9 @@ public interface DoctorAdviceServices {
 
     List<DoctorDto> findByNameLikeService(String match);
 
-    List<PatientDto> patientsWithNoActivityService(LocalDate startDate, LocalDate endDate);
+    List<PatientDto> patientsWithNoActivityBglService(LocalDate startDate, LocalDate endDate);
+
+    List<PatientDto> patientsWithNoActivityDciService(LocalDate startDate, LocalDate endDate);
 
 
 }

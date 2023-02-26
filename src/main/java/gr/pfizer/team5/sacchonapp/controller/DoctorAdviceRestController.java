@@ -1,9 +1,9 @@
 package gr.pfizer.team5.sacchonapp.controller;
 
-import gr.pfizer.team5.sacchonapp.dto.ConsultationDto;
-import gr.pfizer.team5.sacchonapp.dto.DoctorDto;
+import gr.pfizer.team5.sacchonapp.dto.*;
 import gr.pfizer.team5.sacchonapp.exception.RecordNotFoundException;
 import gr.pfizer.team5.sacchonapp.service.DoctorAdviceServices;
+import gr.pfizer.team5.sacchonapp.service.MediDataVaultServices;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
@@ -15,6 +15,7 @@ import java.util.List;
 @Slf4j
 public class DoctorAdviceRestController {
     private DoctorAdviceServices doctorAdviceServices ;
+    private MediDataVaultServices mediDataVaultServices;
 
     @GetMapping("/ping")
     public String ping(){
