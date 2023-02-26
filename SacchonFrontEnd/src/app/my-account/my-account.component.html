@@ -12,6 +12,12 @@
         <div class="col">
           <h3 class="ml-3 my-3">{{ patient.firstName }} {{ patient.lastName }}</h3>
         </div>
+        <div class="col-auto">
+          <button class="btn btn-danger" (click)="onDelete()">
+            <i class="fas fa-trash"></i>
+            Delete Account
+          </button>
+        </div>
       </div>
     </div>
     <div class="card-body">
