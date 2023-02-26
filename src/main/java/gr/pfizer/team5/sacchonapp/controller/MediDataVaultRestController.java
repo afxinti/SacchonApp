@@ -77,14 +77,7 @@ public class MediDataVaultRestController {
     public boolean deleteDCI(@PathVariable(name="id")int id){
         return mediDataVaultServices.deleteDCI(id);
     }
-    @GetMapping("/dci/{id}/between-dates")
-    public List<DCI_Dto> getDCIBetweenDates(@PathVariable(name="id") int id,@RequestParam("startDate") LocalDate startDate, @RequestParam("endDate") LocalDate endDate) {
-    return mediDataVaultServices.getDCIBetweenDates(id,startDate,endDate);
-    }
-    @GetMapping("/bgl/{id}/between-dates")
-    public List<BGL_Dto> getBGLBetweenDates(@PathVariable(name="id") int id,@RequestParam("startDate") LocalDate startDate, @RequestParam("endDate") LocalDate endDate) {
-        return mediDataVaultServices.getBGLBetweenDates(id,startDate,endDate);
-    }
+
     @GetMapping("/dci/{id}/avg/between-dates")
     public Double getAverageDCIBetweenDates(@PathVariable(name="id") int id,@RequestParam("startDate") LocalDate startDate, @RequestParam("endDate") LocalDate endDate) {
         return mediDataVaultServices.getAverageDCIBetweenDates(id,startDate,endDate);
