@@ -17,9 +17,7 @@ import gr.pfizer.team5.sacchonapp.repository.PatientRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 
@@ -256,29 +254,5 @@ public class DoctorAdviceServicesImpl implements DoctorAdviceServices {
         return PatientsWithNoConsultationInTheLastMonth;
     }
 
-    public List<DoctorDto> findByNameLikeService(String match) {
-        return docRepository
-                .findByNameLike(match)
-                .stream()
-                .map(DoctorDto::new)
-                .collect(Collectors.toList());
-    }
-
-    public List<PatientDto> patientsWithNoActivityBglService(LocalDate startDate, LocalDate endDate) {
-        return patientRepository
-                .patientsWithNoActivityBgl(startDate, endDate)
-                .stream()
-                .map(PatientDto::new)
-                .collect(Collectors.toList());
-    }
-
-    public List<PatientDto> patientsWithNoActivityDciService(LocalDate startDate, LocalDate endDate) {
-        return patientRepository
-                .patientsWithNoActivityDci(startDate, endDate)
-                .stream()
-                .map(PatientDto::new)
-                .collect(Collectors.toList());
-
-    }
 }
 
