@@ -26,11 +26,14 @@ export class MyAccountComponent implements OnInit{
       error: err => { console.log(err.message )}
     });
   }
-
-
-
-
-
-
-
 }
+      
+  
+
+
+
+
+
+
+
+
