@@ -43,6 +43,10 @@ public class MediDataVaultRestController {
 
         return mediDataVaultServices.updateBGL(BGLDto, id);
     }
+    @DeleteMapping("/bgl/{id}")
+    public boolean deleteBGL(@PathVariable(name="id")int id){
+        return mediDataVaultServices.deleteBGL(id);
+    }
 
     //DCI controller methods
 
@@ -68,6 +72,10 @@ public class MediDataVaultRestController {
     {
 
         return mediDataVaultServices.updateDCI(DCIDto, id);
+    }
+    @DeleteMapping("/dci/{id}")
+    public boolean deleteDCI(@PathVariable(name="id")int id){
+        return mediDataVaultServices.deleteDCI(id);
     }
     @GetMapping("/dci/{id}/between-dates")
     public List<DCI_Dto> getDCIBetweenDates(@PathVariable(name="id") int id,@RequestParam("startDate") LocalDate startDate, @RequestParam("endDate") LocalDate endDate) {

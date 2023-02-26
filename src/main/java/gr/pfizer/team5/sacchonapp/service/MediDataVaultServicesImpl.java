@@ -73,6 +73,19 @@ public class MediDataVaultServicesImpl implements MediDataVaultServices{
         return action;
 
     }
+    @Override
+    public boolean deleteBGL(int id) {
+        boolean action;
+        try {
+            BloodGlucoseLevel dbBGL = readBGL_DB(id);
+            BGLRepository.delete(dbBGL);
+            action = true;
+        }catch(RecordNotFoundException e){
+            action = false;
+        }
+        return action;
+    }
+
 
     //DCI CRU Services
     @Override
@@ -118,6 +131,19 @@ public class MediDataVaultServicesImpl implements MediDataVaultServices{
             DCIRepository.save(dbDCI);
             action = true;
         } catch (RecordNotFoundException e) {
+            action = false;
+        }
+        return action;
+    }
+
+    @Override
+    public boolean deleteDCI(int id) {
+        boolean action;
+        try {
+            DailyCarbonatesIntake dbDCI = readDCI_DB(id);
+            DCIRepository.delete(dbDCI);
+            action = true;
+        }catch(RecordNotFoundException e){
             action = false;
         }
         return action;

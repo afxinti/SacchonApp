@@ -26,7 +26,7 @@ public interface MediDataVaultServices {
     List<BGL_Dto> readBGL();
     BGL_Dto readBGL(int id) throws RecordNotFoundException;
     boolean updateBGL(BGL_Dto consultation, int id);
-
+    boolean deleteBGL(int id);
 
     //DCI CRU
 
@@ -34,6 +34,8 @@ public interface MediDataVaultServices {
     List<DCI_Dto> readDCI();
     DCI_Dto readDCI(int id) throws RecordNotFoundException;
     boolean updateDCI(DCI_Dto dci_dto, int id);
+    boolean deleteDCI(int id);
+
     List<DCI_Dto> getDCIBetweenDates(int id,LocalDate startDate, LocalDate endDate);
     List<BGL_Dto> getBGLBetweenDates(int id,LocalDate startDate, LocalDate endDate);
     Double getAverageDCIBetweenDates(int id,LocalDate startDate, LocalDate endDate);
