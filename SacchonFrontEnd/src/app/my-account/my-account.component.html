@@ -2,35 +2,38 @@
 <head>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 </head>
-<div class="container-fluid">
-  <div class="card Account m-3">
-    <div class="card-header">
-      <div class="row align-items-center">
-        <div class="col-auto">
-          <i class="fas fa-user-circle fa-3x"></i>
-        </div>
-        <div class="col">
-          <h3 class="ml-3 my-3">{{ patient.firstName }} {{ patient.lastName }}</h3>
-        </div>
-        <div class="col-auto">
-          <button class="btn btn-danger" (click)="onDelete()">
-            <i class="fas fa-trash"></i>
-            Delete Account
-          </button>
+<body>
+  <div class="container-fluid">
+    <div class="card Account m-3">
+      <div class="card-header">
+        <div class="row align-items-center">
+          <div class="col-auto">
+            <i class="fas fa-user-circle fa-3x"></i>
+          </div>
+          <div class="col">
+            <h3 class="ml-3 my-3">{{ patient.firstName }} {{ patient.lastName }}</h3>
+          </div>
+          <div class="col-auto">
+            <button class="btn btn-danger" (click)="onDelete()">
+              <i class="fas fa-trash"></i>
+              Delete Account
+            </button>
+          </div>
         </div>
       </div>
-    </div>
-    <div class="card-body">
-      <div class="row">
-        <div class="col-6">
-          <p class="card-text"><strong>Username:</strong> {{ patient.username }}</p>
-          <p class="card-text"><strong>Amka Code:</strong> {{ patient.amkaCode }}</p>
-          <p class="card-text"><strong>Date of Birth:</strong> {{ patient.dateOfBirth }}</p>
-          <p *ngIf="patient.doctorId" class="card-text">Doctor ID: {{ patient.doctorId }} </p>
+      <div class="card-body">
+        <div class="row">
+          <div class="col-6">
+            <p class="card-text"><strong>Username:</strong> {{ patient.username }}</p>
+            <p class="card-text"><strong>Amka Code:</strong> {{ patient.amkaCode }}</p>
+            <p class="card-text"><strong>Date of Birth:</strong> {{ patient.dateOfBirth }}</p>
+            <p *ngIf="patient.doctorId" class="card-text">Doctor ID: {{ patient.doctorId }} </p>
+          </div>
         </div>
       </div>
     </div>
   </div>
-</div>
+  
+</body>
 
 
