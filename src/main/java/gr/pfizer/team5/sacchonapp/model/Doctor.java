@@ -5,7 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
+import java.util.List;
 import java.util.Set;
 
 @Setter
@@ -29,5 +29,6 @@ public class Doctor {
     @OneToOne(cascade = CascadeType.PERSIST)//cascade??
     @JoinColumn(name = "user_id")
     private Users user;
+//    private List<Patient> managedPatients;
 }
 

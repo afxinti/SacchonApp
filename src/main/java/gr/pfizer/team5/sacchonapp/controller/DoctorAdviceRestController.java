@@ -1,9 +1,6 @@
 package gr.pfizer.team5.sacchonapp.controller;
 
-import gr.pfizer.team5.sacchonapp.dto.BGL_Dto;
-import gr.pfizer.team5.sacchonapp.dto.ConsultationDto;
-import gr.pfizer.team5.sacchonapp.dto.DCI_Dto;
-import gr.pfizer.team5.sacchonapp.dto.PatientDto;
+import gr.pfizer.team5.sacchonapp.dto.*;
 import gr.pfizer.team5.sacchonapp.exception.RecordNotFoundException;
 import gr.pfizer.team5.sacchonapp.service.DoctorAdviceServices;
 import gr.pfizer.team5.sacchonapp.service.MediDataVaultServices;
@@ -18,8 +15,7 @@ import java.util.List;
 @Slf4j
 public class DoctorAdviceRestController {
     private DoctorAdviceServices doctorAdviceServices ;
-    private MediDataVaultServices mediDataVaultServices ;
-
+    private MediDataVaultServices mediDataVaultServices;
 
     @GetMapping("/ping")
     public String ping(){
@@ -62,7 +58,37 @@ public class DoctorAdviceRestController {
 
     //Doctor CRU Controllers
 
+//-------------------------DOCTORS-------------------------------
 
+    @GetMapping("/doctor")
+    public List<DoctorDto> getDoctorDto() {
+        //log.info("The end point ConsultationDto has been used");
+        return doctorAdviceServices.readDoctor();
+    }
+
+    @GetMapping("/doctor/{id}")
+    public DoctorDto getDoctorDto(@PathVariable(name = "id") int id) throws RecordNotFoundException {
+        //log.info("The end point ConsultationDto has been used");
+        return doctorAdviceServices.readDoctor(id);
+    }
+
+    @PostMapping("/doctor_create")
+    public DoctorDto createDoctorDto(@RequestBody DoctorDto doctorDto) {
+        //log.info("The end point product has been used");
+        return doctorAdviceServices.createDoctor(doctorDto);
+    }
+
+    @PutMapping("/doctor_update/{id}")
+    public boolean updateDoctorDto(@RequestBody DoctorDto doctorDto,
+                                   @PathVariable(name = "id") int id) {
+        return doctorAdviceServices.updateDoctor(doctorDto, id);
+    }
+
+    @DeleteMapping("/doctor_delete/{id}")
+    public boolean deleteDoctorDto(@PathVariable(name = "id") int id) {
+
+        return doctorAdviceServices.deleteDoctor(id);
+    }
 
 
     //Chief Doctor Controllers
