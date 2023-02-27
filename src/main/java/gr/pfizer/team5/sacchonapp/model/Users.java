@@ -21,4 +21,10 @@ public class Users {
     private Authority authority;
     @OneToOne(mappedBy = "user")
     private Patient patient;
+
+    public Users(String username, String password, Authority authority) {
+        this.username = username;
+        this.password = password;
+        this.authority = authority;
+    }
 }

@@ -13,9 +13,13 @@ public interface UsersRepository  extends JpaRepository<Users, Integer>  {
   @Query("select (count(u) = 1) from Users u where u.username = ?1 and u.password = ?2")
   boolean existsUsersByUsernameAndPassword(String username,String password);
 
-  //0
+
+
+  @Query("select (count(u) = 0) from Users u where u.username = ?1")
+  boolean existsUsersByUsername(String username)throws RecordNotFoundException;
+
   @Query("select u from Users u where u.username = ?1")
-  Users findByUsername(String username)throws RecordNotFoundException;
+  Users findByUsername (String username);
 
 //
 //  public void createUser(UserDto userDto) {
