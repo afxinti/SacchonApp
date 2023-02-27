@@ -6,7 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import java.util.List;
-
+import java.util.Set;
 
 @Setter
 @Getter
@@ -19,11 +19,16 @@ public class Doctor {
     private int id;
 
     private String email;
+    private String username;
     private String password;
     private String firstName;
     private String lastName;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "currentDoctor")
+    private Set<Patient> managedPatients;
+    @OneToOne(cascade = CascadeType.PERSIST)//cascade??
+    @JoinColumn(name = "user_id")
+    private Users user;
     private List<Patient> managedPatients;
 }
 

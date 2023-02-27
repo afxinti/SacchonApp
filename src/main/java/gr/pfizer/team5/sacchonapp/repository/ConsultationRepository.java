@@ -22,5 +22,7 @@ public interface ConsultationRepository extends JpaRepository<Consultation, Inte
     @Query("SELECT c FROM Consultation c WHERE c.patient.id = :id AND (c.date BETWEEN :startDate AND :endDate)")
     List<Consultation> findBetweenDatesConsultationPatient(@Param("id") int id, @Param("startDate") LocalDate startDate, @Param("endDate") LocalDate endDate);
 
+    @Query(value = "select c from Consultation c where c.patient = ?1 and c.date between ?2 and ?3")
+    List<Consultation> getConsultationsByPatientAndDateIsBetween(int id, LocalDate date1, LocalDate date2);
 
 }

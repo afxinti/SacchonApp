@@ -6,24 +6,23 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Setter
-@Getter
+@Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity
-public class ChiefDoctor {
+@Getter
+@Setter
+public class Users {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-
-    private String email;
+    @Column(unique = true)
     private String username;
     private String password;
-    private String firstName;
-    private String lastName;
-    @OneToOne(cascade = CascadeType.PERSIST)//cascade??
-    @JoinColumn(name = "user_id")
-    private Users user;
+    private Authority authority;
 
-
+    public Users(String username, String password, Authority authority) {
+        this.username = username;
+        this.password = password;
+        this.authority = authority;
+    }
 }
