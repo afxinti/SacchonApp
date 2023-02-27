@@ -5,11 +5,11 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 
 const routes: Routes = [
   { path: 'my-account', component: MyAccountComponent},
-  { path: 'dashboard', component: DashboardComponent}
+  { path: 'dashboard', component: DashboardComponent},
   //   { path: 'user', component: UserComponent},  
   // { path: 'user-list', component: UserListComponent},  
-  // { path: '', redirectTo: '/home', pathMatch: 'full'},  
-  // { path: '', component: HomeComponent},  
+  { path: '', redirectTo: '/dashboard', pathMatch: 'full'},  
+  { path: '', component: DashboardComponent}  
   // { path: '**', component:FileNotFoundComponent}
 ];
 
