@@ -1,0 +1,23 @@
+<table class="table table-striped">
+    <thead style="background-color: #092349; color: white;">
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Medication Name</th>
+            <th scope="col">Dosage</th>
+            <th scope="col">Date</th>
+            <th scope="col">Doctor ID</th>
+            <th scope="col">Notes</th>
+
+        </tr>
+    </thead>
+    <tbody style="background-color: #D7E0FF">
+        <tr>
+            <th scope="row"> {{ last_consultation.id }} </th>
+            <td> {{ last_consultation.nameOfMedication }} </td>
+            <td> {{ last_consultation.dosage }} </td>
+            <td> {{ last_consultation.date }} </td>
+            <td> {{ last_consultation.doctor_id }} </td>
+            <td> {{ last_consultation.notes }} </td>
+        </tr>
+
+</table>
