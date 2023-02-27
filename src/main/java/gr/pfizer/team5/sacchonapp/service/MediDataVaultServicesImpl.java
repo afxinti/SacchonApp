@@ -1,5 +1,6 @@
 package gr.pfizer.team5.sacchonapp.service;
 
+import gr.pfizer.team5.sacchonapp.model.Users;
 import gr.pfizer.team5.sacchonapp.repository.BGLRepository;
 import gr.pfizer.team5.sacchonapp.repository.DCIRepository;
 import gr.pfizer.team5.sacchonapp.dto.BGL_Dto;
@@ -161,22 +162,26 @@ public class MediDataVaultServicesImpl implements MediDataVaultServices{
     }
 //------------------------------------------------------end of BGL and DCI methods -------------------------------------------------//
 
-//    @Override
-//    public boolean loginPatient(PatientDto patientDto) {
-//           return  usersRepository.existsUsersByUsernameAndPassword(patientDto.getUsername(), patientDto.getPassword());
-//    }
-//
-//    @Override
-//    public PatientDto createPatient(PatientDto patientDto) throws RecordNotFoundException {
-//            Patient patient = patientDto.asPatient();
-//            if(!usernameAvailable(patient))
-//                return new PatientDto(patientRepository.save(patient));
-//            throw new RecordNotFoundException("Username already exists");
-//    }
-//      private boolean usernameAvailable(Patient patient) throws RecordNotFoundException {
-//        Optional<Patient> patientOptional = patientRepository.findByUsername(patient.getUsername());
-//        return patientOptional.isPresent();
-//    }
+    @Override
+    public boolean loginPatient(PatientDto patientDto) {
+           return  usersRepository.existsUsersByUsernameAndPassword(patientDto.getUsername(), patientDto.getPassword());
+    }
+
+    @Override
+    //second way, singing up users in the already created endpoints
+    public PatientDto createPatient(PatientDto patientDto) throws RecordNotFoundException {
+        if (!usersRepository.existsUsersByUsername(patientDto.getUsername()){
+            Users user = new Users(patientDto.getUsername(),patientDto.getPassword(),patientDto.getAuthority());
+            Patient patient = patientDto.asPatient();
+            patient.setUser(user);
+            return new PatientDto(patientRepository.save(patient));
+        }
+        throw new RecordNotFoundException("Username already exists");
+    }
+      private boolean usernameAvailable(Patient patient) throws RecordNotFoundException {
+        Optional<Patient> patientOptional = patientRepository.findByUsername(patient.getUsername());
+        return patientOptional.isPresent();
+    }
 
     @Override
     public List<PatientDto> readPatient() {
