@@ -189,13 +189,13 @@ public class MediDataVaultServicesImpl implements MediDataVaultServices{
     @Override
     //second way, singing up users in the already created endpoints
     public PatientDto createPatient(PatientDto patientDto) throws RecordNotFoundException {
-        if (!usersRepository.existsUsersByUsername(patientDto.getUsername()){
+        if (!usersRepository.existsUsersByUsername(patientDto.getUsername())){
             Users user = new Users(patientDto.getUsername(),patientDto.getPassword(),patientDto.getAuthority());
             Patient patient = patientDto.asPatient();
             patient.setUser(user);
             return new PatientDto(patientRepository.save(patient));
-        }
-        throw new RecordNotFoundException("Username already exists");
+        } else{
+        throw new RecordNotFoundException("Username already exists");}
     }
       private boolean usernameAvailable(Patient patient) throws RecordNotFoundException {
         Optional<Patient> patientOptional = patientRepository.findByUsername(patient.getUsername());
@@ -220,7 +220,7 @@ public class MediDataVaultServicesImpl implements MediDataVaultServices{
         Optional<Patient> patientOptional = patientRepository.findById(id);
         if (patientOptional.isPresent())
             return patientOptional.get();
-        throw new RecordNotFoundException("Patient: "+ id+ "not found");
+        throw new RecordNotFoundException("Patient: "+ id + "not found");
     }
 
     @Override

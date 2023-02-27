@@ -26,7 +26,7 @@ public class Doctor {
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "currentDoctor")
     private Set<Patient> managedPatients;
-    @OneToOne()//cascade??
+    @OneToOne(cascade = CascadeType.PERSIST)//cascade??
     @JoinColumn(name = "user_id")
     private Users user;
 }

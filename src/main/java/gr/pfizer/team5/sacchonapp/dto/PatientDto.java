@@ -1,5 +1,6 @@
 package gr.pfizer.team5.sacchonapp.dto;
 
+import gr.pfizer.team5.sacchonapp.model.Authority;
 import gr.pfizer.team5.sacchonapp.model.Patient;
 import lombok.*;
 
@@ -19,6 +20,7 @@ public class PatientDto{
     private int amkaCode;
     private LocalDate dateOfBirth;
     private int doctorId;
+    private Authority authority;
 
     //private int userId;
     public PatientDto(Patient patient){
@@ -30,6 +32,7 @@ public class PatientDto{
             firstName = patient.getFirstName();
             lastName = patient.getLastName();
             dateOfBirth = patient.getDateOfBirth();
+            authority = patient.getUser().getAuthority();
             if(patient.getCurrentDoctor()!=null){
                 doctorId = patient.getCurrentDoctor().getId();
             }else {

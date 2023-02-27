@@ -17,11 +17,11 @@ public class ChiefDoctor {
     private int id;
 
     private String email;
-    private String password;
     private String username;
+    private String password;
     private String firstName;
     private String lastName;
-    @OneToOne()//cascade??
+    @OneToOne(cascade = CascadeType.PERSIST)//cascade??
     @JoinColumn(name = "user_id")
     private Users user;
 
