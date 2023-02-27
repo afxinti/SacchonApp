@@ -29,6 +29,6 @@ public class Doctor {
     @OneToOne(cascade = CascadeType.PERSIST)//cascade??
     @JoinColumn(name = "user_id")
     private Users user;
-    private List<Patient> managedPatients;
+//    private List<Patient> managedPatients;
 }
 
