@@ -5,6 +5,7 @@ import gr.pfizer.team5.sacchonapp.dto.*;
 import gr.pfizer.team5.sacchonapp.exception.RecordNotFoundException;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 
 public interface DoctorAdviceServices {
     String ping();
@@ -48,11 +49,6 @@ public interface DoctorAdviceServices {
 
     List<PatientDto> getPatientsWithNoConsultationInTheLastMonth(int id);
 
-    List<DoctorDto> findByNameLikeService(String match);
-
-    List<PatientDto> patientsWithNoActivityBglService(LocalDate startDate, LocalDate endDate);
-
-    List<PatientDto> patientsWithNoActivityDciService(LocalDate startDate, LocalDate endDate);
 
 
 }
