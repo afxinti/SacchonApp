@@ -34,6 +34,7 @@ public class Patient{
     private LocalDate dateOfBirth;
     @Column(name = "Has_recordings")
     private boolean hasRecordings;
+    @Column(name = "Has_ModifiedConsultation")
     private boolean warning_modifiedconsultation;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name ="doctor_id",referencedColumnName="id")

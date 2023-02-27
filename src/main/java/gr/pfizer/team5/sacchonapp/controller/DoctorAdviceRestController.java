@@ -72,19 +72,19 @@ public class DoctorAdviceRestController {
     }
 
 
-    @PostMapping("/doctor_create")
+    @PostMapping("/doctor")
     public DoctorDto createDoctorDto(@RequestBody DoctorDto doctorDto) {
         //log.info("The end point product has been used");
         return doctorAdviceServices.createDoctor(doctorDto);
     }
 
-    @PutMapping("/doctor_update/{id}")
+    @PutMapping("/doctor/{id}")
     public boolean updateDoctorDto(@RequestBody DoctorDto doctorDto,
                                    @PathVariable(name = "id") int id) {
         return doctorAdviceServices.updateDoctor(doctorDto, id);
     }
 
-    @DeleteMapping("/doctor_delete/{id}")
+    @DeleteMapping("/doctor/{id}")
     public boolean deleteDoctorDto(@PathVariable(name = "id") int id) {
 
         return doctorAdviceServices.deleteDoctor(id);
@@ -114,7 +114,7 @@ public class DoctorAdviceRestController {
         return doctorAdviceServices.getBGLRecordsOfPatient(id);
     }
 
-    @GetMapping("/patient/{id}/cdi_records")
+    @GetMapping("/patient/{id}/dci_records")
     public List<DCI_Dto> getDCIRecordsOfPatient(@PathVariable(name = "id") int id)  {
         return doctorAdviceServices.getDCIRecordsOfPatient(id);
     }

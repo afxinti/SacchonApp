@@ -19,7 +19,6 @@ public class DoctorDto {
     private String password;
     private String firstName;
     private String lastName;
-    private Set<Patient> managedPatients;//SET OR LIST?
 
     public DoctorDto(Doctor doctor){
         if (doctor!= null){
@@ -28,7 +27,6 @@ public class DoctorDto {
             lastName = doctor.getLastName();
             email = doctor.getEmail();
             password = doctor.getPassword();
-            managedPatients = doctor.getManagedPatients();
         }
     }
     public Doctor asDoctor(){
@@ -38,7 +36,6 @@ public class DoctorDto {
         doctor.setLastName(lastName);
         doctor.setEmail(email);
         doctor.setPassword(password);
-        doctor.setManagedPatients(managedPatients);
         return doctor;
     }
 }
