@@ -44,7 +44,7 @@ public class DoctorAdviceServicesImpl implements DoctorAdviceServices {
     public ConsultationDto createConsultation(ConsultationDto consultationDto) {
         //validation
         Consultation consultation = consultationDto.asConsultation();
-        return new ConsultationDto(consultationRepository.save(consultation));
+        return new ConsultationDto(consultationRepository.save(consultation)) ;
 
     }
 
@@ -59,13 +59,13 @@ public class DoctorAdviceServicesImpl implements DoctorAdviceServices {
 
     @Override
     public ConsultationDto readConsultation(int id) throws RecordNotFoundException {
-        return new ConsultationDto(readConsultationDb(id));
+        return new ConsultationDto( readConsultationDb(id));
     }
 
     private Consultation readConsultationDb(int id) throws RecordNotFoundException {
         Optional<Consultation> consultationOptional = consultationRepository.findById(id);
         if (consultationOptional.isPresent())
-            return consultationOptional.get();
+            return consultationOptional.get() ;
         throw new RecordNotFoundException("Consultation not found id= " + id);
     }
 
@@ -249,12 +249,18 @@ public class DoctorAdviceServicesImpl implements DoctorAdviceServices {
     public List<PatientDto> getPatientsWithNoConsultationInTheLastMonth(int id){
         List<PatientDto> PatientsWithNoConsultationInTheLastMonth = new ArrayList<>();
         for(PatientDto p : getPatientsOfDoctor(id)) {
-            Consultation c = consultationRepository.getPatientsLastConsultation(p.getId());
+            Consultation c = consultationRepository.getLastConsultationOfPatient(p.getId());
             if (DAYS.between(c.getDate(), LocalDate.now())>30)
                 PatientsWithNoConsultationInTheLastMonth.add(p);
         }
         return PatientsWithNoConsultationInTheLastMonth;
     }
+
+    public ConsultationDto getLastConsultationOfPatient(int id) {
+        return new ConsultationDto(consultationRepository.getLastConsultationOfPatient(id));
+    }
+
+
 
     public PatientDto choosePatient(int doctorId,int patientId) throws RecordNotFoundException {
         Patient p = mediDataVaultService.readPatient(patientId).asPatient();

@@ -2,6 +2,7 @@ package gr.pfizer.team5.sacchonapp.service;
 
 import gr.pfizer.team5.sacchonapp.dto.BGL_Dto;
 import gr.pfizer.team5.sacchonapp.dto.DCI_Dto;
+import gr.pfizer.team5.sacchonapp.dto.WarningDto;
 import gr.pfizer.team5.sacchonapp.exception.RecordNotFoundException;
 import gr.pfizer.team5.sacchonapp.dto.PatientDto;
 import java.time.LocalDate;
@@ -17,7 +18,7 @@ public interface MediDataVaultServices {
     boolean updatePatient(PatientDto patient,int id);
     boolean deletePatient(int id);
     void updateWarning(int id);
-    String warnPatientAboutModifiedConsultation(int id);
+    WarningDto warnPatientAboutModifiedConsultation(int id);
 
 
     //BGL CRU

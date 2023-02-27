@@ -65,12 +65,12 @@ public class DoctorAdviceRestController {
         //log.info("The end point ConsultationDto has been used");
         return doctorAdviceServices.readDoctor();
     }
-
     @GetMapping("/doctor/{id}")
-    public DoctorDto getDoctorDto(@PathVariable(name = "id") int id) throws RecordNotFoundException {
+    public DoctorDto getDoctorDto(@PathVariable(name="id") int id) throws RecordNotFoundException {
         //log.info("The end point ConsultationDto has been used");
         return doctorAdviceServices.readDoctor(id);
     }
+
 
     @PostMapping("/doctor_create")
     public DoctorDto createDoctorDto(@RequestBody DoctorDto doctorDto) {
@@ -123,6 +123,12 @@ public class DoctorAdviceRestController {
     public  List<PatientDto> getPatientsWithNoConsultationInTheLastMonth(@PathVariable(name = "id") int id)  {
         return doctorAdviceServices.getPatientsWithNoConsultationInTheLastMonth(id);
     }
+
+    @GetMapping("/patient/{id}/lastconsultation")
+    public ConsultationDto getLastConsultationOfPatient(@PathVariable(name = "id") int id)  {
+        return doctorAdviceServices.getLastConsultationOfPatient(id);
+    }
+
 
     @GetMapping("/doctor/{doctorId}/choose-patient/{patientId}")
     public  PatientDto choosePatient(@PathVariable(name = "doctorId") int doctorId, @PathVariable(name = "patientId") int patientId) throws RecordNotFoundException {
