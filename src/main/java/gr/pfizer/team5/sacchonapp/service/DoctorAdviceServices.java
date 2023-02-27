@@ -50,4 +50,6 @@ public interface DoctorAdviceServices {
 
     List<PatientDto> getPatientsWithNoConsultationInTheLastMonth(int id);
 
+    ConsultationDto getLastConsultationOfPatient(int id);
+
 }

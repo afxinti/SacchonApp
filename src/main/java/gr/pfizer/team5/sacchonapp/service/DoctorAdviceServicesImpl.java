@@ -245,10 +245,16 @@ public class DoctorAdviceServicesImpl implements DoctorAdviceServices{
     public List<PatientDto> getPatientsWithNoConsultationInTheLastMonth(int id){
         List<PatientDto> PatientsWithNoConsultationInTheLastMonth = new ArrayList<>();
         for(PatientDto p : getPatientsOfDoctor(id)) {
-            Consultation c = consultationRepository.getPatientsLastConsultation(p.getId());
+            Consultation c = consultationRepository.getLastConsultationOfPatient(p.getId());
             if (DAYS.between(c.getDate(), LocalDate.now())>30)
                 PatientsWithNoConsultationInTheLastMonth.add(p);
         }
         return PatientsWithNoConsultationInTheLastMonth;
     }
+
+    public ConsultationDto getLastConsultationOfPatient(int id) {
+        return new ConsultationDto(consultationRepository.getLastConsultationOfPatient(id));
+    }
+
+
 }

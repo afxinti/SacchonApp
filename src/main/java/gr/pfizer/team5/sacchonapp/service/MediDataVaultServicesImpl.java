@@ -1,5 +1,6 @@
 package gr.pfizer.team5.sacchonapp.service;
 
+import gr.pfizer.team5.sacchonapp.dto.WarningDto;
 import gr.pfizer.team5.sacchonapp.repository.BGLRepository;
 import gr.pfizer.team5.sacchonapp.repository.DCIRepository;
 import gr.pfizer.team5.sacchonapp.dto.BGL_Dto;
@@ -20,7 +21,7 @@ import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
-public class MediDataVaultServicesImpl implements MediDataVaultServices{
+public class MediDataVaultServicesImpl implements MediDataVaultServices {
     private final BGLRepository BGLRepository;
     private final DCIRepository DCIRepository;
     private final PatientRepository patientRepository;
@@ -30,8 +31,9 @@ public class MediDataVaultServicesImpl implements MediDataVaultServices{
     @Override
     public BGL_Dto createBGL(BGL_Dto bgl_dto) {
         BloodGlucoseLevel bloodGlucoseLevel = bgl_dto.asBGL();
-        return new BGL_Dto(BGLRepository.save(bloodGlucoseLevel)) ;
+        return new BGL_Dto(BGLRepository.save(bloodGlucoseLevel));
     }
+
     @Override
 
     public List<BGL_Dto> readBGL() {
@@ -41,10 +43,11 @@ public class MediDataVaultServicesImpl implements MediDataVaultServices{
                 .map(BGL_Dto::new)
                 .collect(Collectors.toList());
     }
+
     @Override
 
     public BGL_Dto readBGL(int id) throws RecordNotFoundException {
-        return new BGL_Dto( readBGL_DB(id));
+        return new BGL_Dto(readBGL_DB(id));
     }
 
     private BloodGlucoseLevel readBGL_DB(int id) throws RecordNotFoundException {
@@ -53,6 +56,7 @@ public class MediDataVaultServicesImpl implements MediDataVaultServices{
             return bglOptional.get();
         throw new RecordNotFoundException("Record not found");
     }
+
     @Override
 
     public boolean updateBGL(BGL_Dto bgl_dto, int id) {
@@ -79,8 +83,9 @@ public class MediDataVaultServicesImpl implements MediDataVaultServices{
 
     public DCI_Dto createDCI(DCI_Dto dci_dto) {
         DailyCarbonatesIntake dailyCarbonatesIntake = dci_dto.asDCI();
-        return new DCI_Dto(DCIRepository.save(dailyCarbonatesIntake)) ;
+        return new DCI_Dto(DCIRepository.save(dailyCarbonatesIntake));
     }
+
     @Override
 
     public List<DCI_Dto> readDCI() {
@@ -91,12 +96,14 @@ public class MediDataVaultServicesImpl implements MediDataVaultServices{
                 .map(DCI_Dto::new)
                 .collect(Collectors.toList());
     }
+
     @Override
 
     public DCI_Dto readDCI(int id) throws RecordNotFoundException {
-        return new DCI_Dto( readDCI_DB(id));
+        return new DCI_Dto(readDCI_DB(id));
 
     }
+
     private DailyCarbonatesIntake readDCI_DB(int id) throws RecordNotFoundException {
         Optional<DailyCarbonatesIntake> dciOptional = DCIRepository.findById(id);
         if (dciOptional.isPresent())
@@ -122,11 +129,13 @@ public class MediDataVaultServicesImpl implements MediDataVaultServices{
         }
         return action;
     }
+
     @Override
     public List<DCI_Dto> getDCIBetweenDates(LocalDate startDate, LocalDate endDate) {
         List<DailyCarbonatesIntake> dciList = DCIRepository.findBetweenDatesDCI(startDate, endDate);
         return dciList.stream().map(DCI_Dto::new).collect(Collectors.toList());
     }
+
     public Double getAverageDCIBetweenDates(LocalDate startDate, LocalDate endDate) {
         List<DailyCarbonatesIntake> dciList = DCIRepository.findBetweenDatesDCI(startDate, endDate);
         if (dciList == null || dciList.isEmpty()) {
@@ -144,6 +153,7 @@ public class MediDataVaultServicesImpl implements MediDataVaultServices{
         List<BloodGlucoseLevel> bglList = BGLRepository.findBetweenDatesBGL(startDate, endDate);
         return bglList.stream().map(BGL_Dto::new).collect(Collectors.toList());
     }
+
     @Override
     public Double getAverageBGLBetweenDates(LocalDate startDate, LocalDate endDate) {
         List<BloodGlucoseLevel> bglList = BGLRepository.findBetweenDatesBGL(startDate, endDate);
@@ -160,17 +170,18 @@ public class MediDataVaultServicesImpl implements MediDataVaultServices{
 
     @Override
     public boolean loginPatient(PatientDto patientDto) {
-           return  patientRepository.existsExactlyOnePatient(patientDto.getUsername(), patientDto.getPassword());
+        return patientRepository.existsExactlyOnePatient(patientDto.getUsername(), patientDto.getPassword());
     }
 
     @Override
     public PatientDto createPatient(PatientDto patientDto) throws RecordNotFoundException {
-            Patient patient = patientDto.asPatient();
-            if(!usernameNotAvailable(patient))
-                return new PatientDto(patientRepository.save(patient));
-            throw new RecordNotFoundException("Username already exists");
+        Patient patient = patientDto.asPatient();
+        if (!usernameNotAvailable(patient))
+            return new PatientDto(patientRepository.save(patient));
+        throw new RecordNotFoundException("Username already exists");
     }
-      private boolean usernameNotAvailable(Patient patient) throws RecordNotFoundException {
+
+    private boolean usernameNotAvailable(Patient patient) throws RecordNotFoundException {
         Optional<Patient> patientOptional = patientRepository.findByUsername(patient.getUsername());
         return patientOptional.isPresent();
     }
@@ -189,18 +200,19 @@ public class MediDataVaultServicesImpl implements MediDataVaultServices{
     public PatientDto readPatient(int id) throws RecordNotFoundException {
         return new PatientDto(readPatientData(id));
     }
+
     private Patient readPatientData(int id) throws RecordNotFoundException {
         Optional<Patient> patientOptional = patientRepository.findById(id);
         if (patientOptional.isPresent())
             return patientOptional.get();
-        throw new RecordNotFoundException("Patient: "+ id+ "not found");
+        throw new RecordNotFoundException("Patient: " + id + "not found");
     }
 
     @Override
     public boolean updatePatient(PatientDto patient, int id) {
         boolean action;
-        try{
-            Patient patientDb= readPatientData(id);
+        try {
+            Patient patientDb = readPatientData(id);
             patientDb.setUsername(patient.getUsername());
             patientDb.setPassword(patient.getPassword());
             patientDb.setFirstName(patient.getFirstName());
@@ -209,7 +221,7 @@ public class MediDataVaultServicesImpl implements MediDataVaultServices{
             patient.setDateOfBirth(patient.getDateOfBirth());
             patientRepository.save(patientDb);
             action = true;
-        } catch (RecordNotFoundException e){
+        } catch (RecordNotFoundException e) {
             action = false;
         }
         return action;
@@ -222,7 +234,7 @@ public class MediDataVaultServicesImpl implements MediDataVaultServices{
             Patient patientDb = readPatientData(id);
             patientRepository.delete(patientDb);
             action = true;
-        }catch(RecordNotFoundException e){
+        } catch (RecordNotFoundException e) {
             action = false;
         }
         return action;
@@ -233,20 +245,19 @@ public class MediDataVaultServicesImpl implements MediDataVaultServices{
             Patient p = readPatientData(id);
             p.setWarning_modifiedconsultation(true);
             patientRepository.save(p);
-        }catch(RecordNotFoundException e){
+        } catch (RecordNotFoundException e) {
         }
     }
 
     @Override
-    public String warnPatientAboutModifiedConsultation(int id) {
-        String warning = null;
+    public WarningDto warnPatientAboutModifiedConsultation(int id) {
+        WarningDto warning = new WarningDto();
         try {
             Patient p = readPatientData(id);
             if (p.isWarning_modifiedconsultation())
-                warning = "Warning: Your Doctor modified a consultation. Important information must be reviewed";
-        }catch(RecordNotFoundException e){
-        }
-        return warning;
+                warning.setWarningMessage("Your Doctor modified a consultation. Important information must be reviewed");
+        } catch (RecordNotFoundException e) { }
+            return warning;
     }
 
 }

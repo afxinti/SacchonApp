@@ -1,9 +1,6 @@
 package gr.pfizer.team5.sacchonapp.controller;
 
-import gr.pfizer.team5.sacchonapp.dto.BGL_Dto;
-import gr.pfizer.team5.sacchonapp.dto.ConsultationDto;
-import gr.pfizer.team5.sacchonapp.dto.DCI_Dto;
-import gr.pfizer.team5.sacchonapp.dto.PatientDto;
+import gr.pfizer.team5.sacchonapp.dto.*;
 import gr.pfizer.team5.sacchonapp.exception.RecordNotFoundException;
 import gr.pfizer.team5.sacchonapp.service.DoctorAdviceServices;
 import gr.pfizer.team5.sacchonapp.service.MediDataVaultServices;
@@ -61,7 +58,11 @@ public class DoctorAdviceRestController {
     }
 
     //Doctor CRU Controllers
-
+    @GetMapping("/doctor/{id}")
+    public DoctorDto getDoctorDto(@PathVariable(name="id") int id) throws RecordNotFoundException {
+        //log.info("The end point ConsultationDto has been used");
+        return doctorAdviceServices.readDoctor(id);
+    }
 
 
 
@@ -97,5 +98,11 @@ public class DoctorAdviceRestController {
     public  List<PatientDto> getPatientsWithNoConsultationInTheLastMonth(@PathVariable(name = "id") int id)  {
         return doctorAdviceServices.getPatientsWithNoConsultationInTheLastMonth(id);
     }
+
+    @GetMapping("/patient/{id}/lastconsultation")
+    public ConsultationDto getLastConsultationOfPatient(@PathVariable(name = "id") int id)  {
+        return doctorAdviceServices.getLastConsultationOfPatient(id);
+    }
+
 
 }
