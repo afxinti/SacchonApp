@@ -18,14 +18,6 @@ export class MyAccountComponent implements OnInit{
   }
 
 
-  deleteAccount() {
-    this.service.delete_account().subscribe({
-      next: response => {
-        this.patient = response;
-      },
-      error: err => { console.log(err.message )}
-    });
-  }
   onDelete(): void {
     const confirmation = confirm('Are you sure you want to delete this account?');
     if (confirmation) {
