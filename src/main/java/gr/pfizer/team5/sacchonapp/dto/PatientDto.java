@@ -43,7 +43,7 @@ public class PatientDto {
 
     public Patient asPatient(){
         Patient patient = new Patient();
-        patient.setId(0);
+        patient.setId(id);
         patient.setUsername(username); //need to check for unique userName;
         patient.setPassword(password);
         patient.setAmkaCode(amkaCode);

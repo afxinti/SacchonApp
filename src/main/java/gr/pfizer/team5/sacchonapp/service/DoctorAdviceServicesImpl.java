@@ -7,20 +7,21 @@ import gr.pfizer.team5.sacchonapp.model.Consultation;
 import gr.pfizer.team5.sacchonapp.model.Doctor;
 import gr.pfizer.team5.sacchonapp.model.Patient;
 import gr.pfizer.team5.sacchonapp.repository.*;
+import gr.pfizer.team5.sacchonapp.repository.ChiefDoctorRepository;
+import gr.pfizer.team5.sacchonapp.repository.ConsultationRepository;
+import gr.pfizer.team5.sacchonapp.repository.DoctorRepository;
+import gr.pfizer.team5.sacchonapp.repository.PatientRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
-
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import static java.time.temporal.ChronoUnit.DAYS;
 
 @Service
 @AllArgsConstructor
-public class DoctorAdviceServicesImpl implements DoctorAdviceServices{
+public class DoctorAdviceServicesImpl implements DoctorAdviceServices {
 
     private final ConsultationRepository consultationRepository;
     private final DoctorRepository docRepository;
@@ -43,7 +44,7 @@ public class DoctorAdviceServicesImpl implements DoctorAdviceServices{
     public ConsultationDto createConsultation(ConsultationDto consultationDto) {
         //validation
         Consultation consultation = consultationDto.asConsultation();
-        return new ConsultationDto(consultationRepository.save(consultation)) ;
+        return new ConsultationDto(consultationRepository.save(consultation));
 
     }
 
@@ -58,13 +59,13 @@ public class DoctorAdviceServicesImpl implements DoctorAdviceServices{
 
     @Override
     public ConsultationDto readConsultation(int id) throws RecordNotFoundException {
-        return new ConsultationDto( readConsultationDb(id));
+        return new ConsultationDto(readConsultationDb(id));
     }
 
     private Consultation readConsultationDb(int id) throws RecordNotFoundException {
         Optional<Consultation> consultationOptional = consultationRepository.findById(id);
         if (consultationOptional.isPresent())
-            return consultationOptional.get() ;
+            return consultationOptional.get();
         throw new RecordNotFoundException("Consultation not found id= " + id);
     }
 
