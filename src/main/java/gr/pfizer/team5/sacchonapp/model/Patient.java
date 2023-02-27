@@ -38,12 +38,14 @@ public class Patient{
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name ="doctor_id",referencedColumnName="id")
     private Doctor currentDoctor;
-    @OneToMany(mappedBy="patient")
+    @OneToMany(mappedBy="patient", cascade = CascadeType.ALL)
     private List<Consultation> consultations;
-    @OneToMany(mappedBy="patient")
+
+    @OneToMany(mappedBy="patient", cascade = CascadeType.ALL)
     private List<DailyCarbonatesIntake> dailyCarbonatesIntakes;
-    @OneToMany(mappedBy="patient")
-    private List<DailyCarbonatesIntake> bloodGlucoseLevel;
+
+    @OneToMany(mappedBy="patient", cascade = CascadeType.ALL)
+    private List<BloodGlucoseLevel> bloodGlucoseLevels;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id")

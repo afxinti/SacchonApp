@@ -5,6 +5,7 @@ import gr.pfizer.team5.sacchonapp.exception.RecordNotFoundException;
 import gr.pfizer.team5.sacchonapp.model.ChiefDoctor;
 import gr.pfizer.team5.sacchonapp.model.Consultation;
 import gr.pfizer.team5.sacchonapp.model.Doctor;
+import gr.pfizer.team5.sacchonapp.model.Patient;
 import gr.pfizer.team5.sacchonapp.repository.*;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -27,6 +28,8 @@ public class DoctorAdviceServicesImpl implements DoctorAdviceServices{
     private final PatientRepository patientRepository;
     private final BGLRepository BGLRepository;
     private final DCIRepository DCIRepository;
+    private final MediDataVaultServicesImpl mediDataVaultService;
+
 
     @Override
     public String ping() {
@@ -250,5 +253,12 @@ public class DoctorAdviceServicesImpl implements DoctorAdviceServices{
                 PatientsWithNoConsultationInTheLastMonth.add(p);
         }
         return PatientsWithNoConsultationInTheLastMonth;
+    }
+
+    public PatientDto choosePatient(int doctorId,int patientId) throws RecordNotFoundException {
+        Patient p = mediDataVaultService.readPatient(patientId).asPatient();
+        Doctor d  = readDoctorDb(doctorId);
+        p.setCurrentDoctor(d);
+        return new PatientDto(p);
     }
 }

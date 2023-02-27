@@ -1,16 +1,17 @@
-<div class="container">
-
-  <!-- <nav>
-    <ul>
-      <li><a routerLink="">Home</a></li>
-      <li><a routerLink="/create">Create</a></li>
-    </ul>
-  </nav> -->
-  <hr>
-    <app-my-account></app-my-account>
-  
-    <footer>
-      <hr>
-      <small>Power by Team_5 2023&copy;</small>
-    </footer>
+<header class="bg-custom-2 p-3 ps-4">
+  <h2>Sacchon</h2>
+</header>
+<div class="row">
+  <div class = "col-2">
+    <app-sidebar></app-sidebar>
   </div>
+  <div class = "col-10">
+    <router-outlet></router-outlet>
+  </div>
+</div>
+<div class = "m-5">
+  <footer>
+    <hr>
+    <small>Powered by Team_5 2023&copy;</small>
+  </footer>
+</div>  

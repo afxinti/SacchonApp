@@ -12,8 +12,8 @@ import gr.pfizer.team5.sacchonapp.dto.PatientDto;
 import gr.pfizer.team5.sacchonapp.model.Patient;
 import gr.pfizer.team5.sacchonapp.repository.PatientRepository;
 import gr.pfizer.team5.sacchonapp.repository.UsersRepository;
+
 import lombok.AllArgsConstructor;
-import org.apache.catalina.User;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -28,6 +28,7 @@ public class MediDataVaultServicesImpl implements MediDataVaultServices{
     private final DCIRepository DCIRepository;
     private final PatientRepository patientRepository;
     private final UsersRepository usersRepository;
+
 
     //------------------------------------------------------start of BGL and DCI methods -------------------------------------------------//
 
@@ -77,6 +78,19 @@ public class MediDataVaultServicesImpl implements MediDataVaultServices{
         return action;
 
     }
+    @Override
+    public boolean deleteBGL(int id) {
+        boolean action;
+        try {
+            BloodGlucoseLevel dbBGL = readBGL_DB(id);
+            BGLRepository.delete(dbBGL);
+            action = true;
+        }catch(RecordNotFoundException e){
+            action = false;
+        }
+        return action;
+    }
+
 
     //DCI CRU Services
     @Override
@@ -126,13 +140,22 @@ public class MediDataVaultServicesImpl implements MediDataVaultServices{
         }
         return action;
     }
+
     @Override
-    public List<DCI_Dto> getDCIBetweenDates(LocalDate startDate, LocalDate endDate) {
-        List<DailyCarbonatesIntake> dciList = DCIRepository.findBetweenDatesDCI(startDate, endDate);
-        return dciList.stream().map(DCI_Dto::new).collect(Collectors.toList());
+    public boolean deleteDCI(int id) {
+        boolean action;
+        try {
+            DailyCarbonatesIntake dbDCI = readDCI_DB(id);
+            DCIRepository.delete(dbDCI);
+            action = true;
+        }catch(RecordNotFoundException e){
+            action = false;
+        }
+        return action;
     }
-    public Double getAverageDCIBetweenDates(LocalDate startDate, LocalDate endDate) {
-        List<DailyCarbonatesIntake> dciList = DCIRepository.findBetweenDatesDCI(startDate, endDate);
+
+    public Double getAverageDCIBetweenDates(int id,LocalDate startDate, LocalDate endDate) {
+        List<DailyCarbonatesIntake> dciList = DCIRepository.findBetweenDatesDCI(id,startDate, endDate);
         if (dciList == null || dciList.isEmpty()) {
             return null;
         }
@@ -143,14 +166,10 @@ public class MediDataVaultServicesImpl implements MediDataVaultServices{
         return sum / dciList.size();
     }
 
+
     @Override
-    public List<BGL_Dto> getBGLBetweenDates(LocalDate startDate, LocalDate endDate) {
-        List<BloodGlucoseLevel> bglList = BGLRepository.findBetweenDatesBGL(startDate, endDate);
-        return bglList.stream().map(BGL_Dto::new).collect(Collectors.toList());
-    }
-    @Override
-    public Double getAverageBGLBetweenDates(LocalDate startDate, LocalDate endDate) {
-        List<BloodGlucoseLevel> bglList = BGLRepository.findBetweenDatesBGL(startDate, endDate);
+    public Double getAverageBGLBetweenDates(int id,LocalDate startDate, LocalDate endDate) {
+        List<BloodGlucoseLevel> bglList = BGLRepository.findBetweenDatesBGL(id,startDate, endDate);
         if (bglList == null || bglList.isEmpty()) {
             return null;
         }
@@ -248,7 +267,7 @@ public class MediDataVaultServicesImpl implements MediDataVaultServices{
 
     @Override
     public String warnPatientAboutModifiedConsultation(int id) {
-        String warning = "No Warnings";
+        String warning = null;
         try {
             Patient p = readPatientData(id);
             if (p.isWarning_modifiedconsultation())
@@ -257,5 +276,7 @@ public class MediDataVaultServicesImpl implements MediDataVaultServices{
         }
         return warning;
     }
+
+
 
 }

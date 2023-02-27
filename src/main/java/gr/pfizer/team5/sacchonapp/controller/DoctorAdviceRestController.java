@@ -98,4 +98,9 @@ public class DoctorAdviceRestController {
         return doctorAdviceServices.getPatientsWithNoConsultationInTheLastMonth(id);
     }
 
+    @GetMapping("/doctor/{doctorId}/choose-patient/{patientId}")
+    public  PatientDto choosePatient(@PathVariable(name = "doctorId") int doctorId, @PathVariable(name = "patientId") int patientId) throws RecordNotFoundException {
+        return doctorAdviceServices.choosePatient(doctorId,patientId);
+    }
+
 }

@@ -4,7 +4,6 @@ package gr.pfizer.team5.sacchonapp.service;
 import gr.pfizer.team5.sacchonapp.dto.*;
 import gr.pfizer.team5.sacchonapp.exception.RecordNotFoundException;
 
-
 import java.util.List;
 
 public interface DoctorAdviceServices {
@@ -50,4 +49,5 @@ public interface DoctorAdviceServices {
 
     List<PatientDto> getPatientsWithNoConsultationInTheLastMonth(int id);
 
+    PatientDto choosePatient(int doctorId, int patientId) throws RecordNotFoundException;
 }
