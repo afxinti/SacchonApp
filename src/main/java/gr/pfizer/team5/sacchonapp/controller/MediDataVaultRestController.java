@@ -2,6 +2,7 @@ package gr.pfizer.team5.sacchonapp.controller;
 
 import gr.pfizer.team5.sacchonapp.dto.BGL_Dto;
 import gr.pfizer.team5.sacchonapp.dto.DCI_Dto;
+import gr.pfizer.team5.sacchonapp.dto.*;
 import gr.pfizer.team5.sacchonapp.exception.RecordNotFoundException;
 import gr.pfizer.team5.sacchonapp.dto.PatientDto;
 import gr.pfizer.team5.sacchonapp.service.MediDataVaultServices;
@@ -120,7 +121,7 @@ public class MediDataVaultRestController {
 
 
     @GetMapping("/patient/{id}/warning")
-    public String warnPatientAboutModifiedConsultation(@PathVariable(name = "id") int id){
+    public WarningDto warnPatientAboutModifiedConsultation(@PathVariable(name = "id") int id){
         return mediDataVaultServices.warnPatientAboutModifiedConsultation(id);
     }
 }
