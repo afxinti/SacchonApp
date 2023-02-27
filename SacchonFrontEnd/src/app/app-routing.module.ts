@@ -5,8 +5,7 @@ import { MyAccountComponent } from './my-account/my-account.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 
 const routes: Routes = [
-  { path: 'my-account', component: MyAccountComponent},
-  { path: 'dashboard', component: DashboardComponent}
+  { path: 'dashboard', component: DashboardComponent},
   { path: 'my-account', component: MyAccountComponent},
   { path: 'consultations-list', component: ConsultationsListComponent}
   //   { path: 'user', component: UserComponent}, 

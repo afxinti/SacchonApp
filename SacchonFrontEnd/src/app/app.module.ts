@@ -22,8 +22,6 @@ import { ConsultationsListComponent } from './consultations-list/consultations-l
     StatisticsDciComponent,
     WarningComponent,
     LastConsoltationComponent,
-    MyAccountComponent,
-    SidebarComponent
     SidebarComponent,
     ConsultationsListComponent
   ],
