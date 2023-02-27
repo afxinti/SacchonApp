@@ -8,13 +8,13 @@ import { PatientService } from '../services/patient.service';
 })
 export class ConsultationsListComponent implements OnInit{
 
-  patient: any;
+  consultation: any;
 
   constructor(private service: PatientService) { } 
   
   ngOnInit(): void {
-    this.patient = this.service.getPatientsConsultations().subscribe({ 
-      next: res => this.patient = res }); 
+    this.consultation = this.service.getPatientsConsultations().subscribe({ 
+      next: res => this.consultation = res }); 
   }
 
 

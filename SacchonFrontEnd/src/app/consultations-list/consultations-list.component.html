@@ -1,4 +1,23 @@
-<p>consultations-list works!</p>
-<div>
-    <pre>{{patient|json}}</pre>
-</div>
+<table class="table table-striped">
+    <thead style="background-color: #092349; color: white;">
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Medication Name</th>
+            <th scope="col">Dosage</th>
+            <th scope="col">Date</th>
+            <th scope="col">Doctor ID</th>
+            <th scope="col">Notes</th>
+
+        </tr>
+    </thead>
+    <tbody style="background-color: #D7E0FF" *ngFor="let cons of consultation">
+        <tr>
+            <th scope="row"> {{ cons.id }} </th>
+            <td> {{ cons.nameOfMedication }} </td>
+            <td> {{ cons.dosage }} </td>
+            <td> {{ cons.date }} </td>
+            <td> {{ cons.doctor_id }} </td>
+            <td> {{ cons.notes }} </td>
+        </tr>
+
+</table>
