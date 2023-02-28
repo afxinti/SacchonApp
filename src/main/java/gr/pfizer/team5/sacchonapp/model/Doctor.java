@@ -13,15 +13,21 @@ import java.util.Set;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
+@Table(name = "Doctors")
+
 public class Doctor {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-
+    @Column(name = "Email")
     private String email;
+    @Column(name = "Username")
     private String username;
+    @Column(name = "Password")
     private String password;
+    @Column(name = "FirstName")
     private String firstName;
+    @Column(name = "LastName")
     private String lastName;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "currentDoctor")
