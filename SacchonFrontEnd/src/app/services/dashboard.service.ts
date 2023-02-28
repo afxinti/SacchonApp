@@ -15,7 +15,7 @@ export class DashboardService {
   }
 
   getBGLStatistics(val1: any, val2: any) {
-    const url = 'http://localhost:9000/bgl/avg/between-dates';
+    const url = 'http://localhost:9000/bgl/2/avg/between-dates';
 
     let queryParams = new HttpParams();
     queryParams = queryParams.append('startDate', val1);
@@ -24,7 +24,7 @@ export class DashboardService {
   }
 
   getDCIStatistics(val1: any, val2: any) {
-    const url = 'http://localhost:9000/dci/avg/between-dates';
+    const url = 'http://localhost:9000/dci/2/avg/between-dates';
 
     let queryParams = new HttpParams();
     queryParams = queryParams.append('startDate', val1);
