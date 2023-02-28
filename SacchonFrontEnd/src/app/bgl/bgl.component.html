@@ -91,7 +91,7 @@
                 <td>{{ bgl.date }}</td>
                 <td>{{ bgl.time }}</td>
                 <td>
-                    <button type="button" class="btn" title="Edit" (click)="getBGLById(bgl.id)" data-toggle="tooltip"><i
+                    <button type="button" class="btn" title="Edit" (click)="getBGLById(bgl.id)" routerLink="/bgl/edit" data-toggle="tooltip"><i
                             class="material-icons">&#xE254;</i></button>
                     <button type="button" class="btn btnDelete" (click)="deleteBGL(bgl.id)" value="Reload Page"
                         onClick="window.location.reload(true)" title="Delete" data-toggle="tooltip"><i
@@ -101,7 +101,7 @@
         </tr>
     </tbody>
 </table>
-<pre>{{ bglbyid | json }}</pre>
+<!-- <pre>{{ bglbyid | json }}</pre> -->
 
 
 <!-- <!DOCTYPE html>

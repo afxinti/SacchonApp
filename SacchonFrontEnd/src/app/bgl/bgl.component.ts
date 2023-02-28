@@ -36,8 +36,13 @@ export class BglComponent implements OnInit {
 
   getBGLById(id: string) {
     this.bglbyid = this.service.getById(id).subscribe({
-      next: res => this.bglbyid = res,
-  
+      next: res => {this.bglbyid = res;
+        localStorage.setItem("bglid", this.bglbyid.id);
+        localStorage.setItem("bgldate", this.bglbyid.date);
+        localStorage.setItem("bgltime", this.bglbyid.time);
+      }
+    
+
     });
   }
 }

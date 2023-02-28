@@ -39,15 +39,15 @@ export class BglEditComponent implements OnInit, AfterViewInit {
 
 
     this.createForm = this.fb.group({
-      measurement: ["", [Validators.required]],
-      date: ["", [Validators.required]],
-      time: ["", [Validators.required]]
+      measurement: [localStorage.getItem("bglid"),  [Validators.required]],
+      date: [localStorage.getItem("bgldate"), [Validators.required]],
+      time: [localStorage.getItem("bgltime"), [Validators.required]]
     })
   }
   // this.bglbyid?.bglbyid.id
   updateBGL() {
     const data = {
-      id: 14, 
+      id: localStorage.getItem("bglid"), 
       measurement: this.createForm.get('measurement').value,
       date: this.createForm.get('date').value,
       time: this.createForm.get('time').value,
