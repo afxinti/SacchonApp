@@ -1,21 +1,23 @@
 <header class="bg-custom-2 p-3 ps-4">
   <h1>Sacchon</h1>
 </header>
+
 <div class="row">
-  <div class = "col-2 p-0" style="background-color: #D7E0FF;">
+  <div class="col-2 p-0" style="background-color: #D7E0FF;">
     <app-sidebar></app-sidebar>
   </div>
-  <div class = "col-10">
-    <router-outlet></router-outlet>
+  <div class="col-10">
+    <div style="height: 100vh;">
+      <router-outlet></router-outlet>
 
-    
+
+      <div class="m-5" style="position: fixed;   bottom: 0;  width: 100%;">
+        <footer>
+          <hr>
+          <small>Powered by Team_5 2023&copy;</small>
+        </footer>
+      </div>
+    </div>
+
   </div>
 </div>
-
-<div class = "m-5">
-  <footer>
-    <hr>
-    <small>Powered by Team_5 2023&copy;</small>
-  </footer>
-</div>
-
