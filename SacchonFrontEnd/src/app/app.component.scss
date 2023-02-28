@@ -6,3 +6,9 @@ h1{
     color: #ffffff;
     margin: 0px;
     }
+    
+@media (max-width: 1067px) {
+    .col-2 {
+      display: none;
+    }
+  }
