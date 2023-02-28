@@ -1,31 +1,40 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-<div class = "container-fluid">
-<div class="row" style="margin-top: 40px;">
-    <div class="col-9" style="padding-right: 30px;">
-        <h5>Average Daily Blood Glucose Level</h5>
-        <app-statistics-bgl></app-statistics-bgl>
-        <h5>Average Carb Intake</h5>
-        <app-statistics-dci></app-statistics-dci>
+<div class="container-fluid">
+    <!-- <h2 class="title">
+        <span class="title-word title-word-1">Medi</span>
+        <span class="title-word title-word-2">Data</span>
+        <span class="title-word title-word-3">Vault</span>
+      </h2> -->
+    <div class="row" style="margin-top: 30px;">
+        <div class="col-9" style="padding-right: 30px;">
+            <h5>Average Daily Blood Glucose Level</h5>
+            <app-statistics-bgl></app-statistics-bgl>
+            <h5>Average Carb Intake</h5>
+            <app-statistics-dci></app-statistics-dci>
 
-    </div>
-    <div class="col-3">
+        </div>
+        <div class="col-3">
 
-        <app-warning> </app-warning>
+            <app-warning> </app-warning>
 
-        
-        <h5>Current Doctor</h5>
-        <div class="card Account" style="background-color: #D7E0FF;">
-            <div class="card-body">
-                <svg xmlns="http://www.w3.org/2000/svg" style="display: block; margin: auto" width="70" height="70" viewBox="0 0 448 512"><!--! Font Awesome Pro 6.3.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M224 256A128 128 0 1 0 224 0a128 128 0 1 0 0 256zm-96 55.2C54 332.9 0 401.3 0 482.3C0 498.7 13.3 512 29.7 512H418.3c16.4 0 29.7-13.3 29.7-29.7c0-81-54-149.4-128-171.1V362c27.6 7.1 48 32.2 48 62v40c0 8.8-7.2 16-16 16H336c-8.8 0-16-7.2-16-16s7.2-16 16-16V424c0-17.7-14.3-32-32-32s-32 14.3-32 32v24c8.8 0 16 7.2 16 16s-7.2 16-16 16H256c-8.8 0-16-7.2-16-16V424c0-29.8 20.4-54.9 48-62V304.9c-6-.6-12.1-.9-18.3-.9H178.3c-6.2 0-12.3 .3-18.3 .9v65.4c23.1 6.9 40 28.3 40 53.7c0 30.9-25.1 56-56 56s-56-25.1-56-56c0-25.4 16.9-46.8 40-53.7V311.2zM144 448a24 24 0 1 0 0-48 24 24 0 1 0 0 48z"/></svg>
-                
-                <h3 class="card-title" style="margin-top: 15px; text-align:center">{{ doctor.firstName }} {{
-                    doctor.lastName }}</h3>
+
+            <h5>Current Doctor</h5>
+            <div class="card Account" style="background-color: #D7E0FF;">
+                <div class="card-body">
+                    <svg xmlns="http://www.w3.org/2000/svg" style="display: block; margin: auto" width="70" height="70"
+                        viewBox="0 0 448 512"><!--! Font Awesome Pro 6.3.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
+                        <path
+                            d="M224 256A128 128 0 1 0 224 0a128 128 0 1 0 0 256zm-96 55.2C54 332.9 0 401.3 0 482.3C0 498.7 13.3 512 29.7 512H418.3c16.4 0 29.7-13.3 29.7-29.7c0-81-54-149.4-128-171.1V362c27.6 7.1 48 32.2 48 62v40c0 8.8-7.2 16-16 16H336c-8.8 0-16-7.2-16-16s7.2-16 16-16V424c0-17.7-14.3-32-32-32s-32 14.3-32 32v24c8.8 0 16 7.2 16 16s-7.2 16-16 16H256c-8.8 0-16-7.2-16-16V424c0-29.8 20.4-54.9 48-62V304.9c-6-.6-12.1-.9-18.3-.9H178.3c-6.2 0-12.3 .3-18.3 .9v65.4c23.1 6.9 40 28.3 40 53.7c0 30.9-25.1 56-56 56s-56-25.1-56-56c0-25.4 16.9-46.8 40-53.7V311.2zM144 448a24 24 0 1 0 0-48 24 24 0 1 0 0 48z" />
+                    </svg>
+
+                    <h3 class="card-title" style="margin-top: 15px; text-align:center">{{ doctor.firstName }} {{
+                        doctor.lastName }}</h3>
+                </div>
             </div>
         </div>
+
     </div>
 
-</div>
-
-<h5>Last Consultation</h5>
-<app-last-consoltation> </app-last-consoltation>
+    <h5>Last Consultation</h5>
+    <app-last-consoltation> </app-last-consoltation>
 </div>

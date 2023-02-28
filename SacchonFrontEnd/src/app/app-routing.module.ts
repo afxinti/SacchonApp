@@ -5,14 +5,13 @@ import { MyAccountComponent } from './my-account/my-account.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 
 const routes: Routes = [
-  { path: 'dashboard', component: DashboardComponent},
   { path: 'my-account', component: MyAccountComponent},
-  { path: 'consultations-list', component: ConsultationsListComponent}
+  { path: 'dashboard', component: DashboardComponent},
   //   { path: 'user', component: UserComponent}, 
   // { path: 'user-list', component: UserListComponent}, 
-  // { path: '', redirectTo: '/home', pathMatch: 'full'}, 
-  // { path: '', component: HomeComponent}, 
-  // { path: '**', component:FileNotFoundComponent}
+  { path: '', redirectTo: '/dashboard', pathMatch: 'full'}, 
+  { path: '', component: DashboardComponent} 
+  { path: 'consultations-list', component: ConsultationsListComponent}
 ];
 
 @NgModule({
