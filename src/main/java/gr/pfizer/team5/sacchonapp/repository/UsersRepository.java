@@ -15,7 +15,7 @@ public interface UsersRepository  extends JpaRepository<Users, Integer>  {
 
 
 
-  @Query("select (count(u) = 0) from Users u where u.username = ?1")
+  @Query("select (count(u) = 1) from Users u where u.username = ?1")
   boolean existsUsersByUsername(String username)throws RecordNotFoundException;
 
   @Query("select u from Users u where u.username = ?1")
