@@ -91,7 +91,7 @@ public class DoctorAdviceServicesImpl implements DoctorAdviceServices {
     //Doctor CRUD Services
     @Override
     public DoctorDto createDoctor(DoctorDto doctorDto) throws RecordNotFoundException {
-        if (usersRepository.existsUsersByUsernameAndPassword(doctorDto.getUsername(),doctorDto.getPassword())) {
+        if (!usersRepository.existsUsersByUsernameAndPassword(doctorDto.getUsername(),doctorDto.getPassword())) {
             Users user = new Users(doctorDto.getUsername(), doctorDto.getPassword(), doctorDto.getAuthority());
             Doctor doc = doctorDto.asDoctor();
             doc.setUser(user);
@@ -157,7 +157,7 @@ public class DoctorAdviceServicesImpl implements DoctorAdviceServices {
     //Chief Doctor CRUD Services
     @Override
     public ChiefDoctorDto createChiefDoctor(ChiefDoctorDto chiefDoctorDto) throws RecordNotFoundException {
-        if (usersRepository.existsUsersByUsernameAndPassword(chiefDoctorDto.getUsername(),chiefDoctorDto.getPassword())) {
+        if (!usersRepository.existsUsersByUsernameAndPassword(chiefDoctorDto.getUsername(),chiefDoctorDto.getPassword())) {
             Users user = new Users(chiefDoctorDto.getUsername(), chiefDoctorDto.getPassword(), chiefDoctorDto.getAuthority());
             ChiefDoctor chief = chiefDoctorDto.asChiefDoctor();
             chief.setUser(user);
