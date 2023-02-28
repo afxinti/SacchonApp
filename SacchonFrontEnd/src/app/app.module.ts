@@ -12,6 +12,9 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { WarningComponent } from './warning/warning.component';
 import { LastConsoltationComponent } from './last-consoltation/last-consoltation.component';
 import { LoadingComponent } from './loading/loading.component';
+import { BglComponent } from './bgl/bgl.component';
+import { BglAddNewComponent } from './bgl-add-new/bgl-add-new.component';
+import { BglEditComponent } from './bgl-edit/bgl-edit.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +27,10 @@ import { LoadingComponent } from './loading/loading.component';
     LastConsoltationComponent,
     MyAccountComponent,
     SidebarComponent,
-    LoadingComponent
+    LoadingComponent,
+    BglComponent,
+    BglAddNewComponent,
+    BglEditComponent
   ],
   imports: [
     BrowserModule,
