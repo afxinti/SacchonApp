@@ -48,6 +48,6 @@ constructor(private service: BglService, private service1: PatientService, priva
       next: res => this.response = res
     });
   } 
-
+  
 }
 

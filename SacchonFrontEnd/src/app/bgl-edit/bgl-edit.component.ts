@@ -57,6 +57,7 @@ export class BglEditComponent implements OnInit, AfterViewInit {
     this.service.update_bgl(data).subscribe({
       next: res => this.response = res
     });
+    
   }
 
 }
