@@ -1,20 +1,21 @@
 <div class="card" style="width: 60rem;">
     <div class="card-body">
-        <form>
-            <legend>Edit Blood Glucose Level</legend>
+        <form [formGroup]="createForm" (ngSubmit)="updateBGL()">
+            <legend>Edit New Blood Glucose Level</legend>
             <div class="mb-3">
-                <label for="exampleInputEmail1" class="form-label">Measurement (mg/dL)</label>
-                <input type="number" step=any class="form-control">
+                <label  class="form-label">Measurement (mg/dL)</label>
+                <input type="number" step=any class="form-control" formControlName="measurement">
             </div>
             <div class="mb-3">
-                <label for="exampleInputPassword1" class="form-label">Date</label>
-                <input type="date" class="form-control">
+                <label  class="form-label">Date</label>
+                <input type="date" class="form-control" formControlName="date">
             </div>
             <div class="mb-3">
-                <label for="exampleInputPassword1" class="form-label">Time</label>
-                <input type="time" class="form-control">
+                <label class="form-label">Time</label>
+                <input type="time" class="form-control" formControlName="time">
             </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <button [disabled]="createForm.invalid" class="btn btn-primary">Update</button>
         </form>
     </div>
 </div>
+<pre>{{ response | json }}</pre>

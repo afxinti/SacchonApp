@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { BglComponent } from '../bgl/bgl.component';
 
 @Injectable({
   providedIn: 'root'
@@ -10,6 +11,11 @@ export class BglService {
 
   get() {
     return this.http.get('http://localhost:8080/bgl');
+  }
+
+  getById(Id: String){
+ 
+    return this.http.get('http://localhost:8080/bgl/' + Id);
   }
 
   delete_bgl(bglid: String){
@@ -26,5 +32,18 @@ create_bgl(data: any){
   
   return this.http.post(url, JSON.stringify(data), {headers:headers});
 }
+
+update_bgl(data: any){
+
+  const url = 'http://localhost:8080/bgl/10';
+
+  const headers =  new HttpHeaders()
+  .set('Content-Type', 'application/json')
+  .set('crossDomain', 'true');
+
+  
+  return this.http.put(url, JSON.stringify(data), {headers:headers});
+}
+
 
 }

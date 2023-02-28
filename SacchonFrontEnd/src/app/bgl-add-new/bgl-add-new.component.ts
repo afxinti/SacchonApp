@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { BglComponent } from '../bgl/bgl.component';
 import { BglService } from '../services/bgl.service';
 import { PatientService } from '../services/patient.service';
 
@@ -11,8 +12,8 @@ import { PatientService } from '../services/patient.service';
 export class BglAddNewComponent implements OnInit{
   
 response: any;
-
 createForm: any;
+
 
 // data =
 // {
@@ -20,7 +21,7 @@ createForm: any;
 //   "job": "leader"
 // }
   
-constructor(private service: BglService, private fb: FormBuilder) { } 
+constructor(private service: BglService, private service1: PatientService, private fb: FormBuilder) { } 
 
   ngOnInit(): void {
   //  this.service.create_bgl(this.data).subscribe({
@@ -36,11 +37,11 @@ constructor(private service: BglService, private fb: FormBuilder) { }
 
   createBGL() {
     const data = {
-      id: 4,
+      id: null,
       measurement: this.createForm.get('measurement').value,
       date:  this.createForm.get('date').value,
       time:  this.createForm.get('time').value,
-      patientId: 1
+      patientId: 2
     }
 
     this.service.create_bgl(data).subscribe({
@@ -49,3 +50,4 @@ constructor(private service: BglService, private fb: FormBuilder) { }
   } 
 
 }
+
