@@ -5,6 +5,6 @@ import gr.pfizer.team5.sacchonapp.dto.UserDto;
 import gr.pfizer.team5.sacchonapp.exception.RecordNotFoundException;
 
 public interface UsersServices {
-    public LoginDto loginUser(UserDto userDto) throws RecordNotFoundException;
-    public void signupUser(UserDto userDto) throws RecordNotFoundException;
+    LoginDto loginUser(UserDto userDto) throws RecordNotFoundException;
+    boolean signupUser(UserDto userDto) throws RecordNotFoundException;
 }

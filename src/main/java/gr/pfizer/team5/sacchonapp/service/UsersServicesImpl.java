@@ -8,7 +8,9 @@ import gr.pfizer.team5.sacchonapp.repository.DoctorRepository;
 import gr.pfizer.team5.sacchonapp.repository.PatientRepository;
 import gr.pfizer.team5.sacchonapp.repository.UsersRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Service;
 
+@Service
 @AllArgsConstructor
 public class UsersServicesImpl implements UsersServices{
     private final PatientRepository patientRepository;
@@ -27,7 +29,8 @@ public class UsersServicesImpl implements UsersServices{
             return new LoginDto(false, null);
         }
     }
-        public void signupUser(UserDto userDto) throws RecordNotFoundException {
+        public boolean signupUser(UserDto userDto) throws RecordNotFoundException {
+            boolean action = true;
             String username = userDto.getUsername();
             if (usersRepository.findByUsername(username) != null) {
                 throw new RecordNotFoundException("Username already exists");
@@ -53,8 +56,9 @@ public class UsersServicesImpl implements UsersServices{
                     chiefDoctorRepository.save(chief);
                     break;
                 default:
-                    throw new RecordNotFoundException("Invalid user authority");
+                    action = false;
             }
+            return action;
         }
         //2 CONTROLLERS GIA LOGIN+SIGN UP + OTI QUERY SE USERSERVICE GIA FINDUSERNAME&PASSWORD TRUE
     }
