@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 @AllArgsConstructor
 public class UserController {
     private final UsersServices userServices;
-    @GetMapping("/login/patient")
+    @GetMapping("/login")
     public LoginDto loginUser(@RequestBody UserDto userDto) throws RecordNotFoundException {
         return userServices.loginUser(userDto);
     }
