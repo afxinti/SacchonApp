@@ -11,6 +11,7 @@ import { StatisticsDciComponent } from './statistics-dci/statistics-dci.componen
 import { ReactiveFormsModule } from '@angular/forms';
 import { WarningComponent } from './warning/warning.component';
 import { LastConsoltationComponent } from './last-consoltation/last-consoltation.component';
+import { LoadingComponent } from './loading/loading.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { LastConsoltationComponent } from './last-consoltation/last-consoltation
     WarningComponent,
     LastConsoltationComponent,
     MyAccountComponent,
-    SidebarComponent
+    SidebarComponent,
+    LoadingComponent
   ],
   imports: [
     BrowserModule,
