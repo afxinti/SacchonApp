@@ -10,6 +10,7 @@ const routes: Routes = [
   { path: 'bgl', component: BglComponent},
   { path: 'bgl/new', component: BglAddNewComponent},
   { path: 'bgl/edit', component: BglEditComponent}
+  
   //   { path: 'user', component: UserComponent},  
   // { path: 'user-list', component: UserListComponent},  
   // { path: '', redirectTo: '/home', pathMatch: 'full'},  
