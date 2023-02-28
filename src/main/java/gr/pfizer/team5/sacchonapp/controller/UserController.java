@@ -11,12 +11,14 @@ import org.springframework.web.bind.annotation.*;
 @AllArgsConstructor
 public class UserController {
     private final UsersServices userServices;
-    @GetMapping("/login")
+    @PostMapping("/login")
     public LoginDto loginUser(@RequestBody UserDto userDto) throws RecordNotFoundException {
         return userServices.loginUser(userDto);
     }
-    @PostMapping("/signup")
-        public boolean signupUser(@RequestBody UserDto userDto) throws RecordNotFoundException {
-        return userServices.signupUser(userDto);
-    }
+
+    //Second way for signup
+//    @PostMapping("/signup")
+//        public boolean signupUser(@RequestBody UserDto userDto) throws RecordNotFoundException {
+//        return userServices.signupUser(userDto);
+//    }
 }

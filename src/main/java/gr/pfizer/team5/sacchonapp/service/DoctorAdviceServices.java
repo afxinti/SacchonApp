@@ -18,7 +18,7 @@ public interface DoctorAdviceServices {
 
     // Doctor CRUD
 
-    DoctorDto createDoctor(DoctorDto doctor);
+    DoctorDto createDoctor(DoctorDto doctor) throws RecordNotFoundException;
     List<DoctorDto> readDoctor();
     DoctorDto readDoctor(int id) throws RecordNotFoundException;
     boolean updateDoctor(DoctorDto doctor, int id);
@@ -27,7 +27,7 @@ public interface DoctorAdviceServices {
 
     // Chief Doctor CRUD
 
-    ChiefDoctorDto createChiefDoctor(ChiefDoctorDto chiefdoctor);
+    ChiefDoctorDto createChiefDoctor(ChiefDoctorDto chiefdoctor) throws RecordNotFoundException;
     List<ChiefDoctorDto> readChiefDoctor();
     ChiefDoctorDto readChiefDoctor(int id) throws RecordNotFoundException;
     boolean updateChiefDoctor(ChiefDoctorDto chiefdoctor, int id);
