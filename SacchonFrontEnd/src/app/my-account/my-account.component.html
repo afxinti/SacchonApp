@@ -1,23 +1,39 @@
-<h5>My Account</h5>
 
-<div class="card Account m-3" >
-    <div class="card-body">
-      <div class="row">
-        <div class="col-1">
-          <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
-            <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
-            <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
-          </svg>
-        </div>
-        <div class="col-11">
-          <h3 class="card-title">{{ patient.firstName }} {{ patient.lastName }}</h3>
+<head>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+</head>
+<body>
+  <div class="container-fluid">
+    <div class="card Account m-3">
+      <div class="card-header">
+        <div class="row align-items-center">
+          <div class="col-auto">
+            <i class="fas fa-user-circle fa-3x"></i>
+          </div>
+          <div class="col">
+            <h3 class="ml-3 my-3">{{ patient.firstName }} {{ patient.lastName }}</h3>
+          </div>
+          <div class="col-auto">
+            <button class="btn btn-danger" (click)="onDelete()">
+              <i class="fas fa-trash"></i>
+              Delete Account
+            </button>
+          </div>
         </div>
       </div>
-            
-      <p class="card-text">Username: {{ patient.username }} </p>
-      <p class="card-text">Amka Code: {{ patient.amkaCode }} </p>
-      <p class="card-text">Date of Birth: {{ patient.dateOfBirth }} </p>
-      <p *ngIf="patient.doctorId" class="card-text">Doctor ID: {{ patient.doctorId }} </p>
-      <!-- <button class="btn delete" (click)="deleteAccount()"> Delete Account </button> -->
+      <div class="card-body">
+        <div class="row">
+          <div class="col-6">
+            <p class="card-text"><strong>Username:</strong> {{ patient.username }}</p>
+            <p class="card-text"><strong>Amka Code:</strong> {{ patient.amkaCode }}</p>
+            <p class="card-text"><strong>Date of Birth:</strong> {{ patient.dateOfBirth }}</p>
+            <p *ngIf="patient.doctorId" class="card-text">Doctor ID: {{ patient.doctorId }} </p>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
+  
+</body>
+
+

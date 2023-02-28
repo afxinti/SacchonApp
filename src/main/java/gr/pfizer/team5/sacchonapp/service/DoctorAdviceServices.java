@@ -3,9 +3,7 @@ package gr.pfizer.team5.sacchonapp.service;
 
 import gr.pfizer.team5.sacchonapp.dto.*;
 import gr.pfizer.team5.sacchonapp.exception.RecordNotFoundException;
-import java.time.LocalDate;
 import java.util.List;
-import java.util.Map;
 
 public interface DoctorAdviceServices {
     String ping();
@@ -25,6 +23,7 @@ public interface DoctorAdviceServices {
     DoctorDto readDoctor(int id) throws RecordNotFoundException;
     boolean updateDoctor(DoctorDto doctor, int id);
     boolean deleteDoctor(int id) ;
+
 
     // Chief Doctor CRUD
 
@@ -49,6 +48,7 @@ public interface DoctorAdviceServices {
 
     List<PatientDto> getPatientsWithNoConsultationInTheLastMonth(int id);
 
+    ConsultationDto getLastConsultationOfPatient(int id);
 
-
+    PatientDto choosePatient(int doctorId, int patientId) throws RecordNotFoundException;
 }

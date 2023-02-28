@@ -1,0 +1,33 @@
+<div class="card Statistics" style="margin-bottom: 25px;">
+    <div class="card-body">
+        <form [formGroup]="createForm" (ngSubmit)="getDCIStatistics()" class="form">
+            <div class="row">
+                <div class="col-5">
+                    <p style="color: white;"> Choose a Start Date: </p>
+                    <input type="date" formControlName="startDate" class="form-control mb-1">
+                    <small class="alert alert-danger" *ngIf="startDate.hasError('required') && startDate.touched">Start Date is required</small>
+                </div>
+                <div class="col-5">
+                    <p style="color: white;"> Choose an End Date: </p>
+                    <input type="date" formControlName="endDate" class="form-control mb-1" >
+                    <small class="alert alert-danger" *ngIf="endDate.hasError('required') && endDate.touched">End Date is required</small>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-9">
+                    <button [disabled]="createForm.invalid" class="btn btn-primary" style="color: white; border: 1px solid white; width: 30%; margin-top:10px; background-color: #092349;">Calculate</button>
+                </div>
+            </div>
+        </form>
+
+        <div class="row" style="margin-top: 35px;" *ngIf="response">
+            <div class="col-8">
+                <h2 class="card-title"> Average Carb Intake: </h2>
+            </div>
+            <div class="col-3" >
+                <h1  class="card-title" style="float:right"> {{ response | number:'1.2-2' }} </h1>
+                
+            </div>
+        </div>
+
+    </div>

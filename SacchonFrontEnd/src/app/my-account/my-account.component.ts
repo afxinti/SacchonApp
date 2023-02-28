@@ -18,13 +18,29 @@ export class MyAccountComponent implements OnInit{
   }
 
 
-  deleteAccount() {
-    this.service.delete_account().subscribe({
-      next: response => {
-        this.patient = response;
-      },
-      error: err => { console.log(err.message )}
-    });
+  onDelete(): void {
+    const confirmation = confirm('Are you sure you want to delete this account?');
+    if (confirmation) {
+      this.service.delete_account().subscribe(
+        () => {
+          alert('Account deleted successfully.');
+          // Add any additional functionality here to update the UI as needed
+        },
+        error => {
+          alert('An error occurred while deleting the account.');
+          console.error(error);
+        }
+      );
+    }
   }
-
 }
+      
+  
+
+
+
+
+
+
+
+

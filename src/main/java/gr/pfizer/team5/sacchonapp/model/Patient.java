@@ -15,11 +15,11 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "Patient")
-public class Patient {
+public class Patient{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @Column(name="Username",unique = true)
+    @Column(name="Username")
     private String username;
     @Column(name = "Password")
     private String password;
@@ -34,15 +34,21 @@ public class Patient {
     private LocalDate dateOfBirth;
     @Column(name = "Has_recordings")
     private boolean hasRecordings;
+    @Column(name = "Has_ModifiedConsultation")
     private boolean warning_modifiedconsultation;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name ="doctor_id",referencedColumnName="id")
     private Doctor currentDoctor;
-    @OneToMany(mappedBy="patient")
+    @OneToMany(mappedBy="patient", cascade = CascadeType.ALL)
     private List<Consultation> consultations;
-    @OneToMany(mappedBy="patient")
-    private List<DailyCarbonatesIntake> dailyCarbonatesIntakes;
-    @OneToMany(mappedBy="patient")
-    private List<DailyCarbonatesIntake> bloodGlucoseLevel;
 
+    @OneToMany(mappedBy="patient", cascade = CascadeType.ALL)
+    private List<DailyCarbonatesIntake> dailyCarbonatesIntakes;
+
+    @OneToMany(mappedBy="patient", cascade = CascadeType.ALL)
+    private List<BloodGlucoseLevel> bloodGlucoseLevels;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_id")
+    private Users user;
 }

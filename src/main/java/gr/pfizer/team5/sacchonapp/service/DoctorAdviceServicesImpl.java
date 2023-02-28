@@ -1,14 +1,11 @@
 package gr.pfizer.team5.sacchonapp.service;
 
 import gr.pfizer.team5.sacchonapp.dto.*;
-import gr.pfizer.team5.sacchonapp.dto.ChiefDoctorDto;
-import gr.pfizer.team5.sacchonapp.dto.ConsultationDto;
-import gr.pfizer.team5.sacchonapp.dto.DoctorDto;
-import gr.pfizer.team5.sacchonapp.dto.PatientDto;
 import gr.pfizer.team5.sacchonapp.exception.RecordNotFoundException;
 import gr.pfizer.team5.sacchonapp.model.ChiefDoctor;
 import gr.pfizer.team5.sacchonapp.model.Consultation;
 import gr.pfizer.team5.sacchonapp.model.Doctor;
+import gr.pfizer.team5.sacchonapp.model.Patient;
 import gr.pfizer.team5.sacchonapp.repository.*;
 import gr.pfizer.team5.sacchonapp.repository.ChiefDoctorRepository;
 import gr.pfizer.team5.sacchonapp.repository.ConsultationRepository;
@@ -19,7 +16,6 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.util.*;
 import java.util.stream.Collectors;
-
 
 import static java.time.temporal.ChronoUnit.DAYS;
 
@@ -33,6 +29,8 @@ public class DoctorAdviceServicesImpl implements DoctorAdviceServices {
     private final PatientRepository patientRepository;
     private final BGLRepository BGLRepository;
     private final DCIRepository DCIRepository;
+    private final MediDataVaultServicesImpl mediDataVaultService;
+
 
     @Override
     public String ping() {
@@ -40,12 +38,13 @@ public class DoctorAdviceServicesImpl implements DoctorAdviceServices {
     }
 
 
+
     // Consultation CRU Services
     @Override
     public ConsultationDto createConsultation(ConsultationDto consultationDto) {
         //validation
         Consultation consultation = consultationDto.asConsultation();
-        return new ConsultationDto(consultationRepository.save(consultation));
+        return new ConsultationDto(consultationRepository.save(consultation)) ;
 
     }
 
@@ -60,13 +59,13 @@ public class DoctorAdviceServicesImpl implements DoctorAdviceServices {
 
     @Override
     public ConsultationDto readConsultation(int id) throws RecordNotFoundException {
-        return new ConsultationDto(readConsultationDb(id));
+        return new ConsultationDto( readConsultationDb(id));
     }
 
     private Consultation readConsultationDb(int id) throws RecordNotFoundException {
         Optional<Consultation> consultationOptional = consultationRepository.findById(id);
         if (consultationOptional.isPresent())
-            return consultationOptional.get();
+            return consultationOptional.get() ;
         throw new RecordNotFoundException("Consultation not found id= " + id);
     }
 
@@ -90,6 +89,7 @@ public class DoctorAdviceServicesImpl implements DoctorAdviceServices {
     }
 
 
+
     //Doctor CRUD Services
     @Override
     public DoctorDto createDoctor(DoctorDto doctorDto) {
@@ -107,16 +107,16 @@ public class DoctorAdviceServicesImpl implements DoctorAdviceServices {
                 .collect(Collectors.toList());
     }
 
-    public DoctorDto readDoctor(int id) throws RecordNotFoundException {
-        return new DoctorDto(readDoctorDb(id));
-    }
+        public DoctorDto readDoctor(int id) throws RecordNotFoundException {
+            return new DoctorDto( readDoctorDb(id));
+        }
 
-    private Doctor readDoctorDb(int id) throws RecordNotFoundException {
-        Optional<Doctor> doctorOptional = docRepository.findById(id);
-        if (doctorOptional.isPresent())
-            return doctorOptional.get();
-        throw new RecordNotFoundException("Doctor not found id= " + id);
-    }
+        private Doctor readDoctorDb(int id) throws RecordNotFoundException {
+            Optional<Doctor> doctorOptional = docRepository.findById(id);
+            if (doctorOptional.isPresent())
+                return doctorOptional.get();
+            throw new RecordNotFoundException("Doctor not found id= " + id);
+        }
 
     @Override
     public boolean updateDoctor(DoctorDto doctor, int id) {
@@ -149,6 +149,7 @@ public class DoctorAdviceServicesImpl implements DoctorAdviceServices {
     }
 
 
+
     //Chief Doctor CRUD Services
     @Override
     public ChiefDoctorDto createChiefDoctor(ChiefDoctorDto chiefDoctorDto) {
@@ -167,7 +168,7 @@ public class DoctorAdviceServicesImpl implements DoctorAdviceServices {
     }
 
     public ChiefDoctorDto readChiefDoctor(int id) throws RecordNotFoundException {
-        return new ChiefDoctorDto(readChiefDoctorDb(id));
+        return new ChiefDoctorDto( readChiefDoctorDb(id));
     }
 
     private ChiefDoctor readChiefDoctorDb(int id) throws RecordNotFoundException {
@@ -208,10 +209,11 @@ public class DoctorAdviceServicesImpl implements DoctorAdviceServices {
     }
 
 
+
     //Other Services
 
     //view patient record
-    public List<PatientDto> getPatientsOfDoctor(int id) {
+    public List<PatientDto> getPatientsOfDoctor(int id){
         return patientRepository.getPatientsOfDoctor(id)
                 .stream()
                 .map(PatientDto::new)
@@ -244,15 +246,26 @@ public class DoctorAdviceServicesImpl implements DoctorAdviceServices {
     }
 
 
-    public List<PatientDto> getPatientsWithNoConsultationInTheLastMonth(int id) {
+    public List<PatientDto> getPatientsWithNoConsultationInTheLastMonth(int id){
         List<PatientDto> PatientsWithNoConsultationInTheLastMonth = new ArrayList<>();
-        for (PatientDto p : getPatientsOfDoctor(id)) {
-            Consultation c = consultationRepository.getPatientsLastConsultation(p.getId());
-            if (DAYS.between(c.getDate(), LocalDate.now()) > 30)
+        for(PatientDto p : getPatientsOfDoctor(id)) {
+            Consultation c = consultationRepository.getLastConsultationOfPatient(p.getId());
+            if (DAYS.between(c.getDate(), LocalDate.now())>30)
                 PatientsWithNoConsultationInTheLastMonth.add(p);
         }
         return PatientsWithNoConsultationInTheLastMonth;
     }
 
-}
+    public ConsultationDto getLastConsultationOfPatient(int id) {
+        return new ConsultationDto(consultationRepository.getLastConsultationOfPatient(id));
+    }
 
+
+
+    public PatientDto choosePatient(int doctorId,int patientId) throws RecordNotFoundException {
+        Patient p = mediDataVaultService.readPatient(patientId).asPatient();
+        Doctor d  = readDoctorDb(doctorId);
+        p.setCurrentDoctor(d);
+        return new PatientDto(p);
+    }
+}

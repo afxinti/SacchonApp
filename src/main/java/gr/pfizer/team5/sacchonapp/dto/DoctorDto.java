@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.List;
+import java.util.Set;
 
 @Setter
 @Getter
@@ -18,7 +19,6 @@ public class DoctorDto {
     private String password;
     private String firstName;
     private String lastName;
-    private List<Patient> managedPatients;
 
     public DoctorDto(Doctor doctor){
         if (doctor!= null){
@@ -27,7 +27,6 @@ public class DoctorDto {
             lastName = doctor.getLastName();
             email = doctor.getEmail();
             password = doctor.getPassword();
-            managedPatients = doctor.getManagedPatients();
         }
     }
     public Doctor asDoctor(){
@@ -37,7 +36,6 @@ public class DoctorDto {
         doctor.setLastName(lastName);
         doctor.setEmail(email);
         doctor.setPassword(password);
-        doctor.setManagedPatients(managedPatients);
         return doctor;
     }
 }

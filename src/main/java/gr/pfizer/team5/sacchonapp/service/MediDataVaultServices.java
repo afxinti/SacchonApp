@@ -2,6 +2,7 @@ package gr.pfizer.team5.sacchonapp.service;
 
 import gr.pfizer.team5.sacchonapp.dto.BGL_Dto;
 import gr.pfizer.team5.sacchonapp.dto.DCI_Dto;
+import gr.pfizer.team5.sacchonapp.dto.WarningDto;
 import gr.pfizer.team5.sacchonapp.exception.RecordNotFoundException;
 import gr.pfizer.team5.sacchonapp.dto.PatientDto;
 import java.time.LocalDate;
@@ -17,7 +18,7 @@ public interface MediDataVaultServices {
     boolean updatePatient(PatientDto patient,int id);
     boolean deletePatient(int id);
     void updateWarning(int id);
-    String warnPatientAboutModifiedConsultation(int id);
+    WarningDto warnPatientAboutModifiedConsultation(int id);
 
 
     //BGL CRU
@@ -26,7 +27,7 @@ public interface MediDataVaultServices {
     List<BGL_Dto> readBGL();
     BGL_Dto readBGL(int id) throws RecordNotFoundException;
     boolean updateBGL(BGL_Dto consultation, int id);
-
+    boolean deleteBGL(int id);
 
     //DCI CRU
 
@@ -34,9 +35,8 @@ public interface MediDataVaultServices {
     List<DCI_Dto> readDCI();
     DCI_Dto readDCI(int id) throws RecordNotFoundException;
     boolean updateDCI(DCI_Dto dci_dto, int id);
-    List<DCI_Dto> getDCIBetweenDates(LocalDate startDate, LocalDate endDate);
-    List<BGL_Dto> getBGLBetweenDates(LocalDate startDate, LocalDate endDate);
-    Double getAverageDCIBetweenDates(LocalDate startDate, LocalDate endDate);
-    Double getAverageBGLBetweenDates(LocalDate startDate, LocalDate endDate);
+    boolean deleteDCI(int id);
+    Double getAverageDCIBetweenDates(int id,LocalDate startDate, LocalDate endDate);
+    Double getAverageBGLBetweenDates(int id,LocalDate startDate, LocalDate endDate);
 
 }

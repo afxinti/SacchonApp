@@ -65,26 +65,26 @@ public class DoctorAdviceRestController {
         //log.info("The end point ConsultationDto has been used");
         return doctorAdviceServices.readDoctor();
     }
-
     @GetMapping("/doctor/{id}")
-    public DoctorDto getDoctorDto(@PathVariable(name = "id") int id) throws RecordNotFoundException {
+    public DoctorDto getDoctorDto(@PathVariable(name="id") int id) throws RecordNotFoundException {
         //log.info("The end point ConsultationDto has been used");
         return doctorAdviceServices.readDoctor(id);
     }
 
-    @PostMapping("/doctor_create")
+
+    @PostMapping("/doctor")
     public DoctorDto createDoctorDto(@RequestBody DoctorDto doctorDto) {
         //log.info("The end point product has been used");
         return doctorAdviceServices.createDoctor(doctorDto);
     }
 
-    @PutMapping("/doctor_update/{id}")
+    @PutMapping("/doctor/{id}")
     public boolean updateDoctorDto(@RequestBody DoctorDto doctorDto,
                                    @PathVariable(name = "id") int id) {
         return doctorAdviceServices.updateDoctor(doctorDto, id);
     }
 
-    @DeleteMapping("/doctor_delete/{id}")
+    @DeleteMapping("/doctor/{id}")
     public boolean deleteDoctorDto(@PathVariable(name = "id") int id) {
 
         return doctorAdviceServices.deleteDoctor(id);
@@ -114,7 +114,7 @@ public class DoctorAdviceRestController {
         return doctorAdviceServices.getBGLRecordsOfPatient(id);
     }
 
-    @GetMapping("/patient/{id}/cdi_records")
+    @GetMapping("/patient/{id}/dci_records")
     public List<DCI_Dto> getDCIRecordsOfPatient(@PathVariable(name = "id") int id)  {
         return doctorAdviceServices.getDCIRecordsOfPatient(id);
     }
@@ -122,6 +122,17 @@ public class DoctorAdviceRestController {
     @GetMapping("/doctor/{id}/patientsnoconsultationlastmonth")
     public  List<PatientDto> getPatientsWithNoConsultationInTheLastMonth(@PathVariable(name = "id") int id)  {
         return doctorAdviceServices.getPatientsWithNoConsultationInTheLastMonth(id);
+    }
+
+    @GetMapping("/patient/{id}/lastconsultation")
+    public ConsultationDto getLastConsultationOfPatient(@PathVariable(name = "id") int id)  {
+        return doctorAdviceServices.getLastConsultationOfPatient(id);
+    }
+
+
+    @GetMapping("/doctor/{doctorId}/choose-patient/{patientId}")
+    public  PatientDto choosePatient(@PathVariable(name = "doctorId") int doctorId, @PathVariable(name = "patientId") int patientId) throws RecordNotFoundException {
+        return doctorAdviceServices.choosePatient(doctorId,patientId);
     }
 
 }

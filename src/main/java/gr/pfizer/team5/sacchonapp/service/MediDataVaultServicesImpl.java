@@ -1,5 +1,7 @@
 package gr.pfizer.team5.sacchonapp.service;
 
+import gr.pfizer.team5.sacchonapp.model.Users;
+import gr.pfizer.team5.sacchonapp.dto.WarningDto;
 import gr.pfizer.team5.sacchonapp.repository.BGLRepository;
 import gr.pfizer.team5.sacchonapp.repository.DCIRepository;
 import gr.pfizer.team5.sacchonapp.dto.BGL_Dto;
@@ -10,6 +12,8 @@ import gr.pfizer.team5.sacchonapp.model.DailyCarbonatesIntake;
 import gr.pfizer.team5.sacchonapp.dto.PatientDto;
 import gr.pfizer.team5.sacchonapp.model.Patient;
 import gr.pfizer.team5.sacchonapp.repository.PatientRepository;
+import gr.pfizer.team5.sacchonapp.repository.UsersRepository;
+
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -20,18 +24,21 @@ import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
-public class MediDataVaultServicesImpl implements MediDataVaultServices{
+public class MediDataVaultServicesImpl implements MediDataVaultServices {
     private final BGLRepository BGLRepository;
     private final DCIRepository DCIRepository;
     private final PatientRepository patientRepository;
+    private final UsersRepository usersRepository;
+
 
     //------------------------------------------------------start of BGL and DCI methods -------------------------------------------------//
 
     @Override
     public BGL_Dto createBGL(BGL_Dto bgl_dto) {
         BloodGlucoseLevel bloodGlucoseLevel = bgl_dto.asBGL();
-        return new BGL_Dto(BGLRepository.save(bloodGlucoseLevel)) ;
+        return new BGL_Dto(BGLRepository.save(bloodGlucoseLevel));
     }
+
     @Override
 
     public List<BGL_Dto> readBGL() {
@@ -41,10 +48,11 @@ public class MediDataVaultServicesImpl implements MediDataVaultServices{
                 .map(BGL_Dto::new)
                 .collect(Collectors.toList());
     }
+
     @Override
 
     public BGL_Dto readBGL(int id) throws RecordNotFoundException {
-        return new BGL_Dto( readBGL_DB(id));
+        return new BGL_Dto(readBGL_DB(id));
     }
 
     private BloodGlucoseLevel readBGL_DB(int id) throws RecordNotFoundException {
@@ -53,6 +61,7 @@ public class MediDataVaultServicesImpl implements MediDataVaultServices{
             return bglOptional.get();
         throw new RecordNotFoundException("Record not found");
     }
+
     @Override
 
     public boolean updateBGL(BGL_Dto bgl_dto, int id) {
@@ -73,14 +82,27 @@ public class MediDataVaultServicesImpl implements MediDataVaultServices{
         return action;
 
     }
+    @Override
+    public boolean deleteBGL(int id) {
+        boolean action;
+        try {
+            BloodGlucoseLevel dbBGL = readBGL_DB(id);
+            BGLRepository.delete(dbBGL);
+            action = true;
+        }catch(RecordNotFoundException e){
+            action = false;
+        }
+        return action;
+    }
 
     //DCI CRU Services
     @Override
 
     public DCI_Dto createDCI(DCI_Dto dci_dto) {
         DailyCarbonatesIntake dailyCarbonatesIntake = dci_dto.asDCI();
-        return new DCI_Dto(DCIRepository.save(dailyCarbonatesIntake)) ;
+        return new DCI_Dto(DCIRepository.save(dailyCarbonatesIntake));
     }
+
     @Override
 
     public List<DCI_Dto> readDCI() {
@@ -91,12 +113,14 @@ public class MediDataVaultServicesImpl implements MediDataVaultServices{
                 .map(DCI_Dto::new)
                 .collect(Collectors.toList());
     }
+
     @Override
 
     public DCI_Dto readDCI(int id) throws RecordNotFoundException {
-        return new DCI_Dto( readDCI_DB(id));
+        return new DCI_Dto(readDCI_DB(id));
 
     }
+
     private DailyCarbonatesIntake readDCI_DB(int id) throws RecordNotFoundException {
         Optional<DailyCarbonatesIntake> dciOptional = DCIRepository.findById(id);
         if (dciOptional.isPresent())
@@ -122,13 +146,24 @@ public class MediDataVaultServicesImpl implements MediDataVaultServices{
         }
         return action;
     }
+
     @Override
-    public List<DCI_Dto> getDCIBetweenDates(LocalDate startDate, LocalDate endDate) {
-        List<DailyCarbonatesIntake> dciList = DCIRepository.findBetweenDatesDCI(startDate, endDate);
-        return dciList.stream().map(DCI_Dto::new).collect(Collectors.toList());
+    public boolean deleteDCI(int id) {
+        boolean action;
+        try {
+            DailyCarbonatesIntake dbDCI = readDCI_DB(id);
+            DCIRepository.delete(dbDCI);
+            action = true;
+        }catch(RecordNotFoundException e){
+            action = false;
+        }
+        return action;
     }
-    public Double getAverageDCIBetweenDates(LocalDate startDate, LocalDate endDate) {
-        List<DailyCarbonatesIntake> dciList = DCIRepository.findBetweenDatesDCI(startDate, endDate);
+
+
+
+    public Double getAverageDCIBetweenDates(int id,LocalDate startDate, LocalDate endDate) {
+        List<DailyCarbonatesIntake> dciList = DCIRepository.findBetweenDatesDCI(id,startDate, endDate);
         if (dciList == null || dciList.isEmpty()) {
             return null;
         }
@@ -139,14 +174,10 @@ public class MediDataVaultServicesImpl implements MediDataVaultServices{
         return sum / dciList.size();
     }
 
+
     @Override
-    public List<BGL_Dto> getBGLBetweenDates(LocalDate startDate, LocalDate endDate) {
-        List<BloodGlucoseLevel> bglList = BGLRepository.findBetweenDatesBGL(startDate, endDate);
-        return bglList.stream().map(BGL_Dto::new).collect(Collectors.toList());
-    }
-    @Override
-    public Double getAverageBGLBetweenDates(LocalDate startDate, LocalDate endDate) {
-        List<BloodGlucoseLevel> bglList = BGLRepository.findBetweenDatesBGL(startDate, endDate);
+    public Double getAverageBGLBetweenDates(int id,LocalDate startDate, LocalDate endDate) {
+        List<BloodGlucoseLevel> bglList = BGLRepository.findBetweenDatesBGL(id,startDate, endDate);
         if (bglList == null || bglList.isEmpty()) {
             return null;
         }
@@ -160,17 +191,21 @@ public class MediDataVaultServicesImpl implements MediDataVaultServices{
 
     @Override
     public boolean loginPatient(PatientDto patientDto) {
-           return  patientRepository.existsExactlyOnePatient(patientDto.getUsername(), patientDto.getPassword());
+           return  usersRepository.existsUsersByUsernameAndPassword(patientDto.getUsername(), patientDto.getPassword());
     }
 
     @Override
+    //second way, singing up users in the already created endpoints
     public PatientDto createPatient(PatientDto patientDto) throws RecordNotFoundException {
+        if (!usersRepository.existsUsersByUsername(patientDto.getUsername())){
+            Users user = new Users(patientDto.getUsername(),patientDto.getPassword(),patientDto.getAuthority());
             Patient patient = patientDto.asPatient();
-            if(!usernameNotAvailable(patient))
-                return new PatientDto(patientRepository.save(patient));
-            throw new RecordNotFoundException("Username already exists");
+            patient.setUser(user);
+            return new PatientDto(patientRepository.save(patient));
+        } else{
+        throw new RecordNotFoundException("Username already exists");}
     }
-      private boolean usernameNotAvailable(Patient patient) throws RecordNotFoundException {
+      private boolean usernameAvailable(Patient patient) throws RecordNotFoundException {
         Optional<Patient> patientOptional = patientRepository.findByUsername(patient.getUsername());
         return patientOptional.isPresent();
     }
@@ -238,15 +273,16 @@ public class MediDataVaultServicesImpl implements MediDataVaultServices{
     }
 
     @Override
-    public String warnPatientAboutModifiedConsultation(int id) {
-        String warning = "No Warnings";
+    public WarningDto warnPatientAboutModifiedConsultation(int id) {
+        WarningDto warning = new WarningDto();
         try {
             Patient p = readPatientData(id);
             if (p.isWarning_modifiedconsultation())
-                warning = "Warning: Your Doctor modified a consultation. Important information must be reviewed";
-        }catch(RecordNotFoundException e){
-        }
-        return warning;
+                warning.setWarningMessage("Your Doctor modified a consultation. Important information must be reviewed");
+        } catch (RecordNotFoundException e) { }
+            return warning;
     }
+
+
 
 }
