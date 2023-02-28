@@ -10,20 +10,20 @@ export class BglService {
   constructor(private http:HttpClient) { }
 
   get() {
-    return this.http.get('http://localhost:8080/bgl');
+    return this.http.get('http://localhost:9000/bgl');
   }
 
   getById(Id: String){
  
-    return this.http.get('http://localhost:8080/bgl/' + Id);
+    return this.http.get('http://localhost:9000/bgl/' + Id);
   }
 
   delete_bgl(bglid: String){
-    return this.http.delete('http://localhost:8080/bgl_delete/' + bglid);
+    return this.http.delete('http://localhost:9000/bgl_delete/' + bglid);
   }
 
 create_bgl(data: any){
-  const url = 'http://localhost:8080/bgl';
+  const url = 'http://localhost:9000/bgl';
 
   const headers =  new HttpHeaders()
   .set('Content-Type', 'application/json')
@@ -35,7 +35,7 @@ create_bgl(data: any){
 
 update_bgl(data: any){
 
-  const url = 'http://localhost:8080/bgl/10';
+  const url = 'http://localhost:9000/bgl/10';
 
   const headers =  new HttpHeaders()
   .set('Content-Type', 'application/json')
