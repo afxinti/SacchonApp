@@ -85,7 +85,6 @@
     </thead>
     <tbody>
         <tr scope="row" id="row1" *ngFor="let dci of dci">
-            <ng-container *ngIf="dci.patientId == 1">
                 <td><b>{{ dci.id }}</b></td>
                 <td><b>{{ dci.measurement }}</b></td>
                 <td><b>{{ dci.date }}</b></td>
@@ -96,7 +95,6 @@
                         onClick="window.location.reload(true)" title="Delete" data-toggle="tooltip"><i
                             class="material-icons">&#xE872;</i></button>
                 </td>
-            </ng-container>
         </tr>
     </tbody>
 </table>

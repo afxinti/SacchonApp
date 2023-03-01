@@ -33,7 +33,6 @@
     </thead>
     <tbody>
         <tr scope="row" id="row1" *ngFor="let bgl of bgl" [class.low-recording]="bgl.measurement < 70">
-            <ng-container *ngIf="bgl.patientId == 1">
                 <td><b>{{ bgl.id }}</b></td>
                 <td><b>{{ bgl.measurement }}</b></td>
                 <td><b>{{ bgl.date }}</b></td>
@@ -45,7 +44,6 @@
                         onClick="window.location.reload(true)" title="Delete" data-toggle="tooltip"><i
                             class="material-icons">&#xE872;</i></button>
                 </td>
-            </ng-container>
         </tr>
     </tbody>
 </table>

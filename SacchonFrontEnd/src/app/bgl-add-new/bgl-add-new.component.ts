@@ -48,7 +48,7 @@ export class BglAddNewComponent implements OnInit {
       measurement: this.createForm.get('measurement').value,
       date: this.createForm.get('date').value,
       time: this.createForm.get('time').value,
-      patientId: 1
+      patientId: 2
     }
 
     this.service.create_bgl(data).subscribe({

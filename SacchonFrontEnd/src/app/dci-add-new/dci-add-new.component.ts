@@ -45,7 +45,7 @@ export class DciAddNewComponent implements OnInit {
       id: null,
       measurement: this.createForm.get('measurement').value,
       date: this.createForm.get('date').value,
-      patientId: 1
+      patientId: 2
     }
 
     this.service.create_dci(data).subscribe({

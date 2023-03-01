@@ -31,7 +31,7 @@ public interface DoctorAdviceServices {
     List<ChiefDoctorDto> readChiefDoctor();
     ChiefDoctorDto readChiefDoctor(int id) throws RecordNotFoundException;
     boolean updateChiefDoctor(ChiefDoctorDto chiefdoctor, int id);
-    boolean deleteChiefDoctor(int id) ;
+    boolean deleteChiefDoctor(int id);
 
 
 

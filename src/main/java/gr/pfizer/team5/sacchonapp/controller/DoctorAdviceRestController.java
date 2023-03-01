@@ -93,8 +93,35 @@ public class DoctorAdviceRestController {
 
     //Chief Doctor Controllers
 
+    @GetMapping("/chief_doctor")
+    public List<ChiefDoctorDto> getChiefDoctorDto() {
+        //log.info("The end point ConsultationDto has been used");
+        return doctorAdviceServices.readChiefDoctor();
+    }
+    @GetMapping("/chief_doctor/{id}")
+    public ChiefDoctorDto getChiefDoctorDto(@PathVariable(name="id") int id) throws RecordNotFoundException {
+        //log.info("The end point ConsultationDto has been used");
+        return doctorAdviceServices.readChiefDoctor(id);
+    }
 
 
+    @PostMapping("/chief_doctor")
+    public ChiefDoctorDto createChiefDoctorDto(@RequestBody ChiefDoctorDto chiefDoctorDto) throws RecordNotFoundException {
+        //log.info("The end point product has been used");
+        return doctorAdviceServices.createChiefDoctor(chiefDoctorDto);
+    }
+
+    @PutMapping("/chief_doctor/{id}")
+    public boolean updateChiefDoctorDto(@RequestBody ChiefDoctorDto chiefDoctorDto,
+                                   @PathVariable(name = "id") int id) {
+        return doctorAdviceServices.updateChiefDoctor(chiefDoctorDto, id);
+    }
+
+    @DeleteMapping("/chief_doctor/{id}")
+    public boolean deleteChiefDoctorDto(@PathVariable(name = "id") int id) {
+
+        return doctorAdviceServices.deleteChiefDoctor(id);
+    }
 
 
     //Other Controllers

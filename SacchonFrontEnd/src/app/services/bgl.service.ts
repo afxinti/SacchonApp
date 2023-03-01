@@ -10,7 +10,7 @@ export class BglService {
   constructor(private http:HttpClient) { }
 
   get() {
-    return this.http.get('http://localhost:9000/bgl/');
+    return this.http.get('http://localhost:9000/patient/2/bgl_records');
   }
 
   getById(Id: String){

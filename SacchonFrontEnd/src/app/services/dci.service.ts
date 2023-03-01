@@ -10,7 +10,7 @@ export class DciService {
   constructor(private http:HttpClient) { }
 
   get() {
-    return this.http.get('http://localhost:9000/dci');
+    return this.http.get('http://localhost:9000/patient/2/dci_records');
   }
 
   getById(Id: String){

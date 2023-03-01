@@ -20,10 +20,10 @@ public class InitialConfiguration {
             Patient pat1 = new Patient(0,"Giannis22","drop12","Giannis","Kourtis",1704930012,LocalDate.of(1993,4,17),false,false,null,null,null,null,new Users("Giannis22","drop12",Authority.PATIENT));
             Patient pat2 = new Patient(0,"Georgia172","koks14","Georgia","Panagi",1012890077,LocalDate.of(1997,5,4),false,false,null,null,null,null,new Users("Georgia172","koks14", Authority.PATIENT));
             patientRepository.saveAll(List.of(pat1,pat2));
-            BloodGlucoseLevel bgl1 = new BloodGlucoseLevel(0, LocalDate.of(2023,1,10), LocalTime.of(12,16),12.0,pat1);
+            BloodGlucoseLevel bgl1 = new BloodGlucoseLevel(0, LocalDate.of(2023,1,10), LocalTime.of(12,16),12.0,pat2);
             BloodGlucoseLevel bgl2 = new BloodGlucoseLevel(0, LocalDate.of(2022,5,13), LocalTime.of(13,20),10.0,pat1);
             BGLRepository.saveAll(List.of(bgl1, bgl2));
-            DailyCarbonatesIntake dci1= new DailyCarbonatesIntake(0,LocalDate.of(2022,12,2),LocalTime.of(10,22),200.0,pat1);
+            DailyCarbonatesIntake dci1= new DailyCarbonatesIntake(0,LocalDate.of(2022,12,2),LocalTime.of(10,22),200.0,pat2);
             DailyCarbonatesIntake dci2= new DailyCarbonatesIntake(0,LocalDate.of(2022,12,14),LocalTime.of(12,17),190.0,pat1);
             DCIRepository.saveAll(List.of(dci1,dci2));
             Doctor doc1 = new Doctor(0,"appdoc@cod.gr","aapdoc","werqr2","Panagiota","Deli", Set.of(pat1,pat2),new Users(0,"aapdoc","werqr2", Authority.DOCTOR));
