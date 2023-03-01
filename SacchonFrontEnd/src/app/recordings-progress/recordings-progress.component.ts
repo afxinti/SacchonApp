@@ -8,16 +8,32 @@ import { DashboardService } from '../services/dashboard.service';
 })
 export class RecordingsProgressComponent implements OnInit {
 
-  @Input() numRecordings: any;
-
+  numRecordings: number = 0;
+  bglrec: number | undefined;
+  dcirec: number | undefined;
 
   constructor(private service: DashboardService) { }
 
-
   ngOnInit(): void {
+    this.service.getNumberofBGLRecords_Progress().subscribe({
+      next: res => {
+        console.log('BGL records:', res);
+        this.bglrec = res as number;
+        this.updateNumRecordings();
+      }
+    });
 
-    // this.numRecordings = this.service.getNumberofRecords_Progress().subscribe({ next: res => this.numRecordings = res });
-
+    this.service.getNumberofDCIRecords_Progress().subscribe({
+      next: res => {
+        this.dcirec = res as number;
+        this.updateNumRecordings();
+      }
+    });
   }
 
+  updateNumRecordings() {
+    if (typeof this.bglrec !== 'undefined' && typeof this.dcirec !== 'undefined') {
+      this.numRecordings = this.bglrec + this.dcirec;
+    }
+  }
 }
