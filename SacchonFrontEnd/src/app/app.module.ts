@@ -15,6 +15,9 @@ import { LoadingComponent } from './loading/loading.component';
 import { BglComponent } from './bgl/bgl.component';
 import { BglEditComponent } from './bgl-edit/bgl-edit.component';
 import { BglAddNewComponent } from './bgl-add-new/bgl-add-new.component';
+import { DciComponent } from './dci/dci.component';
+import { DciAddNewComponent } from './dci-add-new/dci-add-new.component';
+import { DciEditComponent } from './dci-edit/dci-edit.component';
 
 
 @NgModule({
@@ -31,7 +34,10 @@ import { BglAddNewComponent } from './bgl-add-new/bgl-add-new.component';
     LoadingComponent,
     BglComponent,
     BglEditComponent,
-    BglAddNewComponent
+    BglAddNewComponent,
+    DciComponent,
+    DciAddNewComponent,
+    DciEditComponent
   ],
   imports: [
     BrowserModule,
