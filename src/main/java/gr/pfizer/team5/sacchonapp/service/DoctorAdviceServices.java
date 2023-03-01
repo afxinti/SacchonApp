@@ -2,7 +2,7 @@ package gr.pfizer.team5.sacchonapp.service;
 
 
 import gr.pfizer.team5.sacchonapp.dto.*;
-import gr.pfizer.team5.sacchonapp.exception.RecordNotFoundException;
+import gr.pfizer.team5.sacchonapp.exception.CustomException;
 import java.util.List;
 
 public interface DoctorAdviceServices {
@@ -12,24 +12,24 @@ public interface DoctorAdviceServices {
 
     ConsultationDto createConsultation(ConsultationDto consultation);
     List<ConsultationDto> readConsultation();
-    ConsultationDto readConsultation(int id) throws RecordNotFoundException;
+    ConsultationDto readConsultation(int id) throws CustomException;
     boolean updateConsultation(ConsultationDto consultation, int id);
 
 
     // Doctor CRUD
 
-    DoctorDto createDoctor(DoctorDto doctor) throws RecordNotFoundException;
+    DoctorDto createDoctor(DoctorDto doctor) throws CustomException;
     List<DoctorDto> readDoctor();
-    DoctorDto readDoctor(int id) throws RecordNotFoundException;
+    DoctorDto readDoctor(int id) throws CustomException;
     boolean updateDoctor(DoctorDto doctor, int id);
     boolean deleteDoctor(int id) ;
 
 
     // Chief Doctor CRUD
 
-    ChiefDoctorDto createChiefDoctor(ChiefDoctorDto chiefdoctor) throws RecordNotFoundException;
+    ChiefDoctorDto createChiefDoctor(ChiefDoctorDto chiefdoctor) throws CustomException;
     List<ChiefDoctorDto> readChiefDoctor();
-    ChiefDoctorDto readChiefDoctor(int id) throws RecordNotFoundException;
+    ChiefDoctorDto readChiefDoctor(int id) throws CustomException;
     boolean updateChiefDoctor(ChiefDoctorDto chiefdoctor, int id);
     boolean deleteChiefDoctor(int id) ;
 
@@ -50,5 +50,5 @@ public interface DoctorAdviceServices {
 
     ConsultationDto getLastConsultationOfPatient(int id);
 
-    PatientDto choosePatient(int doctorId, int patientId) throws RecordNotFoundException;
+    PatientDto choosePatient(int doctorId, int patientId) throws CustomException;
 }

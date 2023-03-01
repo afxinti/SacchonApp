@@ -6,7 +6,7 @@ import gr.pfizer.team5.sacchonapp.repository.BGLRepository;
 import gr.pfizer.team5.sacchonapp.repository.DCIRepository;
 import gr.pfizer.team5.sacchonapp.dto.BGL_Dto;
 import gr.pfizer.team5.sacchonapp.dto.DCI_Dto;
-import gr.pfizer.team5.sacchonapp.exception.RecordNotFoundException;
+import gr.pfizer.team5.sacchonapp.exception.CustomException;
 import gr.pfizer.team5.sacchonapp.model.BloodGlucoseLevel;
 import gr.pfizer.team5.sacchonapp.model.DailyCarbonatesIntake;
 import gr.pfizer.team5.sacchonapp.dto.PatientDto;
@@ -52,15 +52,15 @@ public class MediDataVaultServicesImpl implements MediDataVaultServices {
 
     @Override
 
-    public BGL_Dto readBGL(int id) throws RecordNotFoundException {
+    public BGL_Dto readBGL(int id) throws CustomException {
         return new BGL_Dto(readBGL_DB(id));
     }
 
-    private BloodGlucoseLevel readBGL_DB(int id) throws RecordNotFoundException {
+    private BloodGlucoseLevel readBGL_DB(int id) throws CustomException {
         Optional<BloodGlucoseLevel> bglOptional = BGLRepository.findById(id);
         if (bglOptional.isPresent())
             return bglOptional.get();
-        throw new RecordNotFoundException("Record not found");
+        throw new CustomException("Record not found");
     }
 
     @Override
@@ -77,7 +77,7 @@ public class MediDataVaultServicesImpl implements MediDataVaultServices {
 //            dbBGL.setPatient(patient);
             BGLRepository.save(dbBGL);
             action = true;
-        } catch (RecordNotFoundException e) {
+        } catch (CustomException e) {
             action = false;
         }
         return action;
@@ -90,7 +90,7 @@ public class MediDataVaultServicesImpl implements MediDataVaultServices {
             BloodGlucoseLevel dbBGL = readBGL_DB(id);
             BGLRepository.delete(dbBGL);
             action = true;
-        }catch(RecordNotFoundException e){
+        }catch(CustomException e){
             action = false;
         }
         return action;
@@ -117,16 +117,16 @@ public class MediDataVaultServicesImpl implements MediDataVaultServices {
 
     @Override
 
-    public DCI_Dto readDCI(int id) throws RecordNotFoundException {
+    public DCI_Dto readDCI(int id) throws CustomException {
         return new DCI_Dto(readDCI_DB(id));
 
     }
 
-    private DailyCarbonatesIntake readDCI_DB(int id) throws RecordNotFoundException {
+    private DailyCarbonatesIntake readDCI_DB(int id) throws CustomException {
         Optional<DailyCarbonatesIntake> dciOptional = DCIRepository.findById(id);
         if (dciOptional.isPresent())
             return dciOptional.get();
-        throw new RecordNotFoundException("Record not found");
+        throw new CustomException("Record not found");
     }
 
     @Override
@@ -142,7 +142,7 @@ public class MediDataVaultServicesImpl implements MediDataVaultServices {
 //            dbDCI.setPatient(patient);
             DCIRepository.save(dbDCI);
             action = true;
-        } catch (RecordNotFoundException e) {
+        } catch (CustomException e) {
             action = false;
         }
         return action;
@@ -155,7 +155,7 @@ public class MediDataVaultServicesImpl implements MediDataVaultServices {
             DailyCarbonatesIntake dbDCI = readDCI_DB(id);
             DCIRepository.delete(dbDCI);
             action = true;
-        }catch(RecordNotFoundException e){
+        }catch(CustomException e){
             action = false;
         }
         return action;
@@ -189,7 +189,7 @@ public class MediDataVaultServicesImpl implements MediDataVaultServices {
         return sum / bglList.size();
     }
     @Override
-    public long isFirstAndLastRecordWithin30Days(int patientId, String recordType) throws RecordNotFoundException {
+    public long isFirstAndLastRecordWithin30Days(int patientId, String recordType) throws CustomException {
         switch (recordType) {
             case "DCI":
                 List<DailyCarbonatesIntake> dciRecords = DCIRepository.findAllByPatientIdOrderByDateAsc(patientId);
@@ -209,11 +209,11 @@ public class MediDataVaultServicesImpl implements MediDataVaultServices {
                 LocalDate bglLastDate = bglRecords.get(bglRecords.size() - 1).getDate();
                 return ChronoUnit.DAYS.between(bglFirstDate, bglLastDate);
             default:
-                throw new RecordNotFoundException("Invalid record type: " + recordType);
+                throw new CustomException("Invalid record type: " + recordType);
         }
     }
     @Override
-    public boolean enoughRecordingsCheck(int patientId,String recordType) throws RecordNotFoundException{
+    public boolean enoughRecordingsCheck(int patientId,String recordType) throws CustomException {
         PatientDto patient = readPatient(patientId);
             if(isFirstAndLastRecordWithin30Days(patientId,recordType)>=30)
             {
@@ -237,14 +237,14 @@ public class MediDataVaultServicesImpl implements MediDataVaultServices {
 
     @Override
     //second way, singing up users in the already created endpoints
-    public PatientDto createPatient(PatientDto patientDto) throws RecordNotFoundException {
+    public PatientDto createPatient(PatientDto patientDto) throws CustomException {
         if (!usersRepository.existsUsersByUsername(patientDto.getUsername())){
             Users user = new Users(patientDto.getUsername(),patientDto.getPassword(),patientDto.getAuthority());
             Patient patient = patientDto.asPatient();
             patient.setUser(user);
             return new PatientDto(patientRepository.save(patient));
         } else{
-        throw new RecordNotFoundException("Username already exists");}
+        throw new CustomException("Username already exists");}
     }
 
     @Override
@@ -258,14 +258,14 @@ public class MediDataVaultServicesImpl implements MediDataVaultServices {
     }
 
     @Override
-    public PatientDto readPatient(int id) throws RecordNotFoundException {
+    public PatientDto readPatient(int id) throws CustomException {
         return new PatientDto(readPatientData(id));
     }
-    private Patient readPatientData(int id) throws RecordNotFoundException {
+    private Patient readPatientData(int id) throws CustomException {
         Optional<Patient> patientOptional = patientRepository.findById(id);
         if (patientOptional.isPresent())
             return patientOptional.get();
-        throw new RecordNotFoundException("Patient: "+ id+ "not found");
+        throw new CustomException("Patient: "+ id+ "not found");
     }
 
     @Override
@@ -281,7 +281,7 @@ public class MediDataVaultServicesImpl implements MediDataVaultServices {
             patient.setDateOfBirth(patient.getDateOfBirth());
             patientRepository.save(patientDb);
             action = true;
-        } catch (RecordNotFoundException e){
+        } catch (CustomException e){
             action = false;
         }
         return action;
@@ -294,7 +294,7 @@ public class MediDataVaultServicesImpl implements MediDataVaultServices {
             Patient patientDb = readPatientData(id);
             patientRepository.delete(patientDb);
             action = true;
-        }catch(RecordNotFoundException e){
+        }catch(CustomException e){
             action = false;
         }
         return action;
@@ -305,7 +305,7 @@ public class MediDataVaultServicesImpl implements MediDataVaultServices {
             Patient p = readPatientData(id);
             p.setWarning_modifiedconsultation(true);
             patientRepository.save(p);
-        }catch(RecordNotFoundException e){
+        }catch(CustomException e){
         }
     }
 
@@ -316,7 +316,7 @@ public class MediDataVaultServicesImpl implements MediDataVaultServices {
             Patient p = readPatientData(id);
             if (p.isWarning_modifiedconsultation())
                 warning.setWarningMessage("Your Doctor modified a consultation. Important information must be reviewed");
-        } catch (RecordNotFoundException e) { }
+        } catch (CustomException e) { }
             return warning;
     }
 

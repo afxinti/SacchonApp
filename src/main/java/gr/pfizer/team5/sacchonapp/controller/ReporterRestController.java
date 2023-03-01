@@ -5,7 +5,7 @@ import gr.pfizer.team5.sacchonapp.dto.ConsultationDto;
 import gr.pfizer.team5.sacchonapp.dto.DCI_Dto;
 import gr.pfizer.team5.sacchonapp.dto.DoctorDto;
 import gr.pfizer.team5.sacchonapp.dto.PatientDto;
-import gr.pfizer.team5.sacchonapp.exception.RecordNotFoundException;
+import gr.pfizer.team5.sacchonapp.exception.CustomException;
 import gr.pfizer.team5.sacchonapp.service.DoctorAdviceServices;
 import gr.pfizer.team5.sacchonapp.service.ReporterServices;
 import lombok.AllArgsConstructor;
@@ -57,7 +57,7 @@ public class ReporterRestController {
 
 
     @GetMapping("/doctors_noactivity/{startDate}/{endDate}")
-    public List<DoctorDto> getDoctorsDto(@PathVariable("startDate") LocalDate startDate, @PathVariable("endDate") LocalDate endDate) throws RecordNotFoundException {
+    public List<DoctorDto> getDoctorsDto(@PathVariable("startDate") LocalDate startDate, @PathVariable("endDate") LocalDate endDate) throws CustomException {
         List<Integer> docIds = reporterServices.doctorsWithNoActivityService(startDate, endDate);
         List<DoctorDto> listDoctors = new ArrayList<>();
         for (int i : docIds) {
