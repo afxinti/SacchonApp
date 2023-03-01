@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { PatientService } from '../services/patient.service';
 
 @Component({
@@ -10,7 +11,7 @@ export class MyAccountComponent implements OnInit{
 
   patient: any;
 
-  constructor(private service: PatientService) { } 
+  constructor(private service: PatientService, private router: Router) { }
   
   ngOnInit(): void { 
     this.patient = this.service.get().subscribe({ 
@@ -24,7 +25,7 @@ export class MyAccountComponent implements OnInit{
       this.service.delete_account().subscribe(
         () => {
           alert('Account deleted successfully.');
-          // Add any additional functionality here to update the UI as needed
+          this.router.navigate(['']);
         },
         error => {
           alert('An error occurred while deleting the account.');
