@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { ConsultationsListComponent } from './consultations-list/consultations-list.component';
 import { BglAddNewComponent } from './bgl-add-new/bgl-add-new.component';
 import { BglEditComponent } from './bgl-edit/bgl-edit.component';
 import { BglComponent } from './bgl/bgl.component';
@@ -13,12 +14,12 @@ const routes: Routes = [
   { path: 'dashboard', component: DashboardComponent},
   { path: 'bgl', component: BglComponent},
   { path: 'bgl/new', component: BglAddNewComponent},
-  { path: 'bgl/edit', component: BglEditComponent}
-
+  { path: 'bgl/edit', component: BglEditComponent},
+  { path: 'consultations-list', component: ConsultationsListComponent},
   //   { path: 'user', component: UserComponent}, 
   // { path: 'user-list', component: UserListComponent}, 
-  //{ path: '', redirectTo: '/dashboard', pathMatch: 'full'}, 
-  // { path: '**', component:FileNotFoundComponent}
+  { path: '', redirectTo: '/dashboard', pathMatch: 'full'}, 
+  { path: '', component: DashboardComponent} 
 ];
 
 @NgModule({

@@ -205,10 +205,6 @@ public class MediDataVaultServicesImpl implements MediDataVaultServices {
         } else{
         throw new RecordNotFoundException("Username already exists");}
     }
-      private boolean usernameAvailable(Patient patient) throws RecordNotFoundException {
-        Optional<Patient> patientOptional = patientRepository.findByUsername(patient.getUsername());
-        return patientOptional.isPresent();
-    }
 
     @Override
     public List<PatientDto> readPatient() {

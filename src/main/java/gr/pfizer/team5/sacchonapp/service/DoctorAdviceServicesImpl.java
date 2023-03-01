@@ -2,10 +2,7 @@ package gr.pfizer.team5.sacchonapp.service;
 
 import gr.pfizer.team5.sacchonapp.dto.*;
 import gr.pfizer.team5.sacchonapp.exception.RecordNotFoundException;
-import gr.pfizer.team5.sacchonapp.model.ChiefDoctor;
-import gr.pfizer.team5.sacchonapp.model.Consultation;
-import gr.pfizer.team5.sacchonapp.model.Doctor;
-import gr.pfizer.team5.sacchonapp.model.Patient;
+import gr.pfizer.team5.sacchonapp.model.*;
 import gr.pfizer.team5.sacchonapp.repository.*;
 import gr.pfizer.team5.sacchonapp.repository.ChiefDoctorRepository;
 import gr.pfizer.team5.sacchonapp.repository.ConsultationRepository;
@@ -30,6 +27,7 @@ public class DoctorAdviceServicesImpl implements DoctorAdviceServices {
     private final BGLRepository BGLRepository;
     private final DCIRepository DCIRepository;
     private final MediDataVaultServicesImpl mediDataVaultService;
+    private final UsersRepository usersRepository;
 
 
     @Override
@@ -92,10 +90,16 @@ public class DoctorAdviceServicesImpl implements DoctorAdviceServices {
 
     //Doctor CRUD Services
     @Override
-    public DoctorDto createDoctor(DoctorDto doctorDto) {
-        //validation
-        Doctor doctor = doctorDto.asDoctor();
-        return new DoctorDto(docRepository.save(doctor));
+    public DoctorDto createDoctor(DoctorDto doctorDto) throws RecordNotFoundException {
+        if (!usersRepository.existsUsersByUsernameAndPassword(doctorDto.getUsername(),doctorDto.getPassword())) {
+            Users user = new Users(doctorDto.getUsername(), doctorDto.getPassword(), doctorDto.getAuthority());
+            Doctor doc = doctorDto.asDoctor();
+            doc.setUser(user);
+            return new DoctorDto(docRepository.save(doc));
+        } else {
+            throw new RecordNotFoundException("Username already exists");
+        }
+
     }
 
     @Override
@@ -152,11 +156,17 @@ public class DoctorAdviceServicesImpl implements DoctorAdviceServices {
 
     //Chief Doctor CRUD Services
     @Override
-    public ChiefDoctorDto createChiefDoctor(ChiefDoctorDto chiefDoctorDto) {
-        //validation
-        ChiefDoctor doctor = chiefDoctorDto.asChiefDoctor();
-        return new ChiefDoctorDto(chiefDocRepository.save(doctor));
+    public ChiefDoctorDto createChiefDoctor(ChiefDoctorDto chiefDoctorDto) throws RecordNotFoundException {
+        if (!usersRepository.existsUsersByUsernameAndPassword(chiefDoctorDto.getUsername(),chiefDoctorDto.getPassword())) {
+            Users user = new Users(chiefDoctorDto.getUsername(), chiefDoctorDto.getPassword(), chiefDoctorDto.getAuthority());
+            ChiefDoctor chief = chiefDoctorDto.asChiefDoctor();
+            chief.setUser(user);
+            return new ChiefDoctorDto(chiefDocRepository.save(chief));
+        } else {
+            throw new RecordNotFoundException("Username already exists");
+        }
     }
+
 
     @Override
     public List<ChiefDoctorDto> readChiefDoctor() {
@@ -187,6 +197,7 @@ public class DoctorAdviceServicesImpl implements DoctorAdviceServices {
             dbChiefDoctor.setLastName(chiefdoctor.getLastName());
             dbChiefDoctor.setEmail(chiefdoctor.getEmail());
             dbChiefDoctor.setPassword(chiefdoctor.getPassword());
+            dbChiefDoctor.setUsername(chiefdoctor.getUsername());
             chiefDocRepository.save(dbChiefDoctor);
             action = true;
         } catch (RecordNotFoundException e) {

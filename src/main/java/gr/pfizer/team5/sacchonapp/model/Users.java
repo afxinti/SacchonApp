@@ -25,4 +25,5 @@ public class Users {
         this.password = password;
         this.authority = authority;
     }
+
 }

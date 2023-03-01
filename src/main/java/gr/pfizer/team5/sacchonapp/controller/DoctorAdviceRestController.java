@@ -73,7 +73,7 @@ public class DoctorAdviceRestController {
 
 
     @PostMapping("/doctor")
-    public DoctorDto createDoctorDto(@RequestBody DoctorDto doctorDto) {
+    public DoctorDto createDoctorDto(@RequestBody DoctorDto doctorDto) throws RecordNotFoundException {
         //log.info("The end point product has been used");
         return doctorAdviceServices.createDoctor(doctorDto);
     }

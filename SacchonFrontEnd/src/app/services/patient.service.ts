@@ -5,7 +5,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
   providedIn: 'root'
 })
 export class PatientService {
-  
+
   constructor(private http:HttpClient) { }
 
   get() {
@@ -14,6 +14,7 @@ export class PatientService {
   delete_account(){
     return this.http.delete('http://localhost:9000/patient/2');
   }
-
-
+  getPatientsConsultations(){
+    return this.http.get('http://localhost:9000/patient/2/consultations');
+  }
 }

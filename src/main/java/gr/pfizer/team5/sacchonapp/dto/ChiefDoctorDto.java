@@ -1,5 +1,6 @@
 package gr.pfizer.team5.sacchonapp.dto;
 
+import gr.pfizer.team5.sacchonapp.model.Authority;
 import gr.pfizer.team5.sacchonapp.model.ChiefDoctor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,8 +14,10 @@ public class ChiefDoctorDto {
     private int id;
     private String email;
     private String password;
+    private String username;
     private String firstName;
     private String lastName;
+    private Authority authority;
 
     public ChiefDoctorDto(ChiefDoctor chiefdoctor){
         if (chiefdoctor!= null){
@@ -22,6 +25,8 @@ public class ChiefDoctorDto {
             firstName = chiefdoctor.getFirstName();
             lastName = chiefdoctor.getLastName();
             email = chiefdoctor.getEmail();
+            username = chiefdoctor.getUsername();
+            authority= chiefdoctor.getUser().getAuthority();
         }
     }
     public ChiefDoctor asChiefDoctor(){
@@ -30,6 +35,7 @@ public class ChiefDoctorDto {
         chiefdoctor.setFirstName(firstName);
         chiefdoctor.setLastName(lastName);
         chiefdoctor.setEmail(email);
+        chiefdoctor.setUsername(username);
         return chiefdoctor;
     }
 }
