@@ -18,5 +18,13 @@ public interface DCIRepository extends JpaRepository<DailyCarbonatesIntake,Integ
     @Query(value = "Select d from DailyCarbonatesIntake d where d.patient.id = :id")
     List<DailyCarbonatesIntake> getDCIRecordsOfPatient(@Param("id") int id);
 
-}
+    @Query("SELECT d FROM DailyCarbonatesIntake d WHERE d.patient.id = :patientId ORDER BY d.date ASC")
+    List<DailyCarbonatesIntake> findAllByPatientIdOrderByDateAsc(int patientId);
+
+    @Query("SELECT COUNT(d) = 1 FROM DailyCarbonatesIntake d WHERE d.patient.id = :patientId")
+    boolean hasOnlyOneRecord(int patientId);
+
+    }
+
+
 

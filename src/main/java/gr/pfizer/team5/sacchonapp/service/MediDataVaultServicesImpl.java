@@ -18,6 +18,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -187,6 +188,46 @@ public class MediDataVaultServicesImpl implements MediDataVaultServices {
         }
         return sum / bglList.size();
     }
+    @Override
+    public long isFirstAndLastRecordWithin30Days(int patientId, String recordType) throws RecordNotFoundException {
+        switch (recordType) {
+            case "DCI":
+                List<DailyCarbonatesIntake> dciRecords = DCIRepository.findAllByPatientIdOrderByDateAsc(patientId);
+                if (DCIRepository.hasOnlyOneRecord(patientId) || dciRecords.size() < 2) {
+                    return -1;
+                }
+                LocalDate dciFirstDate = dciRecords.get(0).getDate();
+                LocalDate dciLastDate = dciRecords.get(dciRecords.size() - 1).getDate();
+                return ChronoUnit.DAYS.between(dciFirstDate, dciLastDate);
+
+            case "BGL":
+                List<BloodGlucoseLevel> bglRecords = BGLRepository.findAllByPatientIdOrderByDateAsc(patientId);
+                if (BGLRepository.hasOnlyOneRecord(patientId) || bglRecords.size() < 2) {
+                    return -1;
+                }
+                LocalDate bglFirstDate = bglRecords.get(0).getDate();
+                LocalDate bglLastDate = bglRecords.get(bglRecords.size() - 1).getDate();
+                return ChronoUnit.DAYS.between(bglFirstDate, bglLastDate);
+            default:
+                throw new RecordNotFoundException("Invalid record type: " + recordType);
+        }
+    }
+    @Override
+    public boolean enoughRecordingsCheck(int patientId,String recordType) throws RecordNotFoundException{
+        PatientDto patient = readPatient(patientId);
+            if(isFirstAndLastRecordWithin30Days(patientId,recordType)>=30)
+            {
+                patient.setHasRecordings(true);
+                updatePatient(patient,patientId);
+            }
+            return patient.isHasRecordings();
+    }
+
+    @Override
+    public long checkLowRecordingsExist(int patientId){
+    return BGLRepository.checkLowRecordsExist(patientId);
+    }
+
 //------------------------------------------------------end of BGL and DCI methods -------------------------------------------------//
 
     @Override
@@ -278,6 +319,8 @@ public class MediDataVaultServicesImpl implements MediDataVaultServices {
         } catch (RecordNotFoundException e) { }
             return warning;
     }
+
+
 
 
 

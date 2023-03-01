@@ -20,6 +20,7 @@ public class PatientDto{
     private int amkaCode;
     private LocalDate dateOfBirth;
     private int doctorId;
+    private boolean hasRecordings;
     private Authority authority;
 
     //private int userId;
@@ -32,6 +33,7 @@ public class PatientDto{
             firstName = patient.getFirstName();
             lastName = patient.getLastName();
             dateOfBirth = patient.getDateOfBirth();
+            hasRecordings = patient.isHasRecordings();
             authority = patient.getUser().getAuthority();
             if(patient.getCurrentDoctor()!=null){
                 doctorId = patient.getCurrentDoctor().getId();
@@ -50,6 +52,7 @@ public class PatientDto{
         patient.setFirstName(firstName);
         patient.setLastName(lastName);
         patient.setDateOfBirth(dateOfBirth);
+        patient.setHasRecordings(hasRecordings);
 //        Users user = new Users(); //connect user+patient
 //        user.setId(userId);
 //        patient.setUser(user);

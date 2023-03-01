@@ -17,4 +17,15 @@ public interface BGLRepository extends JpaRepository<BloodGlucoseLevel,Integer> 
     @Query(value = "Select b from BloodGlucoseLevel b where b.patient.id = :id")
     List<BloodGlucoseLevel> getBGLRecordsOfPatient(@Param("id") int id);
 
+    @Query("SELECT b FROM BloodGlucoseLevel b WHERE b.patient.id = :patientId ORDER BY b.date ASC")
+    List<BloodGlucoseLevel> findAllByPatientIdOrderByDateAsc(int patientId);
+
+    @Query("SELECT COUNT(b) = 1 FROM BloodGlucoseLevel b WHERE b.patient.id = :patientId")
+    boolean hasOnlyOneRecord(int patientId);
+
+    @Query(value = "SELECT COUNT(b) FROM BloodGlucoseLevel b where b.id = :patientId AND b.measurement < 70")
+    long checkLowRecordsExist(@Param("patientId") int id);
+
+
+
 }

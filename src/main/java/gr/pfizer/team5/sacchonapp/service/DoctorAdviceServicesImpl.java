@@ -272,11 +272,11 @@ public class DoctorAdviceServicesImpl implements DoctorAdviceServices {
     }
 
 
-
     public PatientDto choosePatient(int doctorId,int patientId) throws RecordNotFoundException {
-        Patient p = mediDataVaultService.readPatient(patientId).asPatient();
+        PatientDto patientDto = mediDataVaultService.readPatient(patientId);
         Doctor d  = readDoctorDb(doctorId);
-        p.setCurrentDoctor(d);
-        return new PatientDto(p);
+        patientDto.setDoctorId(doctorId);
+        mediDataVaultService.updatePatient(patientDto,patientId);
+        return patientDto;
     }
 }

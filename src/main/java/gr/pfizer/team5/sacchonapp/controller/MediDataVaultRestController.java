@@ -87,6 +87,27 @@ public class MediDataVaultRestController {
     public Double getAverageBGLBetweenDates(@PathVariable(name="id") int id,@RequestParam("startDate") LocalDate startDate, @RequestParam("endDate") LocalDate endDate) {
         return mediDataVaultServices.getAverageBGLBetweenDates(id,startDate,endDate);
     }
+
+    @GetMapping("/dci/{id}/progress")
+    public long numberOfRecordsDCI(@PathVariable(name="id") int id) throws RecordNotFoundException {
+        return mediDataVaultServices.isFirstAndLastRecordWithin30Days(id,"DCI");
+    }
+    @GetMapping("/bgl/{id}/progress")
+    public long numberOfRecordsBGL(@PathVariable(name="id") int id) throws RecordNotFoundException {
+        return mediDataVaultServices.isFirstAndLastRecordWithin30Days(id,"BGL");
+    }
+    @GetMapping("/bgl/{id}/enoughRecordingsCheck")
+    public boolean enoughRecordingsCheckBGL(@PathVariable(name="id") int id) throws RecordNotFoundException {
+        return mediDataVaultServices.enoughRecordingsCheck(id,"BGL");
+    }
+    @GetMapping("/dci/{id}/enoughRecordingsCheck")
+    public boolean enoughRecordingsCheckDCI(@PathVariable(name="id") int id) throws RecordNotFoundException {
+        return mediDataVaultServices.enoughRecordingsCheck(id,"DCI");
+    }
+    @GetMapping("/bgl/{id}/checkLowRecordsExist")
+    public long checkLowRecordsExist(@PathVariable(name="id") int id){
+        return mediDataVaultServices.checkLowRecordingsExist(id);
+    }
     //------------------------------------------------end of DCI BGL methods------------------------------------------//
 
     //Patient CRUD Controllers
