@@ -1,7 +1,7 @@
 package gr.pfizer.team5.sacchonapp.controller;
 
 import gr.pfizer.team5.sacchonapp.dto.*;
-import gr.pfizer.team5.sacchonapp.exception.RecordNotFoundException;
+import gr.pfizer.team5.sacchonapp.exception.CustomException;
 import gr.pfizer.team5.sacchonapp.service.DoctorAdviceServices;
 import gr.pfizer.team5.sacchonapp.service.MediDataVaultServices;
 import lombok.AllArgsConstructor;
@@ -34,7 +34,7 @@ public class DoctorAdviceRestController {
     }
 
     @GetMapping("/consultation/{id}")
-    public ConsultationDto getConsultationDto(@PathVariable(name="id") int id) throws RecordNotFoundException {
+    public ConsultationDto getConsultationDto(@PathVariable(name="id") int id) throws CustomException {
         //log.info("The end point ConsultationDto has been used");
         return doctorAdviceServices.readConsultation(id);
     }
@@ -66,14 +66,14 @@ public class DoctorAdviceRestController {
         return doctorAdviceServices.readDoctor();
     }
     @GetMapping("/doctor/{id}")
-    public DoctorDto getDoctorDto(@PathVariable(name="id") int id) throws RecordNotFoundException {
+    public DoctorDto getDoctorDto(@PathVariable(name="id") int id) throws CustomException {
         //log.info("The end point ConsultationDto has been used");
         return doctorAdviceServices.readDoctor(id);
     }
 
 
     @PostMapping("/doctor")
-    public DoctorDto createDoctorDto(@RequestBody DoctorDto doctorDto) throws RecordNotFoundException {
+    public DoctorDto createDoctorDto(@RequestBody DoctorDto doctorDto) throws CustomException {
         //log.info("The end point product has been used");
         return doctorAdviceServices.createDoctor(doctorDto);
     }
@@ -158,7 +158,7 @@ public class DoctorAdviceRestController {
 
 
     @GetMapping("/doctor/{doctorId}/choose-patient/{patientId}")
-    public  PatientDto choosePatient(@PathVariable(name = "doctorId") int doctorId, @PathVariable(name = "patientId") int patientId) throws RecordNotFoundException {
+    public  PatientDto choosePatient(@PathVariable(name = "doctorId") int doctorId, @PathVariable(name = "patientId") int patientId) throws CustomException {
         return doctorAdviceServices.choosePatient(doctorId,patientId);
     }
 

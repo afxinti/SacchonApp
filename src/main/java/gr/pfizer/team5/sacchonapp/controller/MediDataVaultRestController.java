@@ -3,7 +3,7 @@ package gr.pfizer.team5.sacchonapp.controller;
 import gr.pfizer.team5.sacchonapp.dto.BGL_Dto;
 import gr.pfizer.team5.sacchonapp.dto.DCI_Dto;
 import gr.pfizer.team5.sacchonapp.dto.*;
-import gr.pfizer.team5.sacchonapp.exception.RecordNotFoundException;
+import gr.pfizer.team5.sacchonapp.exception.CustomException;
 import gr.pfizer.team5.sacchonapp.dto.PatientDto;
 import gr.pfizer.team5.sacchonapp.service.MediDataVaultServices;
 import lombok.AllArgsConstructor;
@@ -28,7 +28,7 @@ public class MediDataVaultRestController {
     }
 
     @GetMapping("/bgl/{id}")
-    public BGL_Dto getBGLDto(@PathVariable(name="id") int id) throws RecordNotFoundException {
+    public BGL_Dto getBGLDto(@PathVariable(name="id") int id) throws CustomException {
         return mediDataVaultServices.readBGL(id);
     }
 
@@ -57,7 +57,7 @@ public class MediDataVaultRestController {
     }
 
     @GetMapping("/dci/{id}")
-    public DCI_Dto getDCIDto(@PathVariable(name="id") int id) throws RecordNotFoundException {
+    public DCI_Dto getDCIDto(@PathVariable(name="id") int id) throws CustomException {
         return mediDataVaultServices.readDCI(id);
     }
 
@@ -88,26 +88,27 @@ public class MediDataVaultRestController {
         return mediDataVaultServices.getAverageBGLBetweenDates(id,startDate,endDate);
     }
 
-    @GetMapping("/dci/{id}/progress")
-    public long numberOfRecordsDCI(@PathVariable(name="id") int id) throws RecordNotFoundException {
-        return mediDataVaultServices.isFirstAndLastRecordWithin30Days(id,"DCI");
-    }
-    @GetMapping("/bgl/{id}/progress")
-    public long numberOfRecordsBGL(@PathVariable(name="id") int id) throws RecordNotFoundException {
-        return mediDataVaultServices.isFirstAndLastRecordWithin30Days(id,"BGL");
-    }
-    @GetMapping("/bgl/{id}/enoughRecordingsCheck")
-    public boolean enoughRecordingsCheckBGL(@PathVariable(name="id") int id) throws RecordNotFoundException {
-        return mediDataVaultServices.enoughRecordingsCheck(id,"BGL");
-    }
-    @GetMapping("/dci/{id}/enoughRecordingsCheck")
-    public boolean enoughRecordingsCheckDCI(@PathVariable(name="id") int id) throws RecordNotFoundException {
-        return mediDataVaultServices.enoughRecordingsCheck(id,"DCI");
+//    @GetMapping("/dci/{id}/progress")
+//    public long numberOfRecordsDCI(@PathVariable(name="id") int id) throws CustomException {
+//        return mediDataVaultServices.isFirstAndLastRecordWithin30Days(id,"DCI");
+//    }
+//    @GetMapping("/bgl/{id}/progress")
+//    public long numberOfRecordsBGL(@PathVariable(name="id") int id) throws CustomException {
+//        return mediDataVaultServices.isFirstAndLastRecordWithin30Days(id,"BGL");
+//    }
+    @GetMapping("/{id}/enoughRecordingsCheck")
+    public boolean enoughRecordingsCheckBGL(@PathVariable(name="id") int id) throws CustomException {
+        return mediDataVaultServices.enoughRecordingsCheck(id);
     }
     @GetMapping("/bgl/{id}/checkLowRecordsExist")
     public long checkLowRecordsExist(@PathVariable(name="id") int id){
         return mediDataVaultServices.checkLowRecordingsExist(id);
     }
+    @GetMapping("/totalRecordings/{id}")
+    public long numberOfRecordings(@PathVariable(name="id") int id){
+        return mediDataVaultServices.numberOfRecordings(id);
+    }
+
     //------------------------------------------------end of DCI BGL methods------------------------------------------//
 
     //Patient CRUD Controllers
@@ -121,12 +122,12 @@ public class MediDataVaultRestController {
         return mediDataVaultServices.readPatient();
     }
     @PostMapping("/patient")
-    public PatientDto createPatient(@RequestBody PatientDto patientDto) throws RecordNotFoundException {
+    public PatientDto createPatient(@RequestBody PatientDto patientDto) throws CustomException {
         log.info("The createPatient endpoint is used");
         return mediDataVaultServices.createPatient(patientDto);
     }
     @GetMapping("/patient/{id}")
-    public PatientDto readPatientDto(@PathVariable(name = "id") int id) throws RecordNotFoundException {
+    public PatientDto readPatientDto(@PathVariable(name = "id") int id) throws CustomException {
         log.info("Request a patient/endpoint");
         return mediDataVaultServices.readPatient(id);
     }

@@ -8,16 +8,15 @@ import { DashboardService } from '../services/dashboard.service';
 })
 export class RecordingsProgressComponent implements OnInit {
 
-  @Input() numRecordings: any;
+  numRecordings: any = 0;
 
 
   constructor(private service: DashboardService) { }
 
-
   ngOnInit(): void {
-
-    // this.numRecordings = this.service.getNumberofRecords_Progress().subscribe({ next: res => this.numRecordings = res });
+    this.numRecordings = this.service.getNumberofRecords_Progress().subscribe({ next: res => this.numRecordings = res });
 
   }
 
+  
 }

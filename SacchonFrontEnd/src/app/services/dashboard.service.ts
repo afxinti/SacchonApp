@@ -41,7 +41,8 @@ export class DashboardService {
     return this.http.get('http://localhost:9000/patient/2/lastconsultation');
   }
 
-  getNumberofRecords_Progress(){
-    return this.http.get('http://localhost:9000');
+  getNumberofRecords_Progress(){    
+    return this.http.get('http://localhost:9000/totalRecordings/2');
   }
+
 }
