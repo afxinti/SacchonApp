@@ -61,6 +61,7 @@
         });
     });
     </script> -->
+
 <div class="table-title">
     <br>
     <div class="row">
@@ -68,7 +69,7 @@
             <h2>Blood Glucose Level</h2>
         </div>
         <div class="column">
-            <button type="button" class="btn btn-info add-new" id="Add" routerLink="/bgl/new"><i class="fa fa-plus"></i>
+            <button type="button" id="add_button" class="btn btn-info add-new" routerLink="/bgl/new"><i class="fa fa-plus"></i>
                 Add New</button>
         </div>
     </div>
@@ -86,14 +87,14 @@
     <tbody>
         <tr scope="row" id="row1" *ngFor="let bgl of bgl">
             <ng-container *ngIf="bgl.patientId == 2">
-                <td>{{ bgl.id }}</td>
-                <td>{{ bgl.measurement }}</td>
-                <td>{{ bgl.date }}</td>
-                <td>{{ bgl.time }}</td>
+                <td><b>{{ bgl.id }}</b></td>
+                <td><b>{{ bgl.measurement }}</b></td>
+                <td><b>{{ bgl.date }}</b></td>
+                <td><b>{{ bgl.time }}</b></td>
                 <td>
-                    <button type="button" class="btn" title="Edit" (click)="getBGLById(bgl.id)" routerLink="/bgl/edit" data-toggle="tooltip"><i
+                    <button type="button" class="btn" title="Edit" (click)="getBGLById(bgl.id)" (click) = "redirect_edit()" data-toggle="tooltip"><i
                             class="material-icons">&#xE254;</i></button>
-                    <button type="button" class="btn btnDelete" (click)="deleteBGL(bgl.id)" value="Reload Page"
+                    <button type="button" id="btn_delete" class="btn btnDelete" (click)="onDelete(bgl.id)" value="Reload Page"
                         onClick="window.location.reload(true)" title="Delete" data-toggle="tooltip"><i
                             class="material-icons">&#xE872;</i></button>
                 </td>

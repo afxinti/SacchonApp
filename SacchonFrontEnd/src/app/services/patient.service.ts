@@ -9,10 +9,10 @@ export class PatientService {
   constructor(private http:HttpClient) { }
 
   get() {
-    return this.http.get('http://localhost:9000/patient/2');
+    return this.http.get('http://localhost:9000/patient/1');
   }
   delete_account(){
-    return this.http.delete('http://localhost:9000/patient/2');
+    return this.http.delete('http://localhost:9000/patient/1');
   }
 
 

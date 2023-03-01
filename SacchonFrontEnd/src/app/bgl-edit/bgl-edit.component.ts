@@ -2,6 +2,7 @@ import { Component, OnInit, AfterViewInit, ViewChild } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { BglComponent } from '../bgl/bgl.component';
 import { BglService } from '../services/bgl.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-bgl-edit',
@@ -14,7 +15,6 @@ export class BglEditComponent implements OnInit, AfterViewInit {
   response: any;
   createForm: any;
   bgl: any;
-  bglbyid: BglComponent | undefined;
 
   // @ViewChild(BglComponent) ;
 
@@ -25,12 +25,16 @@ export class BglEditComponent implements OnInit, AfterViewInit {
   //   "job": "leader"
   // }
 
-  constructor(private service: BglService, private fb: FormBuilder) { }
+  constructor(private service: BglService, private fb: FormBuilder, private router: Router) { }
   ngAfterViewInit(): void {
     throw new Error('Method not implemented.');
   }
 
-
+  redirect(){
+    setTimeout(() => {
+    this.router.navigate(['/bgl']);
+  }, 100);
+}
 
   ngOnInit(): void {
     this.bgl = this.service.get().subscribe({
@@ -39,7 +43,7 @@ export class BglEditComponent implements OnInit, AfterViewInit {
 
 
     this.createForm = this.fb.group({
-      measurement: [localStorage.getItem("bglid"),  [Validators.required]],
+      measurement: [localStorage.getItem("bglmeasurement"),  [Validators.required]],
       date: [localStorage.getItem("bgldate"), [Validators.required]],
       time: [localStorage.getItem("bgltime"), [Validators.required]]
     })
@@ -59,5 +63,10 @@ export class BglEditComponent implements OnInit, AfterViewInit {
     });
     
   }
+  // constructor(private router: Router) {
+  //   setTimeout(() => {
+  //     this.router.navigate(['/dashboard']);
+  //   }, 6000);
+  // }
 
 }
