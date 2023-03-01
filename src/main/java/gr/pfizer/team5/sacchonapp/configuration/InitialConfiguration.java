@@ -21,7 +21,7 @@ public class InitialConfiguration {
             Patient pat2 = new Patient(0,"Georgia172","koks14","Georgia","Panagi",1012890077,LocalDate.of(1997,5,4),false,false,null,null,null,null,new Users("Georgia172","koks14", Authority.PATIENT));
             patientRepository.saveAll(List.of(pat1,pat2));
             BloodGlucoseLevel bgl1 = new BloodGlucoseLevel(0, LocalDate.of(2023,1,10), LocalTime.of(12,16),12.0,pat1);
-            BloodGlucoseLevel bgl2 = new BloodGlucoseLevel(0, LocalDate.of(2022,5,13), LocalTime.of(13,20),10.0,pat2);
+            BloodGlucoseLevel bgl2 = new BloodGlucoseLevel(0, LocalDate.of(2022,5,13), LocalTime.of(13,20),10.0,pat1);
             BGLRepository.saveAll(List.of(bgl1, bgl2));
             DailyCarbonatesIntake dci1= new DailyCarbonatesIntake(0,LocalDate.of(2022,12,2),LocalTime.of(10,22),200.0,pat1);
             DailyCarbonatesIntake dci2= new DailyCarbonatesIntake(0,LocalDate.of(2022,12,14),LocalTime.of(12,17),190.0,pat1);

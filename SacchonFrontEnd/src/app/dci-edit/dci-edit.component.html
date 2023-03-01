@@ -10,10 +10,6 @@
                 <label  class="form-label"><b>Date</b></label>
                 <input type="text" class="form-control" formControlName="date">
             </div>
-            <div class="mb-3">
-                <label class="form-label"><b>Time</b></label>
-                <input type="text" class="form-control" formControlName="time">
-            </div>
             <button type="submit" id="update_button" [disabled]="createForm.invalid" (click)="redirect()" class="btn btn-primary"> Update </button>
         </form>
     </div>
