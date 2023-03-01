@@ -10,6 +10,6 @@ export class LoadingComponent {
   constructor(private router: Router) {
     setTimeout(() => {
       this.router.navigate(['/dashboard']);
-    }, 6000);
+    }, 3800);
   }
 }

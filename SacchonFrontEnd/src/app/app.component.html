@@ -1,29 +1,35 @@
-<html lang="en"><head>
+<html lang="en">
+
+<head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link href="https://fonts.googleapis.com/css?family=Nunito+Sans:300i,400,700&amp;display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet">
   <title>Sacchon</title>
-  </head>
-  <body>
-    <header class="bg-custom-2 p-3 ps-4">
-      <h1>Sacchon</h1>
-    </header>
-    <div class="row">
-      <div class = "col-2 p-0" style="background-color: #D7E0FF;">
-        <app-sidebar></app-sidebar>
-      </div>
-      <div class = "col-10">
-        <router-outlet></router-outlet>
-      </div>
-    </div>
-    <div class = "m-5">
-      <footer>
-        <hr>
-        <small>Powered by Team_5 2023&copy;</small>
-      </footer>
-    </div>
-  </body>
-  </html>
+</head>
 
+<body>
+  <header class="bg-custom-2 p-3 ps-4">
+    <h1>Sacchon</h1>
+  </header>
+  <div class="row">
+    <div class="col-2 p-0" style="background-color: #D7E0FF;">
+      <app-sidebar></app-sidebar>
+    </div>
+    <div class="col-10">
+      <div style="height: 100vh;">
+        <router-outlet></router-outlet>
+
+        <div class="m-5">
+          <footer>
+            <hr>
+            <small>Powered by Team_5 2023&copy;</small>
+          </footer>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>

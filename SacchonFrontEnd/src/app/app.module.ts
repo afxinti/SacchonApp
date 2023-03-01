@@ -16,6 +16,7 @@ import { BglComponent } from './bgl/bgl.component';
 import { BglAddNewComponent } from './bgl-add-new/bgl-add-new.component';
 import { BglEditComponent } from './bgl-edit/bgl-edit.component';
 import { ConsultationsListComponent } from './consultations-list/consultations-list.component';
+import { RecordingsProgressComponent } from './recordings-progress/recordings-progress.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { ConsultationsListComponent } from './consultations-list/consultations-l
     BglComponent,
     BglAddNewComponent,
     BglEditComponent,
-    ConsultationsListComponent
+    ConsultationsListComponent,
+    RecordingsProgressComponent
   ],
   imports: [
     BrowserModule,

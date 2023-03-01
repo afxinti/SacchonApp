@@ -1,19 +1,20 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 <div class="container-fluid">
+    <div style="margin-top: 20px;"> </div>
+    <app-warning> </app-warning>
+
     <div class="row" style="margin-top: 30px;">
-        <div class="col-9" >
+        <div class="col-9">
             <h5>Average Daily Blood Glucose Level</h5>
             <app-statistics-bgl></app-statistics-bgl>
             <h5>Average Carb Intake</h5>
             <app-statistics-dci></app-statistics-dci>
-            
         </div>
         <div class="col-3">
+            <h5>Number of Recordings</h5>
+            <app-recordings-progress> </app-recordings-progress>
 
-            <app-warning> </app-warning>
-
-
-            <h5>Current Doctor</h5>
+            <h5 style="margin-top: 20px;">Current Doctor</h5>
             <div class="card Account" style="background-color: #D7E0FF;">
                 <div class="card-body">
                     <svg xmlns="http://www.w3.org/2000/svg" style="display: block; margin: auto" width="70" height="70"
@@ -27,7 +28,6 @@
                 </div>
             </div>
         </div>
-
     </div>
 
     <h5>Last Consultation</h5>
