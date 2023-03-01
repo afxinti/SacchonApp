@@ -92,7 +92,7 @@
                 <td>
                     <button type="button" class="btn" title="Edit" (click)="getDCIById(dci.id)" (click) = "redirect_edit()" data-toggle="tooltip"><i
                             class="material-icons">&#xE254;</i></button>
-                    <button type="button" id="btn_delete" class="btn btnDelete" (click)="onDelete(dci.id)" value="Reload Page"
+                    <button type="button" id="btn_delete" class="btn btnDelete" (click)="deleteDCI(dci.id)" value="Reload Page"
                         onClick="window.location.reload(true)" title="Delete" data-toggle="tooltip"><i
                             class="material-icons">&#xE872;</i></button>
                 </td>

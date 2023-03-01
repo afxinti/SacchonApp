@@ -32,14 +32,14 @@ export class BglComponent implements OnInit {
 }
 
 
-  // deleteBGL(bglid: string) {
-  //   this.service.delete_bgl(bglid).subscribe({
-  //     next: response => {
-  //       this.bgl = response;
-  //     },
-  //     error: err => { console.log(err.message) }
-  //   });
-  // }
+  deleteBGL(bglid: string) {
+    this.service.delete_bgl(bglid).subscribe({
+      next: response => {
+        this.bgl = response;
+      },
+      error: err => { console.log(err.message) }
+    });
+  }
 
   getBGLById(id: string) {
     this.bglbyid = this.service.getById(id).subscribe({
@@ -53,19 +53,19 @@ export class BglComponent implements OnInit {
 
     });
   }
-  onDelete(bglid: string): void {
-    const confirmation = confirm('Are you sure you want to delete this value?');
-    if (confirmation) {
-      this.service.delete_bgl(bglid).subscribe(
-        () => {
-          alert('Account deleted successfully.');
-          // Add any additional functionality here to update the UI as needed
-        },
-        error => {
-          alert('An error occurred while deleting the account.');
-          console.error(error);
-        }
-      );
-    }
-  }
+  // onDelete(bglid: string): void {
+  //   const confirmation = confirm('Are you sure you want to delete this value?');
+  //   if (confirmation) {
+  //     this.service.delete_bgl(bglid).subscribe(
+  //       () => {
+  //         alert('Account deleted successfully.');
+  //         // Add any additional functionality here to update the UI as needed
+  //       },
+  //       error => {
+  //         alert('An error occurred while deleting the account.');
+  //         console.error(error);
+  //       }
+  //     );
+  //   }
+  // }
 }
