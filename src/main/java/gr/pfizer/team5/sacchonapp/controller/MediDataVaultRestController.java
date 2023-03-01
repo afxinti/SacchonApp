@@ -104,7 +104,7 @@ public class MediDataVaultRestController {
     public long checkLowRecordsExist(@PathVariable(name="id") int id){
         return mediDataVaultServices.checkLowRecordingsExist(id);
     }
-    @GetMapping("/totalRecordings/{id}/")
+    @GetMapping("/totalRecordings/{id}")
     public long numberOfRecordings(@PathVariable(name="id") int id){
         return mediDataVaultServices.numberOfRecordings(id);
     }
