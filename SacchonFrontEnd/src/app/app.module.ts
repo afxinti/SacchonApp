@@ -37,7 +37,7 @@ import { DciEditComponent } from './dci-edit/dci-edit.component';
     BglComponent,
     BglEditComponent,
     ConsultationsListComponent,
-    RecordingsProgressComponent
+    RecordingsProgressComponent,
     BglAddNewComponent,
     DciComponent,
     DciAddNewComponent,

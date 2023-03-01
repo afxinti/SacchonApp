@@ -22,7 +22,7 @@ const routes: Routes = [
   { path: 'bgl/edit', component: BglEditComponent},
   { path: 'dci', component: DciComponent},
   { path: 'dci/new', component: DciAddNewComponent},
-  { path: 'dci/edit', component: DciEditComponent}
+  { path: 'dci/edit', component: DciEditComponent},
   { path: '', redirectTo: '/dashboard', pathMatch: 'full'}, 
 ];
 
