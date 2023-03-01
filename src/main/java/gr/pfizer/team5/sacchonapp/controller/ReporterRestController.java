@@ -50,14 +50,14 @@ public class ReporterRestController {
 
 
     @GetMapping("/patients_noactivity/{startDate}/{endDate}")
-    public List<Map> getPatientDto(@PathVariable("startDate") LocalDate startDate, @PathVariable("endDate") LocalDate endDate) {
+    public List<Map> getPatientNoActivity(@PathVariable("startDate") LocalDate startDate, @PathVariable("endDate") LocalDate endDate) {
 
         return reporterServices.patientsWithNoActivityService(startDate, endDate);
     }
 
 
     @GetMapping("/doctors_noactivity/{startDate}/{endDate}")
-    public List<DoctorDto> getDoctorsDto(@PathVariable("startDate") LocalDate startDate, @PathVariable("endDate") LocalDate endDate) throws CustomException {
+    public List<DoctorDto> getDoctorNoActivity(@PathVariable("startDate") LocalDate startDate, @PathVariable("endDate") LocalDate endDate) throws CustomException {
         List<Integer> docIds = reporterServices.doctorsWithNoActivityService(startDate, endDate);
         List<DoctorDto> listDoctors = new ArrayList<>();
         for (int i : docIds) {
