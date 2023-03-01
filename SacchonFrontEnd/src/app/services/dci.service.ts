@@ -5,25 +5,25 @@ import { BglComponent } from '../bgl/bgl.component';
 @Injectable({
   providedIn: 'root'
 })
-export class BglService {
+export class DciService {
 
   constructor(private http:HttpClient) { }
 
   get() {
-    return this.http.get('http://localhost:9000/bgl/');
+    return this.http.get('http://localhost:9000/dci');
   }
 
   getById(Id: String){
  
-    return this.http.get('http://localhost:9000/bgl/' + Id);
+    return this.http.get('http://localhost:9000/dci/' + Id);
   }
 
-  delete_bgl(bglid: String){
-    return this.http.delete('http://localhost:9000/bgl/' + bglid);
+  delete_dci(dciid: String){
+    return this.http.delete('http://localhost:9000/dci/' + dciid);
   }
 
-create_bgl(data: any){
-  const url = 'http://localhost:9000/bgl';
+create_dci(data: any){
+  const url = 'http://localhost:9000/dci';
 
   const headers =  new HttpHeaders()
   .set('Content-Type', 'application/json')
@@ -33,9 +33,9 @@ create_bgl(data: any){
   return this.http.post(url, JSON.stringify(data), {headers:headers});
 }
 
-update_bgl(data: any){
+update_dci(data: any){
 
-  const url = 'http://localhost:9000/bgl/' + localStorage.getItem("bglid");
+  const url = 'http://localhost:9000/dci/' + localStorage.getItem("dciid");
 
   const headers =  new HttpHeaders()
   .set('Content-Type', 'application/json')
@@ -44,10 +44,6 @@ update_bgl(data: any){
   
   return this.http.put(url, JSON.stringify(data), {headers:headers});
 }
-
-// checkLowRecordings(){
-//   return this.http.get('http://localhost:9000/bgl/2/checkLowRecordsExist');
-// }
 
 
 

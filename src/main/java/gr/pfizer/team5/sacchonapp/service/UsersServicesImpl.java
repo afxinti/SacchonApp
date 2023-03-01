@@ -1,11 +1,8 @@
 package gr.pfizer.team5.sacchonapp.service;
 import gr.pfizer.team5.sacchonapp.dto.*;
 import gr.pfizer.team5.sacchonapp.dto.LoginDto;
-import gr.pfizer.team5.sacchonapp.exception.RecordNotFoundException;
+import gr.pfizer.team5.sacchonapp.exception.CustomException;
 import gr.pfizer.team5.sacchonapp.model.*;
-import gr.pfizer.team5.sacchonapp.repository.ChiefDoctorRepository;
-import gr.pfizer.team5.sacchonapp.repository.DoctorRepository;
-import gr.pfizer.team5.sacchonapp.repository.PatientRepository;
 import gr.pfizer.team5.sacchonapp.repository.UsersRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -15,7 +12,7 @@ import org.springframework.stereotype.Service;
 public class UsersServicesImpl implements UsersServices{
     private final UsersRepository usersRepository;
 
-    public LoginDto loginUser(UserDto userDto) throws RecordNotFoundException {
+    public LoginDto loginUser(UserDto userDto) throws CustomException {
         if (usersRepository.existsUsersByUsernameAndPassword(userDto.getUsername(), userDto.getPassword())) {
             Users user = usersRepository.findByUsername(userDto.getUsername());
             return new LoginDto(true, user.getAuthority());

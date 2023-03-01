@@ -9,7 +9,7 @@ import { DashboardService } from '../services/dashboard.service';
 })
 export class WarningComponent implements OnInit{
 
-  warning:any;
+  warning:any = " ";
 
   constructor(private service: DashboardService) { } 
 

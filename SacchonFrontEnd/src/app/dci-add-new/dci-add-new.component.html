@@ -1,7 +1,7 @@
 <div class="card" id="addnewcard" style="width: 70rem;">
     <div class="card-body" >
-        <form [formGroup]="createForm" (ngSubmit)="createBGL()"> 
-            <legend><b>Add New Blood Glucose Level</b></legend>
+        <form [formGroup]="createForm" (ngSubmit)="createDCI()"> 
+            <legend><b>Add New Daily Carbonate Intake</b></legend>
             <br>
             <br>
             <div class="mb-3">
@@ -11,10 +11,6 @@
             <div class="mb-3">
                 <label  class="form-label"><b>Date</b></label>
                 <input type="date" class="form-control" formControlName="date">
-            </div>
-            <div class="mb-3">
-                <label class="form-label"><b>Time</b></label>
-                <input type="time" class="form-control" formControlName="time">
             </div>
             <button id="submit_button" [disabled]="createForm.invalid" class="btn btn-primary" (click)="redirect_add()"> Submit </button>
         </form>

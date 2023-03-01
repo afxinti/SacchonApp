@@ -1,16 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-// import { BglComponent } from '../bgl/bgl.component';
-import { BglService } from '../services/bgl.service';
-import { PatientService } from '../services/patient.service';
+import { DciService } from '../services/dci.service';
+
 
 @Component({
-  selector: 'app-bgl-add-new',
-  templateUrl: './bgl-add-new.component.html',
-  styleUrls: ['./bgl-add-new.component.scss']
+  selector: 'app-dci-add-new',
+  templateUrl: './dci-add-new.component.html',
+  styleUrls: ['./dci-add-new.component.scss']
 })
-export class BglAddNewComponent implements OnInit {
+export class DciAddNewComponent implements OnInit {
 
   response: any;
   createForm: any;
@@ -23,7 +22,7 @@ export class BglAddNewComponent implements OnInit {
   //   "job": "leader"
   // }
 
-  constructor(private service: BglService, private fb: FormBuilder, private router: Router) { }
+  constructor(private service: DciService, private fb: FormBuilder, private router: Router) { }
 
   ngOnInit(): void {
     //  this.service.create_bgl(this.data).subscribe({
@@ -33,25 +32,23 @@ export class BglAddNewComponent implements OnInit {
     this.createForm = this.fb.group({
       measurement: ["", [Validators.required]],
       date: ["", [Validators.required]],
-      time: ["", [Validators.required]]
     })
   }
   redirect_add(){
     setTimeout(() => {
-    this.router.navigate(['/bgl']);
+    this.router.navigate(['/dci']);
   }, 100);
 }
 
-  createBGL() {
+  createDCI() {
     const data = {
       id: null,
       measurement: this.createForm.get('measurement').value,
       date: this.createForm.get('date').value,
-      time: this.createForm.get('time').value,
       patientId: 1
     }
 
-    this.service.create_bgl(data).subscribe({
+    this.service.create_dci(data).subscribe({
       next: res => this.response = res
     });
   }

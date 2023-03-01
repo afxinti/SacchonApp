@@ -1,7 +1,7 @@
 package gr.pfizer.team5.sacchonapp.service;
 
 import gr.pfizer.team5.sacchonapp.dto.*;
-import gr.pfizer.team5.sacchonapp.exception.RecordNotFoundException;
+import gr.pfizer.team5.sacchonapp.exception.CustomException;
 import gr.pfizer.team5.sacchonapp.model.*;
 import gr.pfizer.team5.sacchonapp.repository.*;
 import gr.pfizer.team5.sacchonapp.repository.ChiefDoctorRepository;
@@ -56,15 +56,15 @@ public class DoctorAdviceServicesImpl implements DoctorAdviceServices {
     }
 
     @Override
-    public ConsultationDto readConsultation(int id) throws RecordNotFoundException {
+    public ConsultationDto readConsultation(int id) throws CustomException {
         return new ConsultationDto( readConsultationDb(id));
     }
 
-    private Consultation readConsultationDb(int id) throws RecordNotFoundException {
+    private Consultation readConsultationDb(int id) throws CustomException {
         Optional<Consultation> consultationOptional = consultationRepository.findById(id);
         if (consultationOptional.isPresent())
             return consultationOptional.get() ;
-        throw new RecordNotFoundException("Consultation not found id= " + id);
+        throw new CustomException("Consultation not found id= " + id);
     }
 
     @Override
@@ -80,7 +80,7 @@ public class DoctorAdviceServicesImpl implements DoctorAdviceServices {
             dbConsultation.setDoctor_id(consultation.getDoctor_id());
             consultationRepository.save(dbConsultation);
             action = true;
-        } catch (RecordNotFoundException e) {
+        } catch (CustomException e) {
             action = false;
         }
         return action;
@@ -90,14 +90,14 @@ public class DoctorAdviceServicesImpl implements DoctorAdviceServices {
 
     //Doctor CRUD Services
     @Override
-    public DoctorDto createDoctor(DoctorDto doctorDto) throws RecordNotFoundException {
+    public DoctorDto createDoctor(DoctorDto doctorDto) throws CustomException {
         if (!usersRepository.existsUsersByUsernameAndPassword(doctorDto.getUsername(),doctorDto.getPassword())) {
             Users user = new Users(doctorDto.getUsername(), doctorDto.getPassword(), doctorDto.getAuthority());
             Doctor doc = doctorDto.asDoctor();
             doc.setUser(user);
             return new DoctorDto(docRepository.save(doc));
         } else {
-            throw new RecordNotFoundException("Username already exists");
+            throw new CustomException("Username already exists");
         }
 
     }
@@ -111,15 +111,15 @@ public class DoctorAdviceServicesImpl implements DoctorAdviceServices {
                 .collect(Collectors.toList());
     }
 
-        public DoctorDto readDoctor(int id) throws RecordNotFoundException {
+        public DoctorDto readDoctor(int id) throws CustomException {
             return new DoctorDto( readDoctorDb(id));
         }
 
-        private Doctor readDoctorDb(int id) throws RecordNotFoundException {
+        private Doctor readDoctorDb(int id) throws CustomException {
             Optional<Doctor> doctorOptional = docRepository.findById(id);
             if (doctorOptional.isPresent())
                 return doctorOptional.get();
-            throw new RecordNotFoundException("Doctor not found id= " + id);
+            throw new CustomException("Doctor not found id= " + id);
         }
 
     @Override
@@ -133,7 +133,7 @@ public class DoctorAdviceServicesImpl implements DoctorAdviceServices {
             dbDoctor.setPassword(doctor.getPassword());
             docRepository.save(dbDoctor);
             action = true;
-        } catch (RecordNotFoundException e) {
+        } catch (CustomException e) {
             action = false;
         }
         return action;
@@ -146,7 +146,7 @@ public class DoctorAdviceServicesImpl implements DoctorAdviceServices {
             Doctor doctorDb = readDoctorDb(id);
             docRepository.delete(doctorDb);
             action = true;
-        } catch (RecordNotFoundException e) {
+        } catch (CustomException e) {
             action = false;
         }
         return action;
@@ -156,14 +156,14 @@ public class DoctorAdviceServicesImpl implements DoctorAdviceServices {
 
     //Chief Doctor CRUD Services
     @Override
-    public ChiefDoctorDto createChiefDoctor(ChiefDoctorDto chiefDoctorDto) throws RecordNotFoundException {
+    public ChiefDoctorDto createChiefDoctor(ChiefDoctorDto chiefDoctorDto) throws CustomException {
         if (!usersRepository.existsUsersByUsernameAndPassword(chiefDoctorDto.getUsername(),chiefDoctorDto.getPassword())) {
             Users user = new Users(chiefDoctorDto.getUsername(), chiefDoctorDto.getPassword(), chiefDoctorDto.getAuthority());
             ChiefDoctor chief = chiefDoctorDto.asChiefDoctor();
             chief.setUser(user);
             return new ChiefDoctorDto(chiefDocRepository.save(chief));
         } else {
-            throw new RecordNotFoundException("Username already exists");
+            throw new CustomException("Username already exists");
         }
     }
 
@@ -177,15 +177,15 @@ public class DoctorAdviceServicesImpl implements DoctorAdviceServices {
                 .collect(Collectors.toList());
     }
 
-    public ChiefDoctorDto readChiefDoctor(int id) throws RecordNotFoundException {
+    public ChiefDoctorDto readChiefDoctor(int id) throws CustomException {
         return new ChiefDoctorDto( readChiefDoctorDb(id));
     }
 
-    private ChiefDoctor readChiefDoctorDb(int id) throws RecordNotFoundException {
+    private ChiefDoctor readChiefDoctorDb(int id) throws CustomException {
         Optional<ChiefDoctor> chiefdoctorOptional = chiefDocRepository.findById(id);
         if (chiefdoctorOptional.isPresent())
             return chiefdoctorOptional.get();
-        throw new RecordNotFoundException("Chief Doctor not found id= " + id);
+        throw new CustomException("Chief Doctor not found id= " + id);
     }
 
     @Override
@@ -200,7 +200,7 @@ public class DoctorAdviceServicesImpl implements DoctorAdviceServices {
             dbChiefDoctor.setUsername(chiefdoctor.getUsername());
             chiefDocRepository.save(dbChiefDoctor);
             action = true;
-        } catch (RecordNotFoundException e) {
+        } catch (CustomException e) {
             action = false;
         }
         return action;
@@ -213,7 +213,7 @@ public class DoctorAdviceServicesImpl implements DoctorAdviceServices {
             ChiefDoctor chiefdoctorDb = readChiefDoctorDb(id);
             chiefDocRepository.delete(chiefdoctorDb);
             action = true;
-        } catch (RecordNotFoundException e) {
+        } catch (CustomException e) {
             action = false;
         }
         return action;
@@ -272,7 +272,7 @@ public class DoctorAdviceServicesImpl implements DoctorAdviceServices {
     }
 
 
-    public PatientDto choosePatient(int doctorId,int patientId) throws RecordNotFoundException {
+    public PatientDto choosePatient(int doctorId,int patientId) throws CustomException {
         PatientDto patientDto = mediDataVaultService.readPatient(patientId);
         patientDto.setDoctorId(doctorId);
         mediDataVaultService.updatePatient(patientDto,patientId);

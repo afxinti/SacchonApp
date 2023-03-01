@@ -47,14 +47,14 @@ export class BglComponent implements OnInit {
 
 
 
-  // deleteBGL(bglid: string) {
-  //   this.service.delete_bgl(bglid).subscribe({
-  //     next: response => {
-  //       this.bgl = response;
-  //     },
-  //     error: err => { console.log(err.message) }
-  //   });
-  // }
+  deleteBGL(bglid: string) {
+    this.service.delete_bgl(bglid).subscribe({
+      next: response => {
+        this.bgl = response;
+      },
+      error: err => { console.log(err.message) }
+    });
+  }
 
   getBGLById(id: string) {
     this.bglbyid = this.service.getById(id).subscribe({
@@ -64,23 +64,24 @@ export class BglComponent implements OnInit {
         localStorage.setItem("bgltime", this.bglbyid.time);
         localStorage.setItem("bglmeasurement", this.bglbyid.measurement);
       }
-  
+
     });
   }
-  onDelete(bglid: string): void {
-    const confirmation = confirm('Are you sure you want to delete this value?');
-    if (confirmation) {
-      this.service.delete_bgl(bglid).subscribe(
-        () => {
-          alert('Record deleted successfully.');
-        },
-        error => {
-          alert('An error occurred while deleting the record.');
-          console.error(error);
-        }
-      );
-    }
-  }
-  
-  
+//   onDelete(bglid: string): void {
+//     const confirmation = confirm('Are you sure you want to delete this value?');
+//     if (confirmation) {
+//       this.service.delete_bgl(bglid).subscribe(
+//         () => {
+//           alert('Record deleted successfully.');
+//         },
+//         error => {
+//           alert('An error occurred while deleting the record.');
+//           console.error(error);
+//         }
+//       );
+//     }
+//   }
+//
+//
+
 }
