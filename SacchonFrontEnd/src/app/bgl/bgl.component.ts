@@ -15,7 +15,8 @@ export class BglComponent implements OnInit {
 
   bgl: any;
   bglbyid: any;
-
+  // lowRecordings: any;
+  // alertMessage: string = '';
 
   constructor(private service: BglService, private router: Router) { }
 
@@ -23,6 +24,8 @@ export class BglComponent implements OnInit {
     this.bgl = this.service.get().subscribe({
       next: resp => this.bgl = resp
     });
+    // this.checkLowRecordings();
+
   }
 
   redirect_edit(){
@@ -30,6 +33,18 @@ export class BglComponent implements OnInit {
     this.router.navigate(['/bgl/edit']);
   }, 100);
 }
+
+// checkLowRecordings(): void {
+//   this.service.checkLowRecordings().subscribe({
+//     next: resp => {
+//       this.lowRecordings = resp;
+//       if (this.lowRecordings > 0) {
+//         this.alertMessage = `You have ${this.lowRecordings} low recordings (less than 70 mg/dL). Please consult your healthcare provider.`;
+//       }
+//     }
+//   });
+// }
+
 
 
   // deleteBGL(bglid: string) {
@@ -49,8 +64,7 @@ export class BglComponent implements OnInit {
         localStorage.setItem("bgltime", this.bglbyid.time);
         localStorage.setItem("bglmeasurement", this.bglbyid.measurement);
       }
-    
-
+  
     });
   }
   onDelete(bglid: string): void {
@@ -58,14 +72,15 @@ export class BglComponent implements OnInit {
     if (confirmation) {
       this.service.delete_bgl(bglid).subscribe(
         () => {
-          alert('Account deleted successfully.');
-          // Add any additional functionality here to update the UI as needed
+          alert('Record deleted successfully.');
         },
         error => {
-          alert('An error occurred while deleting the account.');
+          alert('An error occurred while deleting the record.');
           console.error(error);
         }
       );
     }
   }
+  
+  
 }

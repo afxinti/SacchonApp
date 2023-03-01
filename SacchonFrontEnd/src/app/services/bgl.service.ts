@@ -45,6 +45,10 @@ update_bgl(data: any){
   return this.http.put(url, JSON.stringify(data), {headers:headers});
 }
 
+// checkLowRecordings(){
+//   return this.http.get('http://localhost:9000/bgl/2/checkLowRecordsExist');
+// }
+
 
 
 }

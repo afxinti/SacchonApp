@@ -61,7 +61,7 @@
         });
     });
     </script> -->
-
+<div class = "container-fluid">
 <div class="table-title">
     <br>
     <div class="row">
@@ -85,7 +85,7 @@
         </tr>
     </thead>
     <tbody>
-        <tr scope="row" id="row1" *ngFor="let bgl of bgl">
+        <tr scope="row" id="row1" *ngFor="let bgl of bgl" [class.low-recording]="bgl.measurement < 70">
             <ng-container *ngIf="bgl.patientId == 2">
                 <td><b>{{ bgl.id }}</b></td>
                 <td><b>{{ bgl.measurement }}</b></td>
@@ -102,7 +102,7 @@
         </tr>
     </tbody>
 </table>
-
+</div>
 <!-- <pre>{{ bglbyid | json }}</pre> -->
 
 
