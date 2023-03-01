@@ -38,8 +38,9 @@ public interface MediDataVaultServices {
     boolean deleteDCI(int id);
     Double getAverageDCIBetweenDates(int id,LocalDate startDate, LocalDate endDate);
     Double getAverageBGLBetweenDates(int id,LocalDate startDate, LocalDate endDate);
-    long isFirstAndLastRecordWithin30Days(int patientId,String recordType) throws CustomException;
-    boolean enoughRecordingsCheck(int patientId,String recordType) throws CustomException;
+    //    long isFirstAndLastRecordWithin30Days(int patientId,String recordType) throws CustomException;
+    boolean enoughRecordingsCheck(int patientId) throws CustomException;
     long checkLowRecordingsExist(int patientId);
+    long numberOfRecordings(int patientId);
 
 }

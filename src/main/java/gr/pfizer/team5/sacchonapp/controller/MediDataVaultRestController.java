@@ -88,26 +88,27 @@ public class MediDataVaultRestController {
         return mediDataVaultServices.getAverageBGLBetweenDates(id,startDate,endDate);
     }
 
-    @GetMapping("/dci/{id}/progress")
-    public long numberOfRecordsDCI(@PathVariable(name="id") int id) throws CustomException {
-        return mediDataVaultServices.isFirstAndLastRecordWithin30Days(id,"DCI");
-    }
-    @GetMapping("/bgl/{id}/progress")
-    public long numberOfRecordsBGL(@PathVariable(name="id") int id) throws CustomException {
-        return mediDataVaultServices.isFirstAndLastRecordWithin30Days(id,"BGL");
-    }
-    @GetMapping("/bgl/{id}/enoughRecordingsCheck")
+//    @GetMapping("/dci/{id}/progress")
+//    public long numberOfRecordsDCI(@PathVariable(name="id") int id) throws CustomException {
+//        return mediDataVaultServices.isFirstAndLastRecordWithin30Days(id,"DCI");
+//    }
+//    @GetMapping("/bgl/{id}/progress")
+//    public long numberOfRecordsBGL(@PathVariable(name="id") int id) throws CustomException {
+//        return mediDataVaultServices.isFirstAndLastRecordWithin30Days(id,"BGL");
+//    }
+    @GetMapping("/{id}/enoughRecordingsCheck")
     public boolean enoughRecordingsCheckBGL(@PathVariable(name="id") int id) throws CustomException {
-        return mediDataVaultServices.enoughRecordingsCheck(id,"BGL");
-    }
-    @GetMapping("/dci/{id}/enoughRecordingsCheck")
-    public boolean enoughRecordingsCheckDCI(@PathVariable(name="id") int id) throws CustomException {
-        return mediDataVaultServices.enoughRecordingsCheck(id,"DCI");
+        return mediDataVaultServices.enoughRecordingsCheck(id);
     }
     @GetMapping("/bgl/{id}/checkLowRecordsExist")
     public long checkLowRecordsExist(@PathVariable(name="id") int id){
         return mediDataVaultServices.checkLowRecordingsExist(id);
     }
+    @GetMapping("/totalRecordings/{id}/")
+    public long numberOfRecordings(@PathVariable(name="id") int id){
+        return mediDataVaultServices.numberOfRecordings(id);
+    }
+
     //------------------------------------------------end of DCI BGL methods------------------------------------------//
 
     //Patient CRUD Controllers
