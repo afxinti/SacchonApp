@@ -1,22 +1,25 @@
-<div class="card" style="width: 60rem;">
-    <div class="card-body">
-        <form [formGroup]="createForm" (ngSubmit)="createBGL()">
-            <legend>Add New Blood Glucose Level</legend>
+<div class="card" id="addnewcard" style="width: 70rem;">
+    <div class="card-body" >
+        <form [formGroup]="createForm" (ngSubmit)="createBGL()"> 
+            <legend><b>Add New Blood Glucose Level</b></legend>
+            <br>
+            <br>
             <div class="mb-3">
-                <label  class="form-label">Measurement (mg/dL)</label>
+                <label  class="form-label"><b>Measurement (mg/dL)</b></label>
                 <input type="number" step=any class="form-control" formControlName="measurement">
             </div>
             <div class="mb-3">
-                <label  class="form-label">Date</label>
+                <label  class="form-label"><b>Date</b></label>
                 <input type="date" class="form-control" formControlName="date">
             </div>
             <div class="mb-3">
-                <label class="form-label">Time</label>
+                <label class="form-label"><b>Time</b></label>
                 <input type="time" class="form-control" formControlName="time">
             </div>
-            <button [disabled]="createForm.invalid" class="btn btn-primary">Submit</button>
+            <button id="submit_button" [disabled]="createForm.invalid" class="btn btn-primary" (click)="redirect_add()">Submit</button>
         </form>
     </div>
 </div>
-<pre>{{ response | json }}</pre>
+
+<!-- <pre>{{ response | json }}</pre> -->
 

@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { ModuleWithProviders, NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ConsultationsListComponent } from './consultations-list/consultations-list.component';
 import { BglAddNewComponent } from './bgl-add-new/bgl-add-new.component';

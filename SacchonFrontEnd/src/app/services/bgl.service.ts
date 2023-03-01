@@ -19,7 +19,7 @@ export class BglService {
   }
 
   delete_bgl(bglid: String){
-    return this.http.delete('http://localhost:9000/bgl_delete/' + bglid);
+    return this.http.delete('http://localhost:9000/bgl/' + bglid);
   }
 
 create_bgl(data: any){
@@ -35,7 +35,7 @@ create_bgl(data: any){
 
 update_bgl(data: any){
 
-  const url = 'http://localhost:9000/bgl/10';
+  const url = 'http://localhost:9000/bgl/' + localStorage.getItem("bglid");
 
   const headers =  new HttpHeaders()
   .set('Content-Type', 'application/json')
