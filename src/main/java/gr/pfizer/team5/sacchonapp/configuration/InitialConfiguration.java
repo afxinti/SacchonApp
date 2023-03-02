@@ -52,8 +52,9 @@ public class InitialConfiguration {
 
                 for (int j=0; j<15; j++) {
                     BloodGlucoseLevel bgl = new BloodGlucoseLevel();
+                    long randomTimestamp2 = faker.date().between(minDate, maxDate).getTime();
 
-                    bgl.setDate(new java.sql.Date(randomTimestamp).toLocalDate());
+                    bgl.setDate(new java.sql.Date(randomTimestamp2).toLocalDate());
                     bgl.setTime(faker.date().birthday().toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime().toLocalTime());
                     bgl.setMeasurement(faker.number().randomDouble(1, 0, 200));
                     bgl.setPatient(patient);
@@ -62,7 +63,8 @@ public class InitialConfiguration {
 
                     for (int k=0; k<15; k++) {
                         DailyCarbonatesIntake dci = new DailyCarbonatesIntake();
-                        dci.setDate(new java.sql.Date(randomTimestamp).toLocalDate());
+                        long randomTimestamp3 = faker.date().between(minDate, maxDate).getTime();
+                        dci.setDate(new java.sql.Date(randomTimestamp3).toLocalDate());
                         dci.setTime(faker.date().birthday().toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime().toLocalTime());
                         dci.setMeasurement(faker.number().randomDouble(1, 0, 200));
                         dci.setPatient(patient);
@@ -87,7 +89,8 @@ public class InitialConfiguration {
 
                     for (int l=0;l<10;l++) {
                         Consultation consultation = new Consultation();
-                        consultation.setDate(new java.sql.Date(randomTimestamp).toLocalDate());
+                        long randomTimestamp4 = faker.date().between(minDate, maxDate).getTime();
+                        consultation.setDate(new java.sql.Date(randomTimestamp4).toLocalDate());
                         consultation.setNameOfMedication(faker.medical().medicineName());
                         consultation.setDosage(faker.number().numberBetween(1, 100));
                         consultation.setNotes(faker.lorem().sentence());
