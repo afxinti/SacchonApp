@@ -19,8 +19,7 @@ and view historical data over time.
 **Reporting Services**: Sacchon provides reporting services equiped with tables and charts that a Chief Doctor can use to monitor other doctors and patients.
 **Patient Management**: Doctors can choose new patients to consult as well as browse and review their patients medical records.
 
-![Σχέδιο χωρίς τίτλο (2)](https://user-images.githubusercontent.com/64464819/222738143-4cc5824a-69f6-400a-935c-8770e397efcc.png)
-
+![sacchon app screenshots](https://user-images.githubusercontent.com/64464819/222738143-4cc5824a-69f6-400a-935c-8770e397efcc.png)
 
 
 ## Getting started
