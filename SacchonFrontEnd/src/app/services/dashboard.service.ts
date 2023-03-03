@@ -11,7 +11,7 @@ export class DashboardService {
   //Dashboard Services
 
   getDoctor(){
-    return this.http.get('http://localhost:9000/doctor/1');
+    return this.http.get('http://localhost:9000/doctor/2');
   }
 
   getBGLStatistics(val1: any, val2: any) {
