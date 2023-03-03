@@ -1,4 +1,4 @@
-# Sacchon - Diabetes Management Web Application
+# Sacchon: A Diabetes Management Web Application
 
 ![dashboard](https://user-images.githubusercontent.com/64464819/222736958-edb79dc3-4948-4cc9-80d3-75c20211f58c.PNG)
 
