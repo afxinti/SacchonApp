@@ -59,7 +59,7 @@ body {
 
 // }
 
-#sidebar .nav a{
+#sidebar .navbar a{
   background: none;
   border-bottom: 1px solid #455A64;
   color: #CFD8DC;
@@ -67,11 +67,11 @@ body {
   padding: 16px 24px;
 }
 
-#sidebar .nav a:hover{
+#sidebar .navbar a:hover{
   background: none;
   color: #ECEFF1;
 }
 
-#sidebar .nav a i{
+#sidebar .navbar a i{
   margin-right: 16px;
 }

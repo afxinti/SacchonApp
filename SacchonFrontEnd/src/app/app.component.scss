@@ -7,11 +7,19 @@ h1{
     margin: 0px;
     }
     
-@media (max-width: 1067px) {
-    .col-2 {
-      display: none;
-    }
-  }
+// @media (max-width: 1067px) {
+//     .col-2 {
+//       display: none;
+//     }
+//   }
 // .col-10{
 //     background-image: url("./background_image.jpeg");   
 // }
+.navbar-toggler {
+  display: none;
+}
+@media(max-width: 768px){
+  .nav-toggler{
+    display:block;
+  }
+}

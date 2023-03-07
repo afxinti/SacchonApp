@@ -7,4 +7,9 @@ import { Component } from '@angular/core';
 })
 export class SidebarComponent {
 
+    // isCollapsed = true;
+    // showToggleCollapse():void{
+    //   this.isCollapsed = !this.isCollapsed;
+    // }
+
 }

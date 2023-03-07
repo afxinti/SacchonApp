@@ -8,40 +8,50 @@
 </head>
 <body>
   <div class="row m-0">
-    <div class="bg-custom-1 p-0" id="navbarToggleExternalContent">
-      <ul class="nav flex-column">
+    <nav class="navbar navbar-expand-lg bg-custom-1 flex-column">
+      <button class="navbar-toggler bg-custom-1" type="button" data-toggle="collapse" data-target="#navbarToggleExternalContent"
+        aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
+        <a class="nav-link" routerLink="/dashboard"><span class="fas fa-home"></span></a>
+        <a class="nav-link" routerLink="/bgl"><span class="fas fa-chart-line"></span></a>
+        <a class="nav-link" routerLink="/dci"><span class="fas fa-calculator"></span></a>
+        <a class="nav-link" routerLink="/consultations-list"><span class="fas fa-notes-medical"></span></a>
+        <a class="nav-link" routerLink="/my-account"><span class="fas fa-user"></span></a>
+      </button>
+      <div class="collapse navbar-collapse bg-custom-1 p-0" id="navbarToggleExternalContent">
+        <ul class="navbar-nav mr-auto flex-column">
           <li class="nav-item">
             <a class="nav-link" routerLink="/dashboard">
               Dashboard
               <i class="fas fa-home"></i>
-          </a>
+            </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" routerLink="/bgl">
               Blood Glucose Level
               <i class="fas fa-chart-line"></i>
-          </a>
+            </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" routerLink="/dci">
               Daily Carbonates Intake
               <i class="fas fa-calculator"></i>
-          </a>
+            </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" routerLink="/consultations-list">
               My Consultations
               <i class="fas fa-notes-medical"></i>
-          </a>
+            </a>
           </li>
           <li class="nav-item">
-              <a class ="nav-link" routerLink="/my-account">
+            <a class="nav-link" routerLink="/my-account">
               My Account
               <i class="fas fa-user"></i>
-          </a>
+            </a>
           </li>
         </ul>
-    </div>
+      </div>
+    </nav>
   </div>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js"></script>
